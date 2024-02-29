@@ -23,14 +23,14 @@ class SuccessOperation extends StatelessWidget {
                     size: 150.w, color: AppColors.secondaryColor)),
             Text('تهانيا!', style: headline4),
             const SizedBox(height: 15),
-            Text('تمت العملية بنجاح, يمكن تسجيل الدخول الآن',
+            Text('تمت العملية بنجاح',
                 style: TextStyle(
                     fontSize: 16, color: Colors.black.withOpacity(0.5))),
             const Spacer(),
             CustomButtonOne(
                 textButton: 'ابدأ',
                 onPressed: () {
-                  Get.offAllNamed(AppRouteName.login);
+                  Get.offAllNamed(AppRouteName.mainScreen);
                 })
           ],
         ),

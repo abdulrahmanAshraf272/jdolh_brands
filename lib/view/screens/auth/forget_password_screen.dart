@@ -36,7 +36,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             CustomButtonOne(
                                 textButton: 'التالي',
                                 onPressed: () async {
-                                  // await controller.sendVerifycode();
+                                  await controller.sendVerifycode();
                                 }),
                           ]),
                     ),

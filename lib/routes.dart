@@ -13,6 +13,7 @@ import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
 import 'package:jdolh_brands/view/screens/branch/add_all_branch_content_screen.dart';
 import 'package:jdolh_brands/view/screens/branch/branch_details_screen.dart';
 import 'package:jdolh_brands/view/screens/branch/create_branch_screen.dart';
+import 'package:jdolh_brands/view/screens/brand/create_brand_screen.dart';
 import 'package:jdolh_brands/view/screens/categories_screen.dart';
 
 import 'package:jdolh_brands/view/screens/home_screen.dart';
@@ -23,11 +24,11 @@ import 'package:jdolh_brands/view/screens/resOptions/create_res_option_screen.da
 import 'package:jdolh_brands/view/screens/resOptions/res_options_screen.dart';
 
 List<GetPage> routes = [
-  GetPage(
-    name: '/',
-    page: () => const LoginScreen(),
-    middlewares: [MyMiddleware()],
-  ),
+  // GetPage(
+  //   name: '/',
+  //   page: () => const LoginScreen(),
+  //   middlewares: [MyMiddleware()],
+  // ),
 
   GetPage(
     //name: '/',
@@ -51,6 +52,11 @@ List<GetPage> routes = [
   GetPage(
     name: AppRouteName.createResOptions,
     page: () => const CreateResOptionsScreen(),
+  ),
+  GetPage(
+    name: '/',
+    //name: AppRouteName.createBrand,
+    page: () => const CreateBrandScreen(),
   ),
   GetPage(
     name: AppRouteName.branchDetails,

@@ -22,4 +22,5 @@ class AppRouteName {
   static const items = '/items';
   static const createItems = '/createItem';
   static const addAllBranchContent = '/addAllBranchContent';
+  static const createBrand = '/createBrand';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
+import 'package:lottie/lottie.dart';
 
 class HandlingDataView extends StatelessWidget {
   final StatusRequest statusRequest;
@@ -14,7 +15,7 @@ class HandlingDataView extends StatelessWidget {
     return statusRequest == StatusRequest.loading
         ? const Center(child: CircularProgressIndicator())
         : statusRequest == StatusRequest.offlineFailure
-            ? const Center(child: Text('offline failure'))
+            ? Center(child: Lottie.asset('assets/icons/noInternetIcon.json'))
             : statusRequest == StatusRequest.serverFailure
                 ? const Center(child: Text('server failure'))
                 : statusRequest == StatusRequest.failure

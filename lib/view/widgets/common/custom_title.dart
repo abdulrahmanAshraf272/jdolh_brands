@@ -122,6 +122,7 @@ class CustomSmallBoldTitle extends StatelessWidget {
   final double rightPdding;
   final double leftPadding;
   final TextStyle? customTextStyle;
+  final bool mustAdded;
   const CustomSmallBoldTitle(
       {super.key,
       required this.title,
@@ -130,7 +131,8 @@ class CustomSmallBoldTitle extends StatelessWidget {
       this.bottomPadding = 0,
       this.rightPdding = 20,
       this.leftPadding = 20,
-      this.customTextStyle});
+      this.customTextStyle,
+      this.mustAdded = false});
 
   @override
   Widget build(BuildContext context) {
@@ -143,22 +145,27 @@ class CustomSmallBoldTitle extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: customTextStyle == null
-                ? AutoSizeText(
-                    title,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.sp,
-                      color: AppColors.textDark,
-                    ),
-                  )
-                : AutoSizeText(
-                    title,
-                    maxLines: 1,
-                    style: customTextStyle,
-                  ),
-          ),
+              child: Row(
+            children: [
+              AutoSizeText(
+                title,
+                maxLines: 1,
+                style: customTextStyle == null
+                    ? TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
+                        color: AppColors.textDark,
+                      )
+                    : customTextStyle,
+              ),
+              mustAdded
+                  ? Text(
+                      '*',
+                      style: TextStyle(fontSize: 20, color: AppColors.redText),
+                    )
+                  : SizedBox()
+            ],
+          )),
           onTap != null
               ? TextButton(
                   onPressed: onTap,

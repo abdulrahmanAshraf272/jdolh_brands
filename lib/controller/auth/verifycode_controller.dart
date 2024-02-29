@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
+import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/auth/resend_verifycode.dart';
 import 'package:jdolh_brands/data/data_source/remote/auth/verifycode.dart';
+import 'package:jdolh_brands/data/models/brandManager.dart';
 
 class VerifycodeController extends GetxController {
   late String email;
@@ -17,6 +19,8 @@ class VerifycodeController extends GetxController {
   VerifycodeData verifycodeData = VerifycodeData(Get.find());
   ResendVerifycodeData resendVerifycodeData = ResendVerifycodeData(Get.find());
   bool resendVerifycodeButtonActive = false;
+  MyServices myServices = Get.find();
+  BrandManager brandManager = BrandManager();
 
   void _startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -35,27 +39,43 @@ class VerifycodeController extends GetxController {
   }
 
   checkVerifyIsCorrect() async {
-    // statusRequest = StatusRequest.loading;
-    // update();
-    // var response = await verifycodeData.postData(email, verifycode);
-    // statusRequest = handlingData(response);
-    // print('============= $statusRequest ============');
-    // if (statusRequest == StatusRequest.success) {
-    //   if (response['status'] == 'success') {
-    //     print('Response ===== ${response['status']}');
-    //     update();
-    //     goToSuccessScreenOrResetPassword();
-    //   } else {
-    //     statusRequest = StatusRequest.none;
-    //     update();
-    //     Get.defaultDialog(
-    //       title: 'تنبيه',
-    //       middleText: "الرمز الذي ادخلته غير صحيح!",
-    //       textCancel: 'حسنا',
-    //     );
-    //   }
-    // }
-    goToSuccessScreenOrResetPassword();
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await verifycodeData.postData(email, verifycode);
+    statusRequest = handlingData(response);
+    update();
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print('Response ===== ${response['status']}');
+        //Save user data in local shared preferences
+        brandManager = BrandManager.fromJson(response['data']);
+        saveUserDataInSharedPreferences(brandManager);
+
+        goToSuccessScreenOrResetPassword();
+      } else {
+        Get.defaultDialog(
+          title: 'تنبيه',
+          middleText: "الرمز الذي ادخلته غير صحيح!",
+          textCancel: 'حسنا',
+        );
+      }
+    }
+  }
+
+  saveUserDataInSharedPreferences(BrandManager brandManager) {
+    myServices.sharedPreferences
+        .setString("id", brandManager.brandManagerId.toString());
+    myServices.sharedPreferences
+        .setString("name", brandManager.brandManagerName!);
+    myServices.sharedPreferences
+        .setString("username", brandManager.brandManagerUsername!);
+    myServices.sharedPreferences
+        .setString("email", brandManager.brandManagerEmail!);
+    myServices.sharedPreferences
+        .setString("phone", brandManager.brandManagerPhone!);
+    //step 0 onboarding, step 1 login, step 2 mainScreen
+    //myServices.sharedPreferences.setString("step", "2");
+    print('===== Saving user data in sharedPreferences Done =====');
   }
 
   goToSuccessScreenOrResetPassword() {

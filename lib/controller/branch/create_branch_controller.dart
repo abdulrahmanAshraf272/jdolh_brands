@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 
 class CreateBranchController extends GetxController with times {
+  GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   StatusRequest statusRequest = StatusRequest.none;
   TextEditingController branchName = TextEditingController();
   TextEditingController branchManagerName = TextEditingController();

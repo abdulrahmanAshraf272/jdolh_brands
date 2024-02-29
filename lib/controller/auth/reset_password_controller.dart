@@ -63,6 +63,5 @@ class ResetPasswordController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     email = Get.arguments['email'];
-    //email = 'talya@gmail.com';
   }
 }

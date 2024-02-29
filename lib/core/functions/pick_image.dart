@@ -1,11 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 
-Future<void> pickImageFromGallery() async {
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+const int MB = 1048576;
+Future pickImageFromGallery() async {
   final ImagePicker _picker = ImagePicker();
   XFile? xfile;
+  File myFile;
+  var fileSize;
 
   try {
     xfile = await _picker.pickImage(source: ImageSource.gallery);
@@ -13,21 +17,29 @@ Future<void> pickImageFromGallery() async {
     print("Error picking image: $e");
     return;
   }
-
   if (xfile == null) {
     // User canceled image picking
-    return;
+    return null;
   }
 
+  myFile = File(xfile.path);
+
+  //Get file size
+  fileSize = await myFile.length();
   // Validate the file extension
   String extension = getExtension(xfile.path);
 
   if (isValidImageExtension(extension)) {
     // Handle the valid image
-    print("Selected image path: ${xfile.path}");
+    return xfile;
+  } else if (fileSize > MB * 5) {
+    Get.rawSnackbar(message: 'حجم الصورة لا يجب ان يتعدى ال5 ميجا');
+    return null;
   } else {
     // Handle invalid image extension (e.g., it's not a common image file)
-    print("Invalid image extension: $extension");
+    Get.rawSnackbar(
+        message: 'صورة الملف غير مسموح بيها, تأكد انك قمت برفع صورة');
+    return null;
   }
 }
 

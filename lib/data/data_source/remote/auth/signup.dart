@@ -6,15 +6,13 @@ class SignupData {
   SignupData(this.crud);
 
   postData(String name, String username, String password, String email,
-      String phone, String gender, String city) async {
+      String phone) async {
     var response = await crud.postData(ApiLinks.signUp, {
       "name": name,
       "username": username,
       "password": password,
       "email": email,
       "phone": phone,
-      "gender": gender,
-      "city": city,
     });
 
     return response.fold((leftValue) {

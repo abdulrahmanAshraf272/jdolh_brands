@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/auth/login.dart';
+import 'package:jdolh_brands/data/models/brandManager.dart';
 
 class LoginController extends GetxController {
   GlobalKey<FormState> _formstate = GlobalKey<FormState>();
@@ -14,57 +16,63 @@ class LoginController extends GetxController {
   LoginData loginData = LoginData(Get.find());
   MyServices myServices = Get.find();
   bool passwordVisible = true;
-  //User user = User();
+  BrandManager brandManager = BrandManager();
 
   login() async {
     var formdata = _formstate.currentState;
     if (formdata!.validate()) {
-      Get.offAllNamed(AppRouteName.mainScreen);
-      //   statusRequest = StatusRequest.loading;
-      //   update();
-      //   var response =
-      //       await loginData.postData(usernameOrEmail.text, password.text);
-      //   statusRequest = handlingData(response);
-      //   update(); //after status change to display change on the screen.
-      //   if (statusRequest == StatusRequest.success) {
-      //     if (response['status'] == 'success') {
-      //       print(' ======== ${response['data']} ======');
-      //       // user = User.fromJson(response['data']);
-      //       // if (user.userApprove == 1) {
-      //       //   saveUserDataInSharedPreferences(user);
-      //       goToMainScreen();
-      //     } else {
-      //       goToVerifycode();
-      //     }
-      //   } else {
-      //     Get.rawSnackbar(message: 'اسم المستخدم او كلمة المرور غير صحيحة');
-      //   }
+      //Get.offAllNamed(AppRouteName.mainScreen);
+      statusRequest = StatusRequest.loading;
+      update();
+      var response =
+          await loginData.postData(usernameOrEmail.text, password.text);
+      statusRequest = handlingData(response);
+      update(); //after status change to display change on the screen.
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == 'success') {
+          print(' ======== ${response['data']} ======');
+          brandManager = BrandManager.fromJson(response['data']);
+          if (brandManager.brandManagerApprove == 1) {
+            saveUserDataInSharedPreferences(brandManager);
+            goToMainScreen();
+          } else {
+            goToVerifycode();
+          }
+        } else {
+          Get.rawSnackbar(message: 'اسم المستخدم او كلمة المرور غير صحيحة');
+        }
+      }
     }
   }
 
-  // saveUserDataInSharedPreferences(User user) {
-//   myServices.sharedPreferences.setString("id", user.userId.toString());
-//   myServices.sharedPreferences.setString("name", user.userName!);
-//   myServices.sharedPreferences.setString("username", user.userUsername!);
-//   myServices.sharedPreferences.setString("email", user.userEmail!);
-//   myServices.sharedPreferences.setString("phone", user.userPhone!);
-//   //step 0 onboarding, step 1 login, step 2 mainScreen
-//   myServices.sharedPreferences.setString("step", "2");
-//   print('===== Saving user data in sharedPreferences Done =====');
-// }
+  saveUserDataInSharedPreferences(BrandManager brandManager) {
+    myServices.sharedPreferences
+        .setString("id", brandManager.brandManagerId.toString());
+    myServices.sharedPreferences
+        .setString("name", brandManager.brandManagerName!);
+    myServices.sharedPreferences
+        .setString("username", brandManager.brandManagerUsername!);
+    myServices.sharedPreferences
+        .setString("email", brandManager.brandManagerEmail!);
+    myServices.sharedPreferences
+        .setString("phone", brandManager.brandManagerPhone!);
+    //step 0 onboarding, step 1 login, step 2 mainScreen
+    //myServices.sharedPreferences.setString("step", "2");
+    print('===== Saving user data in sharedPreferences Done =====');
+  }
 
   goToMainScreen() {
     Get.offAllNamed(AppRouteName.mainScreen);
   }
 
   goToVerifycode() {
-    // Get.toNamed(AppRouteName.verifyCode,
-    //     arguments: {"email": usernameOrEmail.text, 'resetPassword': 0});
+    Get.toNamed(AppRouteName.verifyCode,
+        arguments: {"email": usernameOrEmail.text, 'resetPassword': 0});
   }
 
   showPassword() {
-    // passwordVisible = !passwordVisible;
-    // update();
+    passwordVisible = !passwordVisible;
+    update();
   }
 
   goToSignUP() {
@@ -72,12 +80,12 @@ class LoginController extends GetxController {
   }
 
   goToForgetPassword() {
-    // if (usernameOrEmail.text.isEmpty) {
-    //   Get.rawSnackbar(message: "من فضلك ادخل الايميل او اسم المستخدم");
-    // } else {
-    //   Get.toNamed(AppRouteName.forgetPassword,
-    //       arguments: {"email": usernameOrEmail.text, 'resetPassword': 1});
-    // }
+    if (usernameOrEmail.text.isEmpty) {
+      Get.rawSnackbar(message: "من فضلك ادخل الايميل او اسم المستخدم");
+    } else {
+      Get.toNamed(AppRouteName.forgetPassword,
+          arguments: {"email": usernameOrEmail.text, 'resetPassword': 1});
+    }
   }
 
   @override
