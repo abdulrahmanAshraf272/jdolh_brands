@@ -36,7 +36,8 @@ class BrandData {
           "facebook": facebook,
           "twitter": twitter,
         },
-        file);
+        file,
+        'file');
 
     return response.fold((l) => l, (r) => r);
   }

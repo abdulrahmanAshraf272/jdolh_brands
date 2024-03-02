@@ -14,13 +14,31 @@ class AppRouteName {
   static const selectAddressScreen = '/selectAddressScreen';
 
   static const createBranch = '/createBranch';
-  static const categories = '/categories';
 
   static const branchDetails = '/branchDetails';
-  static const resOptions = '/resOptions';
-  static const createResOptions = '/createResOption';
-  static const items = '/items';
-  static const createItems = '/createItem';
+
   static const addAllBranchContent = '/addAllBranchContent';
   static const createBrand = '/createBrand';
+
+  static const createLegaldata = '/createLegaldata';
+
+  //Create Branch
+  static const allBchs = '/allBchs';
+  static const createBch = '/branchDetails';
+  static const addPolicy = '/resOptions';
+  static const addPaymentMethod = '/createResOption';
+  static const addWorktime = '/branchDetails';
+  static const addBchManager = '/resOptions';
+
+  //Categories
+  static const categories = '/categories';
+  static const addCategories = '/addCategories';
+
+  //ResOptions
+  static const resOptions = '/resOptions';
+  static const createResOptions = '/createResOption';
+
+  //Items
+  static const items = '/items';
+  static const createItems = '/createItem';
 }

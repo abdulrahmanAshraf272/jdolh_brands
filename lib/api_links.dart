@@ -39,4 +39,32 @@ class ApiLinks {
 
   static const String createBrand =
       '$server/jdolh_brands/brand/create_brand.php';
+
+  static const String createLegaldata =
+      '$server/jdolh_brands/legaldata/create_legaldata.php';
+
+  //Bch
+  static const String createBch = '$server/jdolh_brands/bch/create_bch.php';
+  static const String addWorktimeBch =
+      '$server/jdolh_brands/bch/add_worktime.php';
+  static const String addBchManager =
+      '$server/jdolh_brands/bch/add_bch_manager.php';
+  static const String getBillResPolicy =
+      '$server/jdolh_brands/bch/get_bill_res_policies.php';
+  static const String getPaymentMethods =
+      '$server/jdolh_brands/bch/get_payment_methods.php';
+  static const String addPaymentMethods =
+      '$server/jdolh_brands/bch/add_payment_methods.php';
+  static const String addResDetails =
+      '$server/jdolh_brands/bch/add_resdetails.php';
+  static const String addEditPolicy =
+      '$server/jdolh_brands/bch/add_edit_policy.php';
+//Categories
+  static const String addCategories =
+      '$server/jdolh_brands/bch/categories/add_categories.php';
+//ResOptions
+  static const String addResOptions =
+      '$server/jdolh_brands/bch/resOptions/add_resOptions.php';
+  //Items
+  static const String addItems = '$server/jdolh_brands/bch/items/add_items.php';
 }

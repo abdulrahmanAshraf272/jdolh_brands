@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
+import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/functions/pick_image.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/brand.dart';
 import 'package:jdolh_brands/data/data_source/remote/view_types_and_subtypes.dart';
+import 'package:jdolh_brands/data/models/brand.dart';
 import 'package:jdolh_brands/data/models/brand_subtype.dart';
 import 'package:jdolh_brands/data/models/brand_type.dart';
 
 class CreateBrandController extends GetxController {
+  bool afterSignup = true;
   StatusRequest statusRequest = StatusRequest.none;
   GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   ViewBrandTypesAndSubtypesData viewBrandTypesData =
@@ -44,35 +47,46 @@ class CreateBrandController extends GetxController {
   String? selectedValue;
 
   createBrand(BuildContext context) async {
-    if (allValuesAdded()) {
+    var formdata = formstatepart.currentState;
+    if (formdata!.validate() && allValuesAdded()) {
       statusRequest = StatusRequest.loading;
       update();
       var response = await brandData.createBrand(
-          managerId: myServices.sharedPreferences.getString("id")!,
-          storeName: brandName.text,
-          type: selectedType!.type!,
-          isService: selectedType!.isService!.toString(),
-          subtype: selectedSubtype!.subtype!,
-          contactNumber: contactNumber.text,
-          instagram: instagram.text,
-          tiktok: tiktok.text,
-          facebook: facebook.text,
-          snapchat: snapchat.text,
-          twitter: twitter.text,
-          file: logo!);
+        managerId: myServices.sharedPreferences.getString("id")!,
+        storeName: brandName.text,
+        type: selectedType!.type!,
+        isService: selectedType!.isService!.toString(),
+        subtype: selectedSubtype!.subtype!,
+        contactNumber: contactNumber.text,
+        instagram: instagram.text,
+        tiktok: tiktok.text,
+        facebook: facebook.text,
+        snapchat: snapchat.text,
+        twitter: twitter.text,
+        file: logo!,
+      );
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          Brand brand = Brand.fromJson(response['data']);
+          myServices.sharedPreferences
+              .setString("brandid", brand.brandId.toString());
           AwesomeDialog(
             context: context,
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
-            title: 'تم تسجيل الوصول',
+            title: 'تم حفظ البيانات',
             btnOkText: 'حسنا',
             onDismissCallback: (dismissType) {
-              //Get.offAllNamed(AppRouteName.mainScreen);
+              if (afterSignup) {
+                //navigate offNamed LegalDataScreen
+                Get.offNamed(AppRouteName.createLegaldata);
+              } else {
+                //navigate offAllNamed mainScreen
+                //Get.offAllNamed(AppRouteName.mainScreen);
+              }
             },
           ).show();
         } else {
@@ -94,7 +108,7 @@ class CreateBrandController extends GetxController {
       Get.rawSnackbar(message: 'ادخل رقم التواصل');
       return false;
     } else if (logo == null) {
-      Get.rawSnackbar(message: 'من فضلك قم برفع صورة العلامة التجارية');
+      Get.rawSnackbar(message: 'من فضلك قم برفع العلامة التجارية');
       return false;
     } else {
       return true;
@@ -170,10 +184,19 @@ class CreateBrandController extends GetxController {
     }
   }
 
+  onTapSkip() {
+    print('shit');
+  }
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getBrandTypesAndSubtypes();
+
+    if (Get.arguments != null) {
+      afterSignup = Get.arguments['afterSignup'];
+      print(afterSignup);
+    }
   }
 }

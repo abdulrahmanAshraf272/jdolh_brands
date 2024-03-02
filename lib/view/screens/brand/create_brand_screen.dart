@@ -6,11 +6,11 @@ import 'package:jdolh_brands/controller/brand/create_brand_controller.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/auth/custom_textform_auth.dart';
+import 'package:jdolh_brands/view/widgets/common/buttons/skip_and_confirm_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
-import 'package:jdolh_brands/view/widgets/custom_button_one.dart';
+import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 
 class CreateBrandScreen extends StatelessWidget {
   const CreateBrandScreen({super.key});
@@ -19,78 +19,79 @@ class CreateBrandScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CreateBrandController());
     return Scaffold(
-      appBar: customAppBar(title: 'البيانات التجارية', withArrowBack: false),
-      floatingActionButton: CustomButtonOne(
-          textButton: 'حفظ',
-          onPressed: () {
-            controller.createBrand(context);
-          }),
+      appBar: customAppBar(
+          title: 'البيانات التجارية',
+          withArrowBack: controller.afterSignup ? false : true),
+      floatingActionButton: SaveAndSkipButton(
+        confirmOnTap: () => controller.createBrand(context),
+        skipOnTap: controller.afterSignup ? controller.onTapSkip : null,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Form(
         key: controller.formstatepart,
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20),
-                  Text('العلامة التجارية', style: headline4),
-                  const SizedBox(height: 20),
-                  LogoImage(),
-                  const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(
-                    title: 'الإسم التجاري',
-                    mustAdded: true,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.brandName,
-                      hintText: 'الاسم التجاري الذي سيعرض في صفحتك'),
-                  const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(
-                    title: 'رقم التواصل',
-                    mustAdded: true,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.contactNumber,
-                      hintText: 'ادخل رقم التواصل'),
-                  const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(
-                    title: 'نوع المتجر',
-                    bottomPadding: 10,
-                    mustAdded: true,
-                  ),
-                  const DropdownBrandTypes(),
-                  const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(
-                      title: 'النوع الفرعي', bottomPadding: 10),
-                  const DropdownBrandSubtypes(),
-                  const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(title: 'حسابات التواصل الاجتماعي'),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.instagram,
-                      hintText: 'رابط حساب instagram'),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.snapchat,
-                      hintText: 'رابط حساب snapchat'),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.tiktok,
-                      hintText: 'رابط حساب tiktok'),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.twitter,
-                      hintText: 'رابط حساب twitter'),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                      textEditingController: controller.facebook,
-                      hintText: 'رابط حساب facebook'),
-                  const SizedBox(height: 80)
-                ]),
+            child: Column(children: [
+              const SizedBox(height: 20),
+              Text('العلامة التجارية', style: headline4),
+              const SizedBox(height: 20),
+              LogoImage(),
+              const SizedBox(height: 20),
+              const CustomSmallBoldTitle(
+                title: 'الإسم التجاري',
+                mustAdded: true,
+              ),
+              const SizedBox(height: 10),
+              CustomTextFormGeneral(
+                  textEditingController: controller.brandName,
+                  hintText: 'الاسم التجاري الذي سيعرض في صفحتك',
+                  valid: (val) => validInput(val!, 3, 100)),
+              const SizedBox(height: 20),
+              const CustomSmallBoldTitle(
+                title: 'رقم التواصل',
+                mustAdded: true,
+              ),
+              const SizedBox(height: 10),
+              CustomTextFormGeneral(
+                  textEditingController: controller.contactNumber,
+                  hintText: 'ادخل رقم التواصل',
+                  textInputType: TextInputType.number,
+                  valid: (val) => validInput(val!, 3, 100)),
+              const SizedBox(height: 20),
+              const CustomSmallBoldTitle(
+                title: 'نوع المتجر',
+                bottomPadding: 10,
+                mustAdded: true,
+              ),
+              const DropdownBrandTypes(),
+              const SizedBox(height: 20),
+              const CustomSmallBoldTitle(
+                  title: 'النوع الفرعي', bottomPadding: 10),
+              const DropdownBrandSubtypes(),
+              const SizedBox(height: 20),
+              const CustomSmallBoldTitle(title: 'حسابات التواصل الاجتماعي'),
+              const SizedBox(height: 10),
+              CustomTextField(
+                  textEditingController: controller.instagram,
+                  hintText: 'رابط حساب instagram'),
+              const SizedBox(height: 10),
+              CustomTextField(
+                  textEditingController: controller.snapchat,
+                  hintText: 'رابط حساب snapchat'),
+              const SizedBox(height: 10),
+              CustomTextField(
+                  textEditingController: controller.tiktok,
+                  hintText: 'رابط حساب tiktok'),
+              const SizedBox(height: 10),
+              CustomTextField(
+                  textEditingController: controller.twitter,
+                  hintText: 'رابط حساب twitter'),
+              const SizedBox(height: 10),
+              CustomTextField(
+                  textEditingController: controller.facebook,
+                  hintText: 'رابط حساب facebook'),
+              const SizedBox(height: 80)
+            ]),
           ),
         ),
       ),
