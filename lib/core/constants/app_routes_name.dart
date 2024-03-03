@@ -11,11 +11,10 @@ class AppRouteName {
 
   static const mainScreen = '/mainScreen';
 
-  static const selectAddressScreen = '/selectAddressScreen';
-
   static const createBranch = '/createBranch';
 
   static const branchDetails = '/branchDetails';
+  static const selectAddress = '/selectAddress';
 
   static const addAllBranchContent = '/addAllBranchContent';
   static const createBrand = '/createBrand';

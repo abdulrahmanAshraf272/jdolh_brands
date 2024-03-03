@@ -14,6 +14,7 @@ import 'package:jdolh_brands/view/widgets/common/buttons/skip_and_confirm_button
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
+import 'package:jdolh_brands/view/widgets/common/rect_image_holder.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 
 class CreateLegaldataScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class CreateLegaldataScreen extends StatelessWidget {
                         mustAdded: true,
                       ),
                       const SizedBox(height: 10),
-                      CustomPlaceholderImage(
+                      RectImageHolder(
                         onTap: () => controller.uploadImageCr(),
                         selectedImage: controller.selectedImageCr,
                       ),
@@ -76,40 +77,15 @@ class CreateLegaldataScreen extends StatelessWidget {
                         mustAdded: true,
                       ),
                       const SizedBox(height: 10),
-                      CustomPlaceholderImage(
+                      RectImageHolder(
                         onTap: () => controller.uploadImageTax(),
                         selectedImage: controller.selectedImageTax,
                       ),
-                      const SizedBox(height: 80)
+                      const SizedBox(height: 80),
                     ]),
                   ),
                 ),
               ),
             ));
-  }
-}
-
-class CustomPlaceholderImage extends StatelessWidget {
-  final Function() onTap;
-  final Uint8List? selectedImage;
-  const CustomPlaceholderImage(
-      {super.key, required this.onTap, required this.selectedImage});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: Get.width / 1.8,
-        width: Get.width - 40,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: selectedImage == null
-                ? const DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/placeholder.png'))
-                : DecorationImage(image: MemoryImage(selectedImage!))),
-      ),
-    );
   }
 }

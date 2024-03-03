@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
+import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/functions/pick_image.dart';
 import 'package:jdolh_brands/core/services/services.dart';
@@ -47,21 +48,14 @@ class CreateLegaldataController extends GetxController {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.success,
-            animType: AnimType.rightSlide,
-            title: 'تم حفظ البيانات',
-            btnOkText: 'حسنا',
-            onDismissCallback: (dismissType) {
-              if (afterSignup) {
-                //navigate offNamed LegalDataScreen
-              } else {
-                //navigate offAllNamed mainScreen
-                //Get.offAllNamed(AppRouteName.mainScreen);
-              }
-            },
-          ).show();
+          displayDoneDialog(context, () {
+            if (afterSignup) {
+              //navigate offNamed LegalDataScreen
+            } else {
+              //navigate offAllNamed mainScreen
+              //Get.offAllNamed(AppRouteName.mainScreen);
+            }
+          });
         } else {
           statusRequest = StatusRequest.failure;
           update();
