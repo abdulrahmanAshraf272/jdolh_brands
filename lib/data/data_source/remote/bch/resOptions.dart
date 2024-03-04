@@ -8,11 +8,11 @@ class ResOptionsData {
   Crud crud;
   ResOptionsData(this.crud);
 
-  addResOptions({
+  createResOptions({
     required String bchid,
     required String title,
     required String countLimit,
-    required String duration,
+    required String? duration,
     required String alwaysAvailable,
     required String satTime,
     required String sunTime,

@@ -23,11 +23,11 @@ class AppRouteName {
 
   //Create Branch
   static const allBchs = '/allBchs';
-  static const createBch = '/branchDetails';
-  static const addPolicy = '/resOptions';
-  static const addPaymentMethod = '/createResOption';
-  static const addWorktime = '/branchDetails';
-  static const addBchManager = '/resOptions';
+  static const createBch = '/createBc';
+  static const addPolicy = '/addPolicy';
+  static const addPaymentMethod = '/addPaymentMethod';
+  static const addWorktime = '/addWorktime';
+  static const addBchManager = '/addBchManager';
 
   //Categories
   static const categories = '/categories';

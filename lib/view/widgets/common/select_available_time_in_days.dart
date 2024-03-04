@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
+import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 
 class DayWorkTimePicker extends StatelessWidget {
@@ -15,31 +17,43 @@ class DayWorkTimePicker extends StatelessWidget {
   final void Function() onTapToP2;
   final String timeFromP2;
   final String timeToP2;
-  const DayWorkTimePicker({
-    super.key,
-    required this.day,
-    required this.onTapFromP1,
-    required this.onTapToP1,
-    required this.timeFromP1,
-    required this.timeToP1,
-    required this.onTapFromP2,
-    required this.onTapToP2,
-    required this.timeFromP2,
-    required this.timeToP2,
-  });
+  final Function() onTapCheckbox;
+  const DayWorkTimePicker(
+      {super.key,
+      required this.day,
+      required this.onTapFromP1,
+      required this.onTapToP1,
+      required this.timeFromP1,
+      required this.timeToP1,
+      required this.onTapFromP2,
+      required this.onTapToP2,
+      required this.timeFromP2,
+      required this.timeToP2,
+      required this.onTapCheckbox});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          day,
-          maxLines: 1,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 14.sp,
-            color: AppColors.textDark,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: 20),
+            SizedBox(width: 85.w),
+            Spacer(),
+            Text(
+              day,
+              maxLines: 1,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 14.sp,
+                color: AppColors.textDark,
+              ),
+            ),
+            const Spacer(),
+            CustomCheckbox(onTap: onTapCheckbox),
+            const SizedBox(width: 20),
+          ],
         ),
         const Divider(
           endIndent: 30,
@@ -96,7 +110,6 @@ class FromToTimePicker extends StatelessWidget {
           style: titleMedium,
         ),
         SmallTimePicker(onTap: onTapTo, timeText: timeTo),
-        const SizedBox(width: 30),
       ],
     );
   }

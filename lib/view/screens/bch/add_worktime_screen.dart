@@ -1,31 +1,16 @@
-import 'dart:typed_data';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/bch/add_worktime_controller.dart';
-import 'package:jdolh_brands/controller/bch/create_bch_controller.dart';
-import 'package:jdolh_brands/controller/brand/create_brand_controller.dart';
-import 'package:jdolh_brands/controller/legaldata/create_legaldata_controller.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
-import 'package:jdolh_brands/core/constants/strings.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
-import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/auth/custom_textform_auth.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/skip_and_confirm_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_dropdown.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
-import 'package:jdolh_brands/view/widgets/common/data_or_location_display_container.dart';
-import 'package:jdolh_brands/view/widgets/common/rect_image_holder.dart';
 import 'package:jdolh_brands/view/widgets/common/select_available_time_in_days.dart';
 import 'package:jdolh_brands/view/widgets/custom_button_one.dart';
-import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 
 class AddWorktimeScreen extends StatelessWidget {
   const AddWorktimeScreen({super.key});
@@ -35,13 +20,11 @@ class AddWorktimeScreen extends StatelessWidget {
     Get.put(AddWorktimeController());
     return GetBuilder<AddWorktimeController>(
         builder: (controller) => Scaffold(
-              appBar: customAppBar(
-                title: 'اوقات العمل',
-              ),
+              appBar: customAppBar(title: 'اوقات العمل'),
               floatingActionButton: CustomButtonOne(
                   textButton: 'حفظ',
                   onPressed: () {
-                    controller.addWorktime();
+                    controller.addWorktime(context);
                   }),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
@@ -70,75 +53,159 @@ class AddWorktimeScreen extends StatelessWidget {
                           controller.displayTime(controller.satFromP2, context),
                       timeToP2:
                           controller.displayTime(controller.satToP2, context),
+                      onTapCheckbox: () {
+                        controller.switchDayOff(1);
+                      },
                     ),
+                    CustomButton(
+                        onTap: () => controller.applyToAll(),
+                        text: 'تطبيق على الكل'),
+                    const SizedBox(height: 20),
                     DayWorkTimePicker(
                       day: 'الاحد',
                       onTapFromP1: () {
-                        //controller.showCustomTimePicker(context);
+                        controller.showCustomTimePicker(context, 5);
                       },
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 6);
+                      },
+                      timeFromP1:
+                          controller.displayTime(controller.sunFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.sunToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 7);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 8);
+                      },
+                      timeFromP2:
+                          controller.displayTime(controller.sunFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.sunToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(2),
                     ),
                     DayWorkTimePicker(
                       day: 'الاثنين',
-                      onTapFromP1: () {},
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapFromP1: () {
+                        controller.showCustomTimePicker(context, 9);
+                      },
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 10);
+                      },
+                      timeFromP1:
+                          controller.displayTime(controller.monFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.monToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 11);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 12);
+                      },
+                      timeFromP2:
+                          controller.displayTime(controller.monFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.monToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(3),
                     ),
                     DayWorkTimePicker(
                       day: 'الثلثاء',
-                      onTapFromP1: () {},
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapFromP1: () {
+                        controller.showCustomTimePicker(context, 13);
+                      },
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 14);
+                      },
+                      timeFromP1: controller.displayTime(
+                          controller.tuesFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.tuesToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 15);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 16);
+                      },
+                      timeFromP2: controller.displayTime(
+                          controller.tuesFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.tuesToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(4),
                     ),
                     DayWorkTimePicker(
                       day: 'الاربعاء',
-                      onTapFromP1: () {},
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapFromP1: () {
+                        controller.showCustomTimePicker(context, 17);
+                      },
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 18);
+                      },
+                      timeFromP1:
+                          controller.displayTime(controller.wedFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.wedToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 19);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 20);
+                      },
+                      timeFromP2:
+                          controller.displayTime(controller.wedFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.wedToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(5),
                     ),
                     DayWorkTimePicker(
                       day: 'الخميس',
-                      onTapFromP1: () {},
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapFromP1: () {
+                        controller.showCustomTimePicker(context, 21);
+                      },
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 22);
+                      },
+                      timeFromP1: controller.displayTime(
+                          controller.thursFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.thursToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 23);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 24);
+                      },
+                      timeFromP2: controller.displayTime(
+                          controller.thursFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.thursToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(6),
                     ),
                     DayWorkTimePicker(
                       day: 'الجمعة',
-                      onTapFromP1: () {},
-                      onTapToP1: () {},
-                      timeFromP1: '2:00 am',
-                      timeToP1: '4:00 pm',
-                      onTapFromP2: () {},
-                      onTapToP2: () {},
-                      timeFromP2: '2:00 am',
-                      timeToP2: '4:00 pm',
+                      onTapFromP1: () {
+                        controller.showCustomTimePicker(context, 25);
+                      },
+                      onTapToP1: () {
+                        controller.showCustomTimePicker(context, 26);
+                      },
+                      timeFromP1:
+                          controller.displayTime(controller.friFromP1, context),
+                      timeToP1:
+                          controller.displayTime(controller.friToP1, context),
+                      onTapFromP2: () {
+                        controller.showCustomTimePicker(context, 27);
+                      },
+                      onTapToP2: () {
+                        controller.showCustomTimePicker(context, 28);
+                      },
+                      timeFromP2:
+                          controller.displayTime(controller.friFromP2, context),
+                      timeToP2:
+                          controller.displayTime(controller.friToP2, context),
+                      onTapCheckbox: () => controller.switchDayOff(7),
                     ),
+                    const SizedBox(height: 80)
                   ]),
                 ),
               ),
@@ -146,59 +213,69 @@ class AddWorktimeScreen extends StatelessWidget {
   }
 }
 
-class CustomTimePicker extends StatelessWidget {
-  final TimeOfDay initialTime;
-  final Function(TimeOfDay) onTimeSelected;
-  final int minuteInterval;
-
-  CustomTimePicker({
-    required this.initialTime,
-    required this.onTimeSelected,
-    this.minuteInterval = 30,
-  });
+class CustomCheckbox extends StatefulWidget {
+  final Function() onTap;
+  const CustomCheckbox({super.key, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
-    int adjustedMinute =
-        (initialTime.minute ~/ minuteInterval) * minuteInterval;
-    final initialAdjustedTime =
-        TimeOfDay(hour: initialTime.hour, minute: adjustedMinute);
+  State<CustomCheckbox> createState() => _CustomCheckboxState();
+}
 
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        Text(
-          'أختر الوقت',
-          style: titleMedium,
-        ),
-        const SizedBox(height: 20),
-        SizedBox(
-          height: Get.height * 0.2,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.time,
-            initialDateTime: DateTime(
-              DateTime.now().year,
-              DateTime.now().month,
-              DateTime.now().day,
-              initialAdjustedTime.hour,
-              initialAdjustedTime.minute,
-            ),
-            minuteInterval: minuteInterval,
-            onDateTimeChanged: (DateTime dateTime) {
-              final selectedTime = TimeOfDay(
-                hour: dateTime.hour,
-                minute: dateTime.minute,
-              );
-              onTimeSelected(selectedTime);
+class _CustomCheckboxState extends State<CustomCheckbox> {
+  bool isDone = false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: AppColors.gray,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                isDone = !isDone;
+                widget.onTap();
+              });
             },
+            child: Container(
+              width: 80.w,
+              height: 35.h,
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(8.5),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isDone ? Colors.green : null,
+                        border: isDone
+                            ? null
+                            : Border.all(
+                                width: 0.7, color: Colors.grey.shade400)),
+                    child: Icon(
+                      Icons.done,
+                      color: isDone ? Colors.white : Colors.transparent,
+                      size: 12,
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(
+                    'أجازة',
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 10.sp),
+                  )),
+                  SizedBox(width: 5)
+                ],
+              ),
+            ),
           ),
         ),
-        // CustomButton(
-        //   onTap: () {},
-        //   text: ' حفظ',
-        //   size: 1.2,
-        // )
-      ],
+      ),
     );
   }
 }

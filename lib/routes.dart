@@ -13,6 +13,7 @@ import 'package:jdolh_brands/view/screens/auth/success_operation_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_all_branch_content_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_bch_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/add_plicy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/branch_details_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_branch_screen.dart';
@@ -36,12 +37,17 @@ List<GetPage> routes = [
   // ),
   GetPage(
     //name: '/',
+    name: AppRouteName.addPolicy,
+    page: () => const AddPolicyScreen(),
+  ),
+  GetPage(
+    //name: '/',
     name: AppRouteName.createBch,
     page: () => const CreateBchScreen(),
   ),
   GetPage(
-    name: '/',
-    //name: AppRouteName.addWorktime,
+    //name: '/',
+    name: AppRouteName.addWorktime,
     page: () => const AddWorktimeScreen(),
   ),
 
@@ -62,6 +68,7 @@ List<GetPage> routes = [
     page: () => const ItemsScreen(),
   ),
   GetPage(
+    //name: '/',
     name: AppRouteName.createItems,
     page: () => const CreateItemsScreen(),
   ),
@@ -71,6 +78,7 @@ List<GetPage> routes = [
     page: () => const ResOptionsScreen(),
   ),
   GetPage(
+    //name: '/',
     name: AppRouteName.createResOptions,
     page: () => const CreateResOptionsScreen(),
   ),
@@ -91,7 +99,8 @@ List<GetPage> routes = [
       page: () => const SelectAddressScreen(),
       popGesture: true),
   GetPage(
-    name: AppRouteName.categories,
+    name: '/',
+    //name: AppRouteName.categories,
     page: () => const CategoriesScreen(),
   ),
   GetPage(

@@ -33,6 +33,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الاحد',
@@ -44,6 +45,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الاثنين',
@@ -55,6 +57,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الثلثاء',
@@ -66,6 +69,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الاربعاء',
@@ -77,6 +81,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الخميس',
@@ -88,6 +93,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
           DayWorkTimePicker(
             day: 'الجمعة',
@@ -99,6 +105,7 @@ class CreateBranchPart3 extends StatelessWidget {
             onTapToP2: () {},
             timeFromP2: '2:00 am',
             timeToP2: '4:00 pm',
+            onTapCheckbox: () {},
           ),
         ],
       ),

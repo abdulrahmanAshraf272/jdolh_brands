@@ -17,6 +17,25 @@ const textSuspendAttend = 'لم يتم التأكيد';
 const textCreator = 'منشئ';
 const textRejectAttend = 'اعتذر';
 
+const resTitleExampleIsService = 'مثال: احمد, خالد, ..';
+const resTitleExampleIsProduct = 'مثال: طاولات داخلية, طاولات خارجية ..';
+
+const resCountTitleIsService = 'العدد المتاح';
+const resCountTitleIsProduct = 'الأماكن المتاحة';
+
+const resCountTitleIsServiceEnd = 'أشخاص';
+const resCountTitleIsProductEnd = 'أماكن';
+
+const resCountTitleCommentIsService =
+    'كم عدد الاشخاص الذي يمكن ان يقدم لهم الخدمة بنفس التفضيل في نفس الوقت';
+const resCountTitleCommentProduct =
+    'كم عدد الاشخاص الذي يمكن تواجدهم في نفس الوقت';
+
+const resCountTitleExampleIsService =
+    'يستطيع احمد الحلاقة لشخص واحد فقط في نفس الوقت - العدد المتاح: 1';
+const resCountTitleExampleProduct =
+    'مثال: الطولات الخارجية يوجد بيها 10 طاولات - الأماكن المتاحة: 10';
+
 const creatAccount = 'إنشاء حساب جديد';
 
 const List<String> cities = [

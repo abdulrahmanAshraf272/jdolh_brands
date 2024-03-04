@@ -13,6 +13,7 @@ class CustomDropdown extends StatefulWidget {
   final String title;
   final List<String> items;
   final ValueChanged<String?> onChanged;
+  final double listWidth;
 
   const CustomDropdown(
       {super.key,
@@ -21,6 +22,7 @@ class CustomDropdown extends StatefulWidget {
       this.verticalPadding = 0,
       this.buttonHeight = 50,
       this.displacement = -20,
+      this.listWidth = 200,
       required this.items,
       required this.onChanged,
       required this.title});
@@ -53,8 +55,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
           items: widget.items
               .map((String item) => DropdownMenuItem<String>(
                     value: item,
-                    child: Text(
+                    child: AutoSizeText(
                       item,
+                      minFontSize: 9,
+                      maxLines: 1,
                       style: titleSmall.copyWith(color: AppColors.gray600),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -86,7 +90,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           ),
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
-            width: 200,
+            width: widget.listWidth,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               color: AppColors.gray,

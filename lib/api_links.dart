@@ -62,6 +62,11 @@ class ApiLinks {
 //Categories
   static const String addCategories =
       '$server/jdolh_brands/bch/categories/add_categories.php';
+  static const String getCategories =
+      '$server/jdolh_brands/bch/categories/get_categories.php';
+  static const String deleteCategories =
+      '$server/jdolh_brands/bch/categories/delete_categories.php';
+
 //ResOptions
   static const String addResOptions =
       '$server/jdolh_brands/bch/resOptions/add_resOptions.php';

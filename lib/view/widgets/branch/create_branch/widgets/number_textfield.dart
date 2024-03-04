@@ -11,12 +11,14 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
   final String title;
   final String endText;
   final String comment;
+  final String example;
   const NumberTextFieldWithTitleAndText(
       {super.key,
       required this.textEditingController,
       required this.title,
       required this.endText,
-      this.comment = ''});
+      this.comment = '',
+      this.example = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,11 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
           Text(
             comment,
             style: titleSmallGray,
-          )
+          ),
+          Text(
+            example,
+            style: titleSmallGray,
+          ),
         ],
       ),
     );

@@ -19,4 +19,24 @@ class CategoriesData {
 
     return response.fold((l) => l, (r) => r);
   }
+
+  getCategories({
+    required String bchid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getCategories, {
+      "bchid": bchid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  deleteCategories({
+    required String categoryid,
+  }) async {
+    var response = await crud.postData(ApiLinks.deleteCategories, {
+      "categoryid": categoryid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
 }
