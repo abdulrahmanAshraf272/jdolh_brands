@@ -4,6 +4,12 @@ import 'package:flutter/cupertino.dart';
 class AppColors {
   static const primaryColor = Color(0xff3623B7);
   static const secondaryColor = Color(0xff05CBE7);
+  static const secondaryColor95 = Color(0xffe6fcfe);
+  static const secondaryColor90 = Color(0xffcdf8fe);
+  static const secondaryColor85 = Color(0xffb4f5fd);
+  static const secondaryColor40 = Color(0xff04b1c8);
+  static const secondaryColor35 = Color(0xff049baf);
+  static const secondaryColor25 = Color(0xff036f7d);
   static const secondaryColorLight = Color(0xff4CE0F5);
   static const secondaryColor300 = Color(0xffDFF3F9);
   static const secondaryColor600 = Color(0xffCCF4FA);

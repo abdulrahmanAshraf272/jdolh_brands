@@ -13,8 +13,10 @@ import 'package:jdolh_brands/view/screens/auth/success_operation_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_all_branch_content_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_bch_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/add_payment_methods_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_plicy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/bch_manager_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/branch_details_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_branch_screen.dart';
 import 'package:jdolh_brands/view/screens/brand/create_brand_screen.dart';
@@ -36,6 +38,11 @@ List<GetPage> routes = [
   //   middlewares: [MyMiddleware()],
   // ),
   GetPage(
+    name: '/',
+    //name: AppRouteName.addPaymentMethod,
+    page: () => const AddPaymentMethodsScreen(),
+  ),
+  GetPage(
     //name: '/',
     name: AppRouteName.addPolicy,
     page: () => const AddPolicyScreen(),
@@ -44,6 +51,11 @@ List<GetPage> routes = [
     //name: '/',
     name: AppRouteName.createBch,
     page: () => const CreateBchScreen(),
+  ),
+  GetPage(
+    //name: '/',
+    name: AppRouteName.bchManager,
+    page: () => const BchManagerScreen(),
   ),
   GetPage(
     //name: '/',
@@ -99,8 +111,8 @@ List<GetPage> routes = [
       page: () => const SelectAddressScreen(),
       popGesture: true),
   GetPage(
-    name: '/',
-    //name: AppRouteName.categories,
+    //name: '/',
+    name: AppRouteName.categories,
     page: () => const CategoriesScreen(),
   ),
   GetPage(

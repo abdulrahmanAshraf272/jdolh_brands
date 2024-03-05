@@ -27,7 +27,7 @@ class AppRouteName {
   static const addPolicy = '/addPolicy';
   static const addPaymentMethod = '/addPaymentMethod';
   static const addWorktime = '/addWorktime';
-  static const addBchManager = '/addBchManager';
+  static const bchManager = '/bchManager';
 
   //Categories
   static const categories = '/categories';

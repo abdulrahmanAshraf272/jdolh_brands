@@ -1,18 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
+import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
+import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
+import 'package:jdolh_brands/data/models/categories.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
 
 class CategoriesController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
+  CategoriesData categoriesData = CategoriesData(Get.find());
   TextEditingController textEC = TextEditingController();
-  List<String> categories = [];
+  List<MyCategories> categories = [];
 
-  deleteCategoryLocale(int index) {
-    categories.removeAt(index);
-    update();
-  }
+  // deleteCategoryLocale(int index) {
+  //   categories.removeAt(index);
+  //   update();
+  // }
 
   onTapAddCategory() async {
     Get.defaultDialog(
@@ -22,17 +27,51 @@ class CategoriesController extends GetxController {
           CustomTextField(textEditingController: textEC, hintText: 'أسم الصنف'),
         ],
       ),
-      onConfirm: () async {
+      onConfirm: () {
+        Get.back();
         if (checkValidInput()) {
-          Get.back();
-          categories.add(textEC.text);
+          addCategory(textEC.text);
           textEC.clear();
-
-          update();
         }
       },
       textConfirm: 'حفظ',
     );
+  }
+
+  addCategory(String title) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await categoriesData.addCategories(bchid: '6', title: title);
+    statusRequest = handlingData(response);
+    print(' ================$statusRequest');
+
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        MyCategories myCategories = MyCategories.fromJson(response['data']);
+        categories.add(myCategories);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+  }
+
+  deleteCategory(int index) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await categoriesData.deleteCategories(
+        categoryid: categories[index].id.toString());
+    statusRequest = handlingData(response);
+    print(' ================$statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        categories.remove(categories[index]);
+        print('delete success');
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
   }
 
   bool checkValidInput() {
@@ -52,5 +91,33 @@ class CategoriesController extends GetxController {
         return true;
       }
     }
+  }
+
+  getCategories() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await categoriesData.getCategories(bchid: '6');
+    statusRequest = handlingData(response);
+    update();
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        parseData(response);
+      } else {
+        Get.rawSnackbar(message: 'لا يوجد بيانات');
+      }
+    } //
+  }
+
+  parseData(response) {
+    categories.clear();
+    List categoriesJson = response['data'];
+    categories = categoriesJson.map((e) => MyCategories.fromJson(e)).toList();
+    update();
+  }
+
+  @override
+  void onInit() {
+    getCategories();
+    super.onInit();
   }
 }

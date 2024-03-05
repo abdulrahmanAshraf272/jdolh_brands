@@ -26,7 +26,7 @@ class CategoriesScreen extends StatelessWidget {
                   onTap: () {
                     controller.onTapAddCategory();
                   },
-                  text: 'أضافة',
+                  text: 'إضافة',
                   height: 40,
                   width: 100),
               floatingActionButtonLocation:
@@ -43,9 +43,10 @@ class CategoriesScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) =>
                                   CategoriesListItem(
-                                    title: controller.categories[index],
+                                    title: controller.categories[index].title ??
+                                        '',
                                     onTapDelete: () =>
-                                        controller.deleteCategoryLocale(index),
+                                        controller.deleteCategory(index),
                                   ))
                           : ListIsEmptyText(),
                     ),

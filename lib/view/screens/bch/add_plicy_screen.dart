@@ -13,7 +13,9 @@ import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/strings.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
+import 'package:jdolh_brands/test_screen.dart';
 import 'package:jdolh_brands/view/widgets/auth/custom_textform_auth.dart';
+import 'package:jdolh_brands/view/widgets/common/buttons/custom_radio_button.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/skip_and_confirm_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_dropdown.dart';
@@ -32,9 +34,7 @@ class AddPolicyScreen extends StatelessWidget {
     Get.put(AddPolicyController());
     return GetBuilder<AddPolicyController>(
         builder: (controller) => Scaffold(
-              appBar: customAppBar(
-                title: 'سياسة الحجز والفاتورة',
-              ),
+              appBar: customAppBar(title: 'سياسة الحجز والفاتورة'),
               floatingActionButton: CustomButtonOne(
                   textButton: 'حفظ',
                   onPressed: () => controller.addPolicy(context)),
@@ -43,33 +43,63 @@ class AddPolicyScreen extends StatelessWidget {
               body: SingleChildScrollView(
                 child: Column(children: [
                   const SizedBox(height: 20),
-                  const CustomSmallBoldTitle(
-                    title: 'سياسة الحجز',
-                    mustAdded: true,
-                  ),
-                  CustomDropdown(
-                    items: controller.resPoliciesString,
-                    title: 'اختر سياسة الحجز',
-                    displacement: 0,
-                    listWidth: Get.width - 40,
-                    onChanged: (String? value) {
-                      controller.setSelectedResPolicy(value);
-                    },
-                  ),
+                  AutoSizeText('أختر سياسة الحجز',
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.sp,
+                        color: AppColors.textDark,
+                      )),
+                  const SizedBox(height: 10),
+                  ListView.builder(
+                      itemCount: controller.resPolicies.length,
+                      shrinkWrap: true,
+                      itemBuilder: ((context, index) => RadioButtonItem(
+                            title: controller.resPolicies[index].title!,
+                            onTap: () {
+                              controller.setSelectedResPolicy(index);
+                            },
+                            isSelected: controller.resPolicies[index].id ==
+                                controller.selectedResPolicy,
+                          ))),
+                  // CustomDropdown(
+                  //   items: controller.resPoliciesString,
+                  //   title: 'اختر سياسة الحجز',
+                  //   displacement: 0,
+                  //   listWidth: Get.width - 40,
+                  //   onChanged: (String? value) {
+                  //     controller.setSelectedResPolicy(value);
+                  //   },
+                  // ),
                   const SizedBox(height: 30),
-                  const CustomSmallBoldTitle(
-                    title: 'سياسة الفاتورة',
-                    mustAdded: true,
-                  ),
-                  CustomDropdown(
-                    items: controller.billPoliciesString,
-                    title: 'اختر سياسة الفاتورة',
-                    listWidth: Get.width - 40,
-                    displacement: 0,
-                    onChanged: (String? value) {
-                      controller.setSelectedBillPolicy(value);
-                    },
-                  ),
+                  AutoSizeText('أختر سياسة الفاتورة',
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.sp,
+                        color: AppColors.textDark,
+                      )),
+                  const SizedBox(height: 10),
+                  ListView.builder(
+                      itemCount: controller.billPolicies.length,
+                      shrinkWrap: true,
+                      itemBuilder: ((context, index) => RadioButtonItem(
+                            title: controller.billPolicies[index].title!,
+                            onTap: () {
+                              controller.setSelectedBillPolicy(index);
+                            },
+                            isSelected: controller.billPolicies[index].id ==
+                                controller.selectedBillPolicy,
+                          ))),
+                  // CustomDropdown(
+                  //   items: controller.billPoliciesString,
+                  //   title: 'اختر سياسة الفاتورة',
+                  //   listWidth: Get.width - 40,
+                  //   displacement: 0,
+                  //   onChanged: (String? value) {
+                  //     controller.setSelectedBillPolicy(value);
+                  //   },
+                  // ),
                   const SizedBox(height: 80),
                 ]),
               ),

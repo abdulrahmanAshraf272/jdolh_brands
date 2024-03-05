@@ -6,6 +6,7 @@ import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/strings.dart';
 import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
+import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_general.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
@@ -93,7 +94,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
     return GetBuilder<CreateResOptionsController>(
         builder: (controller) => Column(
               children: [
-                CustomCheckboxGeneral(
+                CustomToggleGeneral(
                     onTap: () {
                       setState(() {
                         isAlwaysAvailable = !isAlwaysAvailable;
@@ -290,76 +291,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
   }
 }
 
-class CustomCheckboxGeneral extends StatefulWidget {
-  final String title;
-  final Function() onTap;
-  const CustomCheckboxGeneral(
-      {super.key, required this.onTap, required this.title});
 
-  @override
-  State<CustomCheckboxGeneral> createState() => _CustomCheckboxGeneralState();
-}
-
-class _CustomCheckboxGeneralState extends State<CustomCheckboxGeneral> {
-  bool isDone = true;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: AppColors.gray,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                isDone = !isDone;
-                widget.onTap();
-              });
-            },
-            child: Container(
-              //width: 80.w,
-              padding: const EdgeInsets.only(left: 10),
-              height: 35.h,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    margin: const EdgeInsets.all(8.5),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isDone ? Colors.green : null,
-                        border: isDone
-                            ? null
-                            : Border.all(
-                                width: 0.7, color: Colors.grey.shade400)),
-                    child: Icon(
-                      Icons.done,
-                      color: isDone ? Colors.white : Colors.transparent,
-                      size: 12,
-                    ),
-                  ),
-                  Text(
-                    widget.title,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: 12.sp),
-                  ),
-                  SizedBox(width: 5)
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // class CustomBottomAppBarCreateResOptions extends StatelessWidget {
 //   const CustomBottomAppBarCreateResOptions({

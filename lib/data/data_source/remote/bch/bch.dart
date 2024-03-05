@@ -73,20 +73,6 @@ class BchData {
     return response.fold((l) => l, (r) => r);
   }
 
-  addBchManager({
-    required String brandid,
-    required String bchid,
-    required String name,
-  }) async {
-    var response = await crud.postData(ApiLinks.addBchManager, {
-      "brandid": brandid,
-      "bchid": bchid,
-      "name": name,
-    });
-
-    return response.fold((l) => l, (r) => r);
-  }
-
   addPaymentMethods({
     required String paymentMethodsid,
     required String bchid,

@@ -47,8 +47,17 @@ class ApiLinks {
   static const String createBch = '$server/jdolh_brands/bch/create_bch.php';
   static const String addWorktimeBch =
       '$server/jdolh_brands/bch/add_worktime.php';
+  //Bch Manager
   static const String addBchManager =
-      '$server/jdolh_brands/bch/add_bch_manager.php';
+      '$server/jdolh_brands/bch/bchManager/add_bch_manager.php';
+  static const String getBchManager =
+      '$server/jdolh_brands/bch/bchManager/get_bch_manager.php';
+  static const String deleteBchManager =
+      '$server/jdolh_brands/bch/bchManager/delete_bch_manager.php';
+
+  static const String switchEnableBchManager =
+      '$server/jdolh_brands/bch/bchManager/switch_enable_bch_manager.php';
+
   static const String getBillResPolicy =
       '$server/jdolh_brands/bch/get_bill_res_policies.php';
   static const String getPaymentMethods =

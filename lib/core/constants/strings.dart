@@ -38,6 +38,10 @@ const resCountTitleExampleProduct =
 
 const creatAccount = 'إنشاء حساب جديد';
 
+const managerWarning =
+    'تنبيه: مدير الفرع سوف يكون له الصلاحية الكاملة للتحكم في الفرع, ويمكنك ايقاف صلاحياته للتحكم في الفرع مؤقتا او حذف مدير الفرع نهائياً';
+const managerComment =
+    'يمكن لمدير الفرع تسجيل الدخول بواسطة اسم المستخدم وكلمة السر اعلاه';
 const List<String> cities = [
   'الرياض',
   'جدة',

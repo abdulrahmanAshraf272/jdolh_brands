@@ -25,7 +25,7 @@ class AddPolicyController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await bchData.addEditPolicy(
-          bchid: '8', //TODO: set the correct bch id
+          bchid: '6', //TODO: set the correct bch id
           billPolicyid: selectedBillPolicy.toString(),
           resPolicyid: selectedResPolicy.toString());
       statusRequest = handlingData(response);
@@ -84,19 +84,23 @@ class AddPolicyController extends GetxController {
     update();
   }
 
-  setSelectedResPolicy(String? value) {
-    if (value != null) {
-      selectedResPolicy =
-          resPolicies.firstWhere((element) => element.title == value).id;
-    }
+  setSelectedResPolicy(int index) {
+    selectedResPolicy = resPolicies[index].id;
+    update();
   }
 
-  setSelectedBillPolicy(String? value) {
-    if (value != null) {
-      selectedBillPolicy =
-          billPolicies.firstWhere((element) => element.title == value).id;
-    }
+  setSelectedBillPolicy(int index) {
+    selectedBillPolicy = billPolicies[index].id;
+    update();
   }
+
+  // setSelectedBillPolicy(String? value) {
+  //   if (value != null) {
+  //     selectedBillPolicy =
+  //         billPolicies.firstWhere((element) => element.title == value).id;
+  //     update();
+  //   }
+  // }
 
   @override
   void onInit() {
