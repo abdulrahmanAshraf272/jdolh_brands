@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
+import 'package:jdolh_brands/core/functions/generate_username_password.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/bch_manager.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
 import 'package:jdolh_brands/data/models/bch_manager.dart';
 import 'package:jdolh_brands/data/models/categories.dart';
+import 'package:jdolh_brands/view/screens/bch/bch_manager_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BchManagerController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
   BchManagerData bchManagerData = BchManagerData(Get.find());
   TextEditingController textEC = TextEditingController();
+
+  bool justCreated = false;
 
   BchManager? bchManager;
   String name = '';
@@ -26,7 +32,20 @@ class BchManagerController extends GetxController {
   //   update();
   // }
 
-  onTapBchManager() async {
+  passwordUnableToShowDialog() {
+    Get.defaultDialog(
+      title: 'تنبيه',
+      middleText:
+          'كلمة السر مشفرة ولا يمكن عرضها لاسباب امنية, ولاكن يمكنك انشاء كلمة سر جديدة.',
+      onConfirm: () {
+        Get.back();
+        createNewPassword();
+      },
+      textConfirm: 'انشاء كلمة سر',
+    );
+  }
+
+  onTapAddBchManager() async {
     Get.defaultDialog(
       title: "اسم المدير",
       content: Column(
@@ -37,8 +56,9 @@ class BchManagerController extends GetxController {
         ],
       ),
       onConfirm: () {
-        Get.back();
         if (checkValidInput()) {
+          Get.back();
+          addBchManager(textEC.text);
           textEC.clear();
         }
       },
@@ -47,20 +67,62 @@ class BchManagerController extends GetxController {
   }
 
   addBchManager(String name) async {
+    justCreated = true;
+    username = generateUsername(name);
+    password = generatePassword();
+    name = textEC.text;
+
+    print(textEC.text);
+
+    print('username: $username');
+    print('password: $password');
+
     statusRequest = StatusRequest.loading;
     update();
     var response = await bchManagerData.addBchManager(
-        brandid: '24', bchid: '6', name: textEC.text);
+        brandid: '24',
+        bchid: '7',
+        name: name,
+        username: username,
+        password: password);
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
         bchManager = BchManager.fromJson(response['data']);
+        print(bchManager!.bchmanagerName);
       } else {
+        print('failure');
         statusRequest = StatusRequest.failure;
       }
     }
     update();
+  }
+
+  createNewPassword() async {
+    justCreated = true;
+    password = generatePassword();
+
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await bchManagerData.changePassword(
+        bchManagerid: bchManager!.bchmanagerId.toString(), password: password);
+    statusRequest = handlingData(response);
+    print(' ================$statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print('success change password');
+        Get.rawSnackbar(message: 'تم انشاء كلمة سر جديدة للمدير');
+      } else {
+        print('failure');
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+  }
+
+  sendUserNameAndPassword() async {
+    await Share.share("اسم المستخدم: $username\nكلمة السر: $password");
   }
 
   onTapDelete() {
@@ -81,7 +143,7 @@ class BchManagerController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await bchManagerData.deleteBchManager(
-        bchid: '6', bchManagerid: bchManager!.bchmanagerId.toString());
+        bchid: '7', bchManagerid: bchManager!.bchmanagerId.toString());
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
@@ -161,7 +223,7 @@ class BchManagerController extends GetxController {
   getBchManager() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await bchManagerData.getBchManager(bchid: '6');
+    var response = await bchManagerData.getBchManager(bchid: '7');
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
@@ -170,12 +232,14 @@ class BchManagerController extends GetxController {
         if (bchManager != null) {
           name = bchManager!.bchmanagerName ?? '';
           username = bchManager!.bchmanagerUsername ?? '';
-          password = bchManager!.bchmanagerPassword ?? '';
         }
+
+        print(bchManager!.bchmanagerName);
 
         print('get bchManager Done successfuly');
       } else {
         statusRequest = StatusRequest.failure;
+        print('falure');
       }
     }
     update();

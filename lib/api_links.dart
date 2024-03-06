@@ -58,6 +58,9 @@ class ApiLinks {
   static const String switchEnableBchManager =
       '$server/jdolh_brands/bch/bchManager/switch_enable_bch_manager.php';
 
+  static const String changePasswordBchManager =
+      '$server/jdolh_brands/bch/bchManager/change_password_bch_manager.php';
+
   static const String getBillResPolicy =
       '$server/jdolh_brands/bch/get_bill_res_policies.php';
   static const String getPaymentMethods =

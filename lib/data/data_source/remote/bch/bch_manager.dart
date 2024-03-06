@@ -11,9 +11,16 @@ class BchManagerData {
   addBchManager(
       {required String brandid,
       required String bchid,
-      required String name}) async {
-    var response = await crud.postData(ApiLinks.addBchManager,
-        {"brandid": brandid, "bchid": bchid, "name": name});
+      required String name,
+      required String username,
+      required String password}) async {
+    var response = await crud.postData(ApiLinks.addBchManager, {
+      "brandid": brandid,
+      "bchid": bchid,
+      "name": name,
+      "username": username,
+      "password": password
+    });
 
     return response.fold((l) => l, (r) => r);
   }
@@ -42,6 +49,14 @@ class BchManagerData {
     var response = await crud.postData(ApiLinks.switchEnableBchManager, {
       "bchManagerid": bchManagerid,
     });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  changePassword(
+      {required String bchManagerid, required String password}) async {
+    var response = await crud.postData(ApiLinks.changePasswordBchManager,
+        {"bchManagerid": bchManagerid, "password": password});
 
     return response.fold((l) => l, (r) => r);
   }

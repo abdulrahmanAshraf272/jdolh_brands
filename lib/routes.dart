@@ -38,8 +38,8 @@ List<GetPage> routes = [
   //   middlewares: [MyMiddleware()],
   // ),
   GetPage(
-    name: '/',
-    //name: AppRouteName.addPaymentMethod,
+    //name: '/',
+    name: AppRouteName.addPaymentMethod,
     page: () => const AddPaymentMethodsScreen(),
   ),
   GetPage(
@@ -53,8 +53,8 @@ List<GetPage> routes = [
     page: () => const CreateBchScreen(),
   ),
   GetPage(
-    //name: '/',
-    name: AppRouteName.bchManager,
+    name: '/',
+    //name: AppRouteName.bchManager,
     page: () => const BchManagerScreen(),
   ),
   GetPage(
