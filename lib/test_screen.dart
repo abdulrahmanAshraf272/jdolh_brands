@@ -13,10 +13,27 @@ import 'package:jdolh_brands/view/widgets/common/buttons/custom_radio_button.dar
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_button_one_option.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_buttons.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
+import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: customAppBar(title: 'الإختيارات'),
+      body: GetBuilder<TestController>(
+        builder: (controller) => Column(
+          children: [],
+        ),
+      ),
+    );
+  }
+}
+
+class TestScreen2 extends StatelessWidget {
+  const TestScreen2({super.key});
 
   @override
   Widget build(BuildContext context) {

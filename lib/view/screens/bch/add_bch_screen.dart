@@ -102,7 +102,7 @@ class CreateBchScreen extends StatelessWidget {
                       CustomTextFormGeneral(
                         hintText: 'ادخل وصف تشويقي للفرع الذي سيعرض للمسخدمين',
                         textEditingController: controller.bchDesc,
-                        valid: (val) => validInput(val!, 3, 100),
+                        valid: (val) => validInput(val!, 3, 255),
                         height: 120.h,
                         maxLength: 255,
                         maxLines: 3,

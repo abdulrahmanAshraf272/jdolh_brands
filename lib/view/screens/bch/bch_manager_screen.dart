@@ -18,8 +18,7 @@ import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 
 class BchManagerScreen extends StatelessWidget {
-  final bool withArrowBack;
-  const BchManagerScreen({super.key, this.withArrowBack = true});
+  const BchManagerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +26,7 @@ class BchManagerScreen extends StatelessWidget {
 
     return GetBuilder<BchManagerController>(
         builder: (controller) => Scaffold(
-              appBar: customAppBar(
-                  title: 'مدير الفرع', withArrowBack: withArrowBack),
+              appBar: customAppBar(title: 'مدير الفرع'),
               // floatingActionButton: controller.bchManager == null
               //     ? GoHomeButton(
               //         onTap: () {}, text: 'إضافة', height: 40, width: 100)

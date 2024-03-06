@@ -8,6 +8,16 @@ class ResOptionsData {
   Crud crud;
   ResOptionsData(this.crud);
 
+  getResOptions({
+    required String bchid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getResOptions, {
+      "bchid": bchid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
   createResOptions({
     required String bchid,
     required String title,

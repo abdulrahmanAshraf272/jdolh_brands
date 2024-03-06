@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,14 +25,6 @@ class CreateResOptionsController extends GetxController with AllTimes {
   TextEditingController duration = TextEditingController();
   bool isAlwaysAvailable = true;
   TimeOfDay? timeHelper;
-
-  trySomething() {
-    bool encodeDone = encodeAllDays();
-    print('encodeDone $encodeDone');
-    print('satTime $satTime');
-    print('monTime $monTime');
-    print('satFromP1 $satFromP1');
-  }
 
   display(BuildContext context) {
     showModalBottomSheet(

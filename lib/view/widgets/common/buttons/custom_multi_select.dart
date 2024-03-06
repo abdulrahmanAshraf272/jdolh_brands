@@ -56,11 +56,12 @@ class _CustomMultiSelectState extends State<CustomMultiSelect> {
 class MultiSelectItem extends StatefulWidget {
   final String title;
   final void Function() onTap;
-  const MultiSelectItem({
-    super.key,
-    required this.onTap,
-    required this.title,
-  });
+  final bool initActiveState;
+  const MultiSelectItem(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      this.initActiveState = false});
 
   @override
   State<MultiSelectItem> createState() => _MultiSelectItemState();
@@ -68,6 +69,13 @@ class MultiSelectItem extends StatefulWidget {
 
 class _MultiSelectItemState extends State<MultiSelectItem> {
   bool active = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    active = widget.initActiveState;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

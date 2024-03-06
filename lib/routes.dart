@@ -53,8 +53,8 @@ List<GetPage> routes = [
     page: () => const CreateBchScreen(),
   ),
   GetPage(
-    name: '/',
-    //name: AppRouteName.bchManager,
+    //name: '/',
+    name: AppRouteName.bchManager,
     page: () => const BchManagerScreen(),
   ),
   GetPage(
@@ -80,8 +80,8 @@ List<GetPage> routes = [
     page: () => const ItemsScreen(),
   ),
   GetPage(
-    //name: '/',
-    name: AppRouteName.createItems,
+    name: '/',
+    //name: AppRouteName.createItems,
     page: () => const CreateItemsScreen(),
   ),
   GetPage(

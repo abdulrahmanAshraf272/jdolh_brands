@@ -82,6 +82,8 @@ class ApiLinks {
 //ResOptions
   static const String addResOptions =
       '$server/jdolh_brands/bch/resOptions/add_resOptions.php';
+  static const String getResOptions =
+      '$server/jdolh_brands/bch/resOptions/get_resOptions.php';
   //Items
   static const String addItems = '$server/jdolh_brands/bch/items/add_items.php';
 }

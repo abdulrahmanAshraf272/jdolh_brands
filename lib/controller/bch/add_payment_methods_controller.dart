@@ -17,20 +17,10 @@ class AddPaymentMethodsController extends GetxController {
 
   addRemovePaymentMethods(int index) {
     if (selectedPaymentMethods.contains(paymentMethods[index].id!)) {
-      removePaymentMethod(index);
+      selectedPaymentMethods.remove(paymentMethods[index].id!);
     } else {
-      addPaymentMethod(index);
+      selectedPaymentMethods.add(paymentMethods[index].id!);
     }
-  }
-
-  addPaymentMethod(int index) {
-    selectedPaymentMethods.add(paymentMethods[index].id!);
-    print(selectedPaymentMethods);
-  }
-
-  removePaymentMethod(int index) {
-    selectedPaymentMethods.remove(paymentMethods[index].id!);
-    print(selectedPaymentMethods);
   }
 
   getPaymentMethods() async {
