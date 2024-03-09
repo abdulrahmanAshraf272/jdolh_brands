@@ -22,16 +22,16 @@ class CustomBottomAppBar extends StatelessWidget {
           children: [
             Expanded(
               child: BottomAppBarItem(
-                  index: 0, title: 'الرئيسية'.tr, iconData: Icons.home),
+                  index: 0, title: 'الفروع'.tr, iconData: Icons.home),
             ),
             Expanded(
               child: BottomAppBarItem(
-                  index: 1, title: 'جدولة'.tr, iconData: Icons.task),
+                  index: 1, title: 'الحجوزات'.tr, iconData: Icons.task),
             ),
             SizedBox(width: 40.w),
             Expanded(
               child: BottomAppBarItem(
-                  index: 2, title: 'مناسبات'.tr, iconData: Icons.person),
+                  index: 2, title: 'ال'.tr, iconData: Icons.person),
             ),
             Expanded(
               child: BottomAppBarItem(

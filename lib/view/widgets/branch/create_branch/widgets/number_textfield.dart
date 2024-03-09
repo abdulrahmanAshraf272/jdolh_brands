@@ -10,20 +10,29 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
   final TextEditingController textEditingController;
   final String title;
   final String endText;
-  final String comment;
-  final String example;
+  final String? comment;
+  final String? example;
+  final void Function()? onTapTextButton;
+  final String textButtonTitle;
+  final double horizontalPadding;
+  final double verticalPadding;
   const NumberTextFieldWithTitleAndText(
       {super.key,
       required this.textEditingController,
       required this.title,
       required this.endText,
-      this.comment = '',
-      this.example = ''});
+      this.comment,
+      this.example,
+      this.onTapTextButton,
+      this.textButtonTitle = '',
+      this.horizontalPadding = 20,
+      this.verticalPadding = 20});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding, vertical: verticalPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,14 +82,29 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            comment,
-            style: titleSmallGray,
-          ),
-          Text(
-            example,
-            style: titleSmallGray,
-          ),
+          comment != null
+              ? Text(
+                  comment!,
+                  style: titleSmallGray,
+                )
+              : SizedBox(),
+          example != null
+              ? Text(
+                  example!,
+                  style: titleSmallGray,
+                )
+              : SizedBox(),
+          onTapTextButton != null
+              ? TextButton(
+                  onPressed: onTapTextButton,
+                  child: Text(textButtonTitle,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14.sp,
+                        decoration: TextDecoration.underline,
+                        color: AppColors.textDark,
+                      )))
+              : SizedBox()
         ],
       ),
     );

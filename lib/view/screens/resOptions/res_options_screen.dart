@@ -5,6 +5,7 @@ import 'package:jdolh_brands/controller/resOptions/res_options_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
 
 class ResOptionsScreen extends StatelessWidget {
@@ -19,10 +20,10 @@ class ResOptionsScreen extends StatelessWidget {
         builder: (controller) => Scaffold(
               appBar: appBarWithButtonCreate(
                   onTapCreate: () {
-                    Get.toNamed(AppRouteName.createResOptions);
+                    controller.goToAddResOption();
                   },
                   withArrowBack: withArrowBack,
-                  title: 'تفضيلات الحجز',
+                  title: 'التفضيلات',
                   buttonText: 'انشاء تفضيل'),
               body: Column(
                 children: [
@@ -32,9 +33,12 @@ class ResOptionsScreen extends StatelessWidget {
                       child: controller.resOptions.isNotEmpty
                           ? ListView.builder(
                               physics: BouncingScrollPhysics(),
-                              itemCount: 0,
+                              itemCount: controller.resOptions.length,
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              itemBuilder: (context, index) => Container())
+                              itemBuilder: (context, index) => CustomCardOne(
+                                  text: controller
+                                      .resOptions[index].resoptionsTitle!,
+                                  onTap: () {}))
                           : Center(
                               child: RichText(
                                   textAlign: TextAlign.center,

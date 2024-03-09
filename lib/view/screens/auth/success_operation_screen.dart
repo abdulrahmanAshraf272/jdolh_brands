@@ -30,7 +30,7 @@ class SuccessOperation extends StatelessWidget {
             CustomButtonOne(
                 textButton: 'ابدأ',
                 onPressed: () {
-                  Get.offAllNamed(AppRouteName.mainScreen);
+                  Get.offAllNamed(AppRouteName.createBrand);
                 })
           ],
         ),

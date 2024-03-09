@@ -86,4 +86,13 @@ class ApiLinks {
       '$server/jdolh_brands/bch/resOptions/get_resOptions.php';
   //Items
   static const String addItems = '$server/jdolh_brands/bch/items/add_items.php';
+  static const String addItemOption =
+      '$server/jdolh_brands/bch/items/add_itemsoption.php';
+  static const String addItemOptionElement =
+      '$server/jdolh_brands/bch/items/add_ioption_element.php';
+  static const String deleteItemOptionElement =
+      '$server/jdolh_brands/bch/items/delete_ioption_element.php';
+  static const String getItemOptionWithElement =
+      '$server/jdolh_brands/bch/items/get_itemsoption_with_elements.php';
+  static const String getItems = '$server/jdolh_brands/bch/items/get_items.php';
 }

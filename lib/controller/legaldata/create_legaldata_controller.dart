@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
+import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/functions/pick_image.dart';
@@ -18,7 +19,7 @@ import 'package:jdolh_brands/data/models/brand_subtype.dart';
 import 'package:jdolh_brands/data/models/brand_type.dart';
 
 class CreateLegaldataController extends GetxController {
-  bool afterSignup = true;
+  bool afterSignup = false;
   StatusRequest statusRequest = StatusRequest.none;
   GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   LegaldataData legaldataData = LegaldataData(Get.find());
@@ -48,12 +49,14 @@ class CreateLegaldataController extends GetxController {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          // === Set brandstep = 3  ==//
+          myServices.setBrandstep('3');
+
           displayDoneDialog(context, () {
             if (afterSignup) {
-              //navigate offNamed LegalDataScreen
+              Get.offAllNamed(AppRouteName.more);
             } else {
-              //navigate offAllNamed mainScreen
-              //Get.offAllNamed(AppRouteName.mainScreen);
+              Get.back();
             }
           });
         } else {

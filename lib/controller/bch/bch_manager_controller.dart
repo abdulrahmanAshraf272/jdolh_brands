@@ -5,6 +5,7 @@ import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/generate_username_password.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
+import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/bch_manager.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
@@ -19,6 +20,7 @@ class BchManagerController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
   BchManagerData bchManagerData = BchManagerData(Get.find());
   TextEditingController textEC = TextEditingController();
+  MyServices myServices = Get.find();
 
   bool justCreated = false;
 
@@ -80,8 +82,8 @@ class BchManagerController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await bchManagerData.addBchManager(
-        brandid: '24',
-        bchid: '7',
+        brandid: myServices.getBrandid(),
+        bchid: myServices.getBchid(),
         name: name,
         username: username,
         password: password);
@@ -89,6 +91,7 @@ class BchManagerController extends GetxController {
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
+        myServices.setBchstep('8');
         bchManager = BchManager.fromJson(response['data']);
         print(bchManager!.bchmanagerName);
       } else {
@@ -143,7 +146,8 @@ class BchManagerController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await bchManagerData.deleteBchManager(
-        bchid: '7', bchManagerid: bchManager!.bchmanagerId.toString());
+        bchid: myServices.getBchid(),
+        bchManagerid: bchManager!.bchmanagerId.toString());
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
@@ -223,7 +227,8 @@ class BchManagerController extends GetxController {
   getBchManager() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await bchManagerData.getBchManager(bchid: '7');
+    var response =
+        await bchManagerData.getBchManager(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {

@@ -11,12 +11,15 @@ class MyMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    String step = myServices.sharedPreferences.getString('step') ?? '0';
-    if (step == '2') {
-      return const RouteSettings(name: AppRouteName.mainScreen);
-    }
-    if (step == '1') {
+    //String step = myServices.sharedPreferences.getString('step') ?? '0';
+    String brandstep =
+        myServices.sharedPreferences.getString('brandstep') ?? '0';
+    if (brandstep == '0') {
       return const RouteSettings(name: AppRouteName.login);
+    } else if (brandstep == '4') {
+      return const RouteSettings(name: AppRouteName.mainScreen);
+    } else {
+      return const RouteSettings(name: AppRouteName.more);
     }
   }
 }

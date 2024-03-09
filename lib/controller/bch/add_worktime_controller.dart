@@ -39,20 +39,23 @@ class AddWorktimeController extends GetxController with AllTimes {
       statusRequest = StatusRequest.loading;
       update();
       var response = await bchData.addWorktime(
-          bchid: '6',
-          satTime: satTime!,
-          sunTime: sunTime!,
-          monTime: monTime!,
-          tuesTime: tuesTime!,
-          wedTime: wedTime!,
-          thursTime: thursTime!,
-          friTime: friTime!);
+          bchid: myServices.getBchid(),
+          satTime: satTime ?? '',
+          sunTime: sunTime ?? '',
+          monTime: monTime ?? '',
+          tuesTime: tuesTime ?? '',
+          wedTime: wedTime ?? '',
+          thursTime: thursTime ?? '',
+          friTime: friTime ?? '');
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          displayDoneDialog(context, () {});
+          myServices.setBchstep('2');
+          displayDoneDialog(context, () {
+            Get.back();
+          });
         } else {
           statusRequest = StatusRequest.failure;
           update();

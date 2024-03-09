@@ -26,7 +26,8 @@ class RectImageHolder extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: AssetImage('assets/images/placeholder.png'))
                     : DecorationImage(
-                        fit: BoxFit.cover, image: MemoryImage(selectedImage!))),
+                        //fit: BoxFit.cover,
+                        image: MemoryImage(selectedImage!))),
           ),
         ),
         const SizedBox(height: 8),

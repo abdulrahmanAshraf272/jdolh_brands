@@ -7,8 +7,10 @@ import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
+import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/auth/signup.dart';
 import 'package:jdolh_brands/data/data_source/remote/view_types_and_subtypes.dart';
+import 'package:jdolh_brands/data/models/brandManager.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 
 class SignupController extends GetxController {
@@ -20,6 +22,7 @@ class SignupController extends GetxController {
   TextEditingController password = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   SignupData signupData = SignupData(Get.find());
+  MyServices myServices = Get.find();
 
   StatusRequest statusRequest = StatusRequest.none;
   bool passwordVisible = true;

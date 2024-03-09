@@ -4,6 +4,7 @@ import 'package:jdolh_brands/controller/items/items_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
 
 class ItemsScreen extends StatelessWidget {
@@ -21,8 +22,8 @@ class ItemsScreen extends StatelessWidget {
                     Get.toNamed(AppRouteName.createItems);
                   },
                   withArrowBack: withArrowback,
-                  title: 'العناصر',
-                  buttonText: 'انشاء عنصر'),
+                  title: '${controller.itemTextP}',
+                  buttonText: 'انشاء ${controller.itemTextS}'),
               body: Column(
                 children: [
                   HandlingDataView(
@@ -31,15 +32,18 @@ class ItemsScreen extends StatelessWidget {
                       child: controller.items.isNotEmpty
                           ? ListView.builder(
                               physics: BouncingScrollPhysics(),
-                              itemCount: 0,
+                              itemCount: controller.items.length,
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              itemBuilder: (context, index) => Container())
+                              itemBuilder: (context, index) => CustomCardOne(
+                                  text: controller.items[index].itemsTitle!,
+                                  onTap: () {}))
                           : Center(
                               child: RichText(
                                   textAlign: TextAlign.center,
                                   text: TextSpan(children: [
                                     TextSpan(
-                                      text: 'لا يوجد لديك اي عناصر!\n',
+                                      text:
+                                          'لا يوجد لديك اي ${controller.itemTextS}!\n',
                                       style: TextStyle(
                                           color:
                                               AppColors.black.withOpacity(0.7),
@@ -48,7 +52,8 @@ class ItemsScreen extends StatelessWidget {
                                           fontFamily: 'Cairo'),
                                     ),
                                     TextSpan(
-                                        text: 'اضف اول عنصر في القائمة',
+                                        text:
+                                            'اضف اول ${controller.itemTextS} في القائمة',
                                         style: TextStyle(
                                             color: AppColors.black
                                                 .withOpacity(0.4),

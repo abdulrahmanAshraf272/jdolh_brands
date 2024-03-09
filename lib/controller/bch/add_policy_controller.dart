@@ -25,7 +25,7 @@ class AddPolicyController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await bchData.addEditPolicy(
-          bchid: '6', //TODO: set the correct bch id
+          bchid: myServices.getBchid(),
           billPolicyid: selectedBillPolicy.toString(),
           resPolicyid: selectedResPolicy.toString());
       statusRequest = handlingData(response);
@@ -33,7 +33,10 @@ class AddPolicyController extends GetxController {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          displayDoneDialog(context, () {});
+          myServices.setBchstep('3');
+          displayDoneDialog(context, () {
+            Get.back();
+          });
         } else {
           statusRequest = StatusRequest.failure;
           update();

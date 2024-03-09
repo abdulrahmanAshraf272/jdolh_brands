@@ -48,21 +48,42 @@ class LoginController extends GetxController {
   saveUserDataInSharedPreferences(BrandManager brandManager) {
     myServices.sharedPreferences
         .setString("id", brandManager.brandManagerId.toString());
-    myServices.sharedPreferences
-        .setString("name", brandManager.brandManagerName!);
-    myServices.sharedPreferences
-        .setString("username", brandManager.brandManagerUsername!);
-    myServices.sharedPreferences
-        .setString("email", brandManager.brandManagerEmail!);
-    myServices.sharedPreferences
-        .setString("phone", brandManager.brandManagerPhone!);
+    // myServices.sharedPreferences
+    //     .setString("name", brandManager.brandManagerName!);
+    // myServices.sharedPreferences
+    //     .setString("username", brandManager.brandManagerUsername!);
+    // myServices.sharedPreferences
+    //     .setString("email", brandManager.brandManagerEmail!);
+    // myServices.sharedPreferences
+    //     .setString("phone", brandManager.brandManagerPhone!);
     //step 0 onboarding, step 1 login, step 2 mainScreen
     //myServices.sharedPreferences.setString("step", "2");
     print('===== Saving user data in sharedPreferences Done =====');
   }
 
   goToMainScreen() {
-    Get.offAllNamed(AppRouteName.mainScreen);
+    myServices.sharedPreferences.setString("brandstep", "1");
+
+    String brandstep = '4';
+    if (brandstep == '4') {
+      Get.offAllNamed(AppRouteName.mainScreen);
+    } else {
+      Get.offAllNamed(AppRouteName.more);
+    }
+  }
+
+  createBrandIsDone() {
+    //TODO: check if i create brand,
+    //TODO: if yes, 1- save brandid, 2- brandstep = 2
+  }
+
+  createLegaldataIsDone() {
+    //TODO: check if i create legaldata
+    //TODO: if yes, brandstep = 3
+  }
+  createBchIsDone() {
+    //TODO: check if i create bch
+    //TODO: if yes, brandstep = 4
   }
 
   goToVerifycode() {

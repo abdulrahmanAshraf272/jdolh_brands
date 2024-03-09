@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/items/create_item_controller.dart';
@@ -8,6 +9,7 @@ import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
 import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
+import 'package:jdolh_brands/view/widgets/common/buttons/Small_toggle_buttons.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_multi_select.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
@@ -27,19 +29,19 @@ class CreateItemsScreen extends StatelessWidget {
     Get.put(CreateItemsController());
     return GetBuilder<CreateItemsController>(
         builder: (controller) => Scaffold(
-              appBar: customAppBar(title: 'انشاء عنصر'),
+              appBar: customAppBar(title: 'انشاء ${controller.itemText}'),
               body: SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    const CustomSmallBoldTitle(title: 'صورة العنصر'),
+                    CustomSmallBoldTitle(title: 'صورة ${controller.itemText}'),
                     const SizedBox(height: 10),
                     RectImageHolder(
                       onTap: () => controller.uploadImage(),
                       selectedImage: controller.selectedImage,
                     ),
                     const SizedBox(height: 20),
-                    const CustomSmallBoldTitle(title: 'اسم العنصر'),
+                    CustomSmallBoldTitle(title: 'اسم ${controller.itemText}'),
                     const SizedBox(height: 10),
                     CustomTextFormGeneral(
                       hintText: 'مثال: شاورما, عصير مانجا ..',
@@ -47,10 +49,10 @@ class CreateItemsScreen extends StatelessWidget {
                       valid: (val) => validInput(val!, 2, 50),
                     ),
                     const SizedBox(height: 20),
-                    const CustomSmallBoldTitle(title: 'وصف العنصر'),
+                    CustomSmallBoldTitle(title: 'وصف ${controller.itemText}'),
                     const SizedBox(height: 10),
                     CustomTextFormGeneral(
-                      hintText: 'ادخل وصف العنصر',
+                      hintText: 'ادخل وصف ${controller.itemText}',
                       textEditingController: controller.desc,
                       valid: (val) => validInput(val!, 3, 100),
                       height: 100.h,
@@ -85,10 +87,49 @@ class CreateItemsScreen extends StatelessWidget {
                             ))),
                     const SizedBox(height: 20),
                     NumberTextFieldWithTitleAndText(
-                      textEditingController: controller.price,
-                      title: "السعر",
-                      endText: 'ريال',
+                        textEditingController: controller.price,
+                        title: 'السعر',
+                        endText: 'ريال',
+                        textButtonTitle: 'السعر حسب الإختيار؟',
+                        onTapTextButton: () =>
+                            controller.goToAddOptionsPriceDep()),
+                    NumberTextFieldWithTitleAndText(
+                      textEditingController: controller.dicount,
+                      title: 'التخفيض',
+                      endText: controller.discountIsPercent ? '%' : 'ريال',
+                      verticalPadding: 0,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: SmallToggleButtons(
+                            optionOne: 'مبلغ',
+                            optionTwo: 'نسبة',
+                            onTapOne: () {
+                              controller.changeDiscountIsPercent(false);
+                            },
+                            onTapTwo: () {
+                              controller.changeDiscountIsPercent(true);
+                            }),
+                      ),
+                    ),
+                    controller.isService
+                        ? NumberTextFieldWithTitleAndText(
+                            textEditingController: controller.duration,
+                            title: "مدة الحجز",
+                            endText: 'دقيقة',
+                            example: '',
+                          )
+                        : const SizedBox(),
+                    const SizedBox(height: 20),
+                    CustomCardOne(
+                      text: 'خيارات اضافية',
+                      onTap: () {
+                        controller.goToAddOptions();
+                      },
+                    ),
+                    const SizedBox(height: 20),
                     AvailableItemTime(
                       onTapAllwaysAvailale: () {
                         //controller.display(context);
@@ -96,7 +137,7 @@ class CreateItemsScreen extends StatelessWidget {
                       },
                     ),
                     GoHomeButton(
-                      onTap: () {},
+                      onTap: () => controller.createItem(context),
                       text: 'حفظ',
                     ),
                     const SizedBox(height: 20),
@@ -104,5 +145,62 @@ class CreateItemsScreen extends StatelessWidget {
                 ),
               ),
             ));
+  }
+}
+
+class CustomCardOne extends StatelessWidget {
+  final String text;
+  final void Function() onTap;
+  final bool cancelArrowForward;
+  const CustomCardOne(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      this.cancelArrowForward = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: AppColors.gray,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(14),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: Container(
+              height: 45.h,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: AutoSizeText(
+                    text,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.sp,
+                      color: Colors.grey.shade700,
+                    ),
+                  )),
+                  !cancelArrowForward
+                      ? Icon(
+                          Icons.arrow_forward,
+                          color: Colors.grey.shade500,
+                        )
+                      : const SizedBox()
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -16,27 +16,52 @@ import 'package:jdolh_brands/view/screens/bch/add_bch_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_payment_methods_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_plicy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/all_bchs_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_manager_screen.dart';
-import 'package:jdolh_brands/view/screens/bch/branch_details_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/bch_details_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_branch_screen.dart';
 import 'package:jdolh_brands/view/screens/brand/create_brand_screen.dart';
 import 'package:jdolh_brands/view/screens/categories_screen.dart';
 
 import 'package:jdolh_brands/view/screens/home_screen.dart';
+import 'package:jdolh_brands/view/screens/items/add_ioption_element_screen.dart';
+import 'package:jdolh_brands/view/screens/items/add_items_options_screen.dart';
+import 'package:jdolh_brands/view/screens/items/additional_item_options_screen.dart';
 import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/screens/items/items_screen.dart';
 import 'package:jdolh_brands/view/screens/legaldata/create_legaldata_screen.dart';
 import 'package:jdolh_brands/view/screens/main_screen.dart';
+import 'package:jdolh_brands/view/screens/more_screen.dart';
 import 'package:jdolh_brands/view/screens/resOptions/create_res_option_screen.dart';
 import 'package:jdolh_brands/view/screens/resOptions/res_options_screen.dart';
 import 'package:jdolh_brands/view/screens/select_address_screen.dart';
 
 List<GetPage> routes = [
-  // GetPage(
-  //   name: '/',
-  //   page: () => const LoginScreen(),
-  //   middlewares: [MyMiddleware()],
-  // ),
+  GetPage(
+    name: '/',
+    page: () => const LoginScreen(),
+    middlewares: [MyMiddleware()],
+  ),
+  GetPage(
+    //name: '/',
+    name: AppRouteName.more,
+    page: () => const MoreScreen(),
+  ),
+  GetPage(
+      //name: '/',
+      name: AppRouteName.additionalItemOptions,
+      page: () => const AdditionalItemOptionsScreen(),
+      popGesture: true),
+  GetPage(
+      //name: '/',
+      name: AppRouteName.addItemOptions,
+      page: () => const AddItemsOptionsScreen(),
+      popGesture: true),
+  GetPage(
+      //name: '/',
+      name: AppRouteName.addIoptionElement,
+      page: () => const AddIoptionElementScreen(),
+      popGesture: true),
   GetPage(
     //name: '/',
     name: AppRouteName.addPaymentMethod,
@@ -51,6 +76,11 @@ List<GetPage> routes = [
     //name: '/',
     name: AppRouteName.createBch,
     page: () => const CreateBchScreen(),
+  ),
+  GetPage(
+    //name: '/',
+    name: AppRouteName.allBchs,
+    page: () => const AllBchsScreen(),
   ),
   GetPage(
     //name: '/',
@@ -75,15 +105,15 @@ List<GetPage> routes = [
     page: () => const AddAllBranchContent(),
   ),
   GetPage(
-    //name: '/',
-    name: AppRouteName.items,
-    page: () => const ItemsScreen(),
-  ),
+      //name: '/',
+      name: AppRouteName.items,
+      page: () => const ItemsScreen(),
+      popGesture: true),
   GetPage(
-    name: '/',
-    //name: AppRouteName.createItems,
-    page: () => const CreateItemsScreen(),
-  ),
+      //name: '/',
+      name: AppRouteName.createItems,
+      page: () => const CreateItemsScreen(),
+      popGesture: true),
   GetPage(
     //name: '/',
     name: AppRouteName.resOptions,
@@ -103,8 +133,8 @@ List<GetPage> routes = [
   ),
 
   GetPage(
-    name: AppRouteName.branchDetails,
-    page: () => const BranchDetailsScreen(),
+    name: AppRouteName.bchDetails,
+    page: () => const BchDetailsScreen(),
   ),
   GetPage(
       name: AppRouteName.selectAddress,

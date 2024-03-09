@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
+import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
 import 'package:jdolh_brands/data/models/categories.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
@@ -13,6 +14,7 @@ class CategoriesController extends GetxController {
   CategoriesData categoriesData = CategoriesData(Get.find());
   TextEditingController textEC = TextEditingController();
   List<MyCategories> categories = [];
+  MyServices myServices = Get.find();
 
   // deleteCategoryLocale(int index) {
   //   categories.removeAt(index);
@@ -41,12 +43,14 @@ class CategoriesController extends GetxController {
   addCategory(String title) async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await categoriesData.addCategories(bchid: '6', title: title);
+    var response = await categoriesData.addCategories(
+        bchid: myServices.getBchid(), title: title);
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
 
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
+        myServices.setBchstep('5');
         MyCategories myCategories = MyCategories.fromJson(response['data']);
         categories.add(myCategories);
       } else {
@@ -96,14 +100,15 @@ class CategoriesController extends GetxController {
   getCategories() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await categoriesData.getCategories(bchid: '6');
+    var response =
+        await categoriesData.getCategories(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
     update();
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
         parseData(response);
       } else {
-        Get.rawSnackbar(message: 'لا يوجد بيانات');
+        //Get.rawSnackbar(message: 'لا يوجد بيانات');
       }
     } //
   }

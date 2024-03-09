@@ -49,7 +49,7 @@ class VerifycodeController extends GetxController {
         print('Response ===== ${response['status']}');
         //Save user data in local shared preferences
         brandManager = BrandManager.fromJson(response['data']);
-        saveUserDataInSharedPreferences(brandManager);
+        saveDataInSharedPrefs(brandManager);
 
         goToSuccessScreenOrResetPassword();
       } else {
@@ -62,17 +62,20 @@ class VerifycodeController extends GetxController {
     }
   }
 
-  saveUserDataInSharedPreferences(BrandManager brandManager) {
+  saveDataInSharedPrefs(BrandManager brandManager) {
     myServices.sharedPreferences
         .setString("id", brandManager.brandManagerId.toString());
-    myServices.sharedPreferences
-        .setString("name", brandManager.brandManagerName!);
-    myServices.sharedPreferences
-        .setString("username", brandManager.brandManagerUsername!);
-    myServices.sharedPreferences
-        .setString("email", brandManager.brandManagerEmail!);
-    myServices.sharedPreferences
-        .setString("phone", brandManager.brandManagerPhone!);
+
+    myServices.setBrandstep('1');
+
+    // myServices.sharedPreferences
+    //     .setString("name", brandManager.brandManagerName!);
+    // myServices.sharedPreferences
+    //     .setString("username", brandManager.brandManagerUsername!);
+    // myServices.sharedPreferences
+    //     .setString("email", brandManager.brandManagerEmail!);
+    // myServices.sharedPreferences
+    //     .setString("phone", brandManager.brandManagerPhone!);
     //step 0 onboarding, step 1 login, step 2 mainScreen
     //myServices.sharedPreferences.setString("step", "2");
     print('===== Saving user data in sharedPreferences Done =====');

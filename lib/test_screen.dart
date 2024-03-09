@@ -7,7 +7,7 @@ import 'package:jdolh_brands/controller/test_controller.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/data/models/payment_method.dart';
-import 'package:jdolh_brands/view/screens/bch/branch_details_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/bch_details_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_multi_select.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_radio_button.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_button_one_option.dart';

@@ -1,4 +1,5 @@
 class AppRouteName {
+  // === Auth ===//
   static const home = '/home';
   static const login = '/login';
   static const signUp = '/signUp';
@@ -9,11 +10,13 @@ class AppRouteName {
   static const resetPassword = '/resetPassword';
   static const successOperation = '/successOperation';
 
+  static const more = '/more';
+
   static const mainScreen = '/mainScreen';
 
   static const createBranch = '/createBranch';
 
-  static const branchDetails = '/branchDetails';
+  static const bchDetails = '/branchDetails';
   static const selectAddress = '/selectAddress';
 
   static const addAllBranchContent = '/addAllBranchContent';
@@ -31,7 +34,7 @@ class AppRouteName {
 
   //Categories
   static const categories = '/categories';
-  static const addCategories = '/addCategories';
+  //static const addCategories = '/addCategories';
 
   //ResOptions
   static const resOptions = '/resOptions';
@@ -40,4 +43,7 @@ class AppRouteName {
   //Items
   static const items = '/items';
   static const createItems = '/createItem';
+  static const addItemOptions = '/addItemOption';
+  static const addIoptionElement = '/addIoptionElement';
+  static const additionalItemOptions = '/additionalItemOption';
 }

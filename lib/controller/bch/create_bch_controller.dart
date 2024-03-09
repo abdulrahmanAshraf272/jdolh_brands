@@ -19,6 +19,7 @@ import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/data_source/remote/brand.dart';
 import 'package:jdolh_brands/data/data_source/remote/legaldata.dart';
 import 'package:jdolh_brands/data/data_source/remote/view_types_and_subtypes.dart';
+import 'package:jdolh_brands/data/models/bch.dart';
 import 'package:jdolh_brands/data/models/brand.dart';
 import 'package:jdolh_brands/data/models/brand_subtype.dart';
 import 'package:jdolh_brands/data/models/brand_type.dart';
@@ -67,13 +68,14 @@ class CreateBchController extends GetxController {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          myServices.setBchstep('1');
+          myServices.setBrandstep('4');
+          Bch bch = Bch.fromJson(response['data']);
+          myServices.setBchid(bch.bchId.toString());
+
           displayDoneDialog(context, () {
-            if (afterSignup) {
-              //navigate offNamed LegalDataScreen
-            } else {
-              //navigate offAllNamed mainScreen
-              //Get.offAllNamed(AppRouteName.mainScreen);
-            }
+            Get.offAllNamed(AppRouteName.mainScreen);
+            Get.toNamed(AppRouteName.bchDetails);
           });
         } else {
           statusRequest = StatusRequest.failure;

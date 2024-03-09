@@ -3,26 +3,35 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/controller/allTimesMixin.dart';
+import 'package:jdolh_brands/controller/items/items_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
+import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/functions/pick_image.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/items.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/resOptions.dart';
+import 'package:jdolh_brands/data/models/Item.dart';
 import 'package:jdolh_brands/data/models/categories.dart';
+import 'package:jdolh_brands/data/models/item_option.dart';
 import 'package:jdolh_brands/data/models/resOption.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_time_picker.dart';
 
 class CreateItemsController extends GetxController with AllTimes {
   //TODO: Get the value from sharedprefs
   bool isService = false;
+  late String itemText;
   GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   StatusRequest statusRequest = StatusRequest.none;
   MyServices myServices = Get.find();
+
+  ItemsController itemsController = Get.put(ItemsController());
 
   ItemsData itemsData = ItemsData(Get.find());
   CategoriesData categoriesData = CategoriesData(Get.find());
@@ -32,6 +41,23 @@ class CreateItemsController extends GetxController with AllTimes {
   TextEditingController price = TextEditingController();
   TextEditingController desc = TextEditingController();
   TextEditingController duration = TextEditingController();
+  TextEditingController dicount = TextEditingController();
+  bool discountIsPercent = false;
+
+  bool isPriceDep = false;
+
+  List<int> addedItemOptionsIds = [];
+  List<ItemOption> addedItemOptions = [];
+
+  changeDiscountIsPercent(bool isPercent) {
+    if (isPercent) {
+      discountIsPercent = true;
+    } else {
+      discountIsPercent = false;
+    }
+    print('discountIsPercent: $discountIsPercent');
+    update();
+  }
 
   bool isAlwaysAvailable = true;
   TimeOfDay? timeHelper;
@@ -47,18 +73,65 @@ class CreateItemsController extends GetxController with AllTimes {
   List<int> selectedResOptions = [];
 
   // ============ Create item ===============//
-  createItem() {
-    var formdata = formstatepart.currentState;
-    if (formdata!.validate() && allFieldsAdded()) {}
+  createItem(BuildContext context) async {
+    //var formdata = formstatepart.currentState;
+    if (allFieldsAdded()) {
+      String resOptionsIds =
+          resOptions.map((item) => item.resoptionsId).join(',');
+      String optionsIds = addedItemOptions.map((item) => item.id).join(',');
+      print('all fields add');
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await itemsData.addItems(
+          bchid: myServices.getBchid(),
+          categoriesid: selectedCategory.toString(),
+          resoptionsid: resOptionsIds,
+          title: title.text,
+          price: price.text,
+          dicount: discountIsPercent ? '' : dicount.text,
+          discountPercentage: discountIsPercent ? dicount.text : '',
+          desc: desc.text,
+          withOptions: addedItemOptions.isEmpty ? '0' : '1',
+          duration: duration.text,
+          alwaysAvailable: isAlwaysAvailable ? '1' : '0',
+          satTime: satTime ?? '',
+          sunTime: sunTime ?? '',
+          monTime: monTime ?? '',
+          tuesTime: tuesTime ?? '',
+          wedTime: wedTime ?? '',
+          thursTime: thursTime ?? '',
+          friTime: friTime ?? '',
+          ioptionSelected: optionsIds,
+          file: image!);
+      statusRequest = handlingData(response);
+      print(' ================$statusRequest');
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == 'success') {
+          print('success');
+          //add the item just created to local , to display it.
+          Item item = Item.fromJson(response['data']);
+          itemsController.items.add(item);
+
+          //Change the donePercent of the bch
+          myServices.setBchstep('7');
+          displayDoneDialog(context, () {
+            Get.back();
+          });
+        } else {
+          statusRequest = StatusRequest.failure;
+          print('failute');
+        }
+      }
+    }
   }
 
   // ============ Check validation =============//
   allFieldsAdded() {
     if (title.text == '') {
-      Get.rawSnackbar(message: 'من فضلك قم باضافة اسم العنصر');
+      Get.rawSnackbar(message: 'من فضلك قم باضافة اسم $itemText');
       return false;
     } else if (desc.text == '') {
-      Get.rawSnackbar(message: 'من فضلك قم باضافة وصف العنصر');
+      Get.rawSnackbar(message: 'من فضلك قم باضافة وصف $itemText');
       return false;
     } else if (selectedResOptions.isEmpty) {
       Get.rawSnackbar(message: 'من فضلك قم باضافة التفضيلات');
@@ -67,7 +140,7 @@ class CreateItemsController extends GetxController with AllTimes {
       Get.rawSnackbar(message: 'من فضلك قم باضافة الصنف');
       return false;
     } else if (image == null) {
-      Get.rawSnackbar(message: 'من فضلك قم باضافة صورة العنصر');
+      Get.rawSnackbar(message: 'من فضلك قم باضافة صورة $itemText');
       return false;
     } else if (!checkDuration()) {
       return false;
@@ -83,7 +156,7 @@ class CreateItemsController extends GetxController with AllTimes {
   }
 
   bool checkDuration() {
-    if (!isService) {
+    if (isService) {
       if (duration.text == '') {
         Get.rawSnackbar(message: 'من فضلك قم باضافة مدة الحجز');
         return false;
@@ -237,8 +310,28 @@ class CreateItemsController extends GetxController with AllTimes {
     );
   }
 
+  goToAddOptionsPriceDep() async {
+    final result = await Get.toNamed(AppRouteName.addItemOptions,
+        arguments: {'isPriceDep': true});
+    if (result != null) {
+      addedItemOptions.add(result);
+      isPriceDep = true;
+    }
+  }
+
+  goToAddOptions() async {
+    Get.toNamed(AppRouteName.additionalItemOptions);
+    // if (result != null) {
+    //   //Here i will recive list not one object.
+    //   addedItemOptions.addAll(result);
+    // }
+  }
+
   @override
   void onInit() {
+    //TODO: get is service
+    isService = myServices.getIsService() == 1 ? true : false;
+    isService ? itemText = 'الحجز' : itemText = 'المنتج';
     getCategories();
     getResOptions();
     super.onInit();

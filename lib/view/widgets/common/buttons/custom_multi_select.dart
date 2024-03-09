@@ -55,13 +55,17 @@ class _CustomMultiSelectState extends State<CustomMultiSelect> {
 
 class MultiSelectItem extends StatefulWidget {
   final String title;
+  final String? sutitle;
   final void Function() onTap;
   final bool initActiveState;
+  final double fontSize;
   const MultiSelectItem(
       {super.key,
       required this.onTap,
       required this.title,
-      this.initActiveState = false});
+      this.initActiveState = false,
+      this.sutitle,
+      this.fontSize = 12});
 
   @override
   State<MultiSelectItem> createState() => _MultiSelectItemState();
@@ -101,13 +105,32 @@ class _MultiSelectItemState extends State<MultiSelectItem> {
                   )
                 : SizedBox(width: 20),
             Spacer(),
-            Text(
-              widget.title,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12.sp,
-                color: active ? AppColors.white : AppColors.secondaryColor25,
-              ),
+            Column(
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontWeight: FontWeight.w600,
+                    fontSize: widget.fontSize.sp,
+                    color:
+                        active ? AppColors.white : AppColors.secondaryColor25,
+                  ),
+                ),
+                widget.sutitle != null
+                    ? Text(
+                        widget.sutitle!,
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 9.sp,
+                          color: active
+                              ? AppColors.white
+                              : AppColors.secondaryColor25,
+                        ),
+                      )
+                    : SizedBox()
+              ],
             ),
             Spacer(),
             const SizedBox(width: 20)

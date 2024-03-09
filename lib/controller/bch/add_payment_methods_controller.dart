@@ -12,6 +12,7 @@ class AddPaymentMethodsController extends GetxController {
   MyServices myServices = Get.find();
   BchData bchData = BchData(Get.find());
   List<PaymentMethod> paymentMethods = [];
+  List<String> appPercent = ['1 ريال + 2.5 %', '1 ريال+ 10%', 'لا يوجد رسوم'];
 
   List<int> selectedPaymentMethods = [];
 
@@ -53,18 +54,20 @@ class AddPaymentMethodsController extends GetxController {
     if (allFieldSelected()) {
       String selectedPaymentMethodsString =
           selectedPaymentMethods.map((int item) => item.toString()).join(',');
-      print(selectedPaymentMethodsString);
       statusRequest = StatusRequest.loading;
       update();
       var response = await bchData.addPaymentMethods(
-          bchid: '6', //TODO: set the correct bch id
+          bchid: myServices.getBchid(),
           paymentMethodsid: selectedPaymentMethodsString);
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
 
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          displayDoneDialog(context, () {});
+          myServices.setBchstep('4');
+          displayDoneDialog(context, () {
+            Get.back();
+          });
         } else {
           statusRequest = StatusRequest.failure;
         }

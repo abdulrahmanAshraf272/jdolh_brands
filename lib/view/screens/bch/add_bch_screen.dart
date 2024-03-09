@@ -32,7 +32,7 @@ class CreateBchScreen extends StatelessWidget {
     return GetBuilder<CreateBchController>(
         builder: (controller) => Scaffold(
               appBar: customAppBar(
-                title: 'البيانات الأساسية',
+                title: 'إنشاء فرع',
               ),
               floatingActionButton: CustomButtonOne(
                   textButton: 'حفظ',

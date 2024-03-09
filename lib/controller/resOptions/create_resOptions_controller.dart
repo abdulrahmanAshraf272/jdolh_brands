@@ -5,17 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/allTimesMixin.dart';
+import 'package:jdolh_brands/controller/resOptions/res_options_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/resOptions.dart';
+import 'package:jdolh_brands/data/models/resOption.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_time_picker.dart';
 
 class CreateResOptionsController extends GetxController with AllTimes {
   //TODO: Get the value from sharedprefs
   bool isService = false;
 
+  ResOptionsController resOptionsController = Get.put(ResOptionsController());
   StatusRequest statusRequest = StatusRequest.none;
   ResOptionsData resOptionsData = ResOptionsData(Get.find());
   MyServices myServices = Get.find();
@@ -50,7 +53,7 @@ class CreateResOptionsController extends GetxController with AllTimes {
       statusRequest = StatusRequest.loading;
       update();
       var response = await resOptionsData.createResOptions(
-          bchid: '6',
+          bchid: myServices.getBchid(),
           title: title.text,
           countLimit: countLimit.text,
           duration: isService ? '-1' : duration.text,
@@ -67,7 +70,15 @@ class CreateResOptionsController extends GetxController with AllTimes {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          displayDoneDialog(context, () {});
+          //add the item just created to local , to display it.
+          ResOption resOption = ResOption.fromJson(response['data']);
+          resOptionsController.resOptions.add(resOption);
+
+          //Change the donePercent of the bch
+          myServices.setBchstep('6');
+          displayDoneDialog(context, () {
+            Get.back();
+          });
         } else {
           statusRequest = StatusRequest.failure;
           update();

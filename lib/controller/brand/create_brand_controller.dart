@@ -17,7 +17,7 @@ import 'package:jdolh_brands/data/models/brand_subtype.dart';
 import 'package:jdolh_brands/data/models/brand_type.dart';
 
 class CreateBrandController extends GetxController {
-  bool afterSignup = true;
+  bool afterSignup = false;
   StatusRequest statusRequest = StatusRequest.none;
   GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   ViewBrandTypesAndSubtypesData viewBrandTypesData =
@@ -71,8 +71,12 @@ class CreateBrandController extends GetxController {
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
           Brand brand = Brand.fromJson(response['data']);
-          myServices.sharedPreferences
-              .setString("brandid", brand.brandId.toString());
+          //=== save brandid in sharedPrefs
+          myServices.setBrandid(brand.brandId.toString());
+          myServices.setIsService(brand.brandIsService!);
+
+          // === Set brandstep = 2  ==//
+          myServices.setBrandstep('2');
           AwesomeDialog(
             context: context,
             dialogType: DialogType.success,
@@ -81,11 +85,10 @@ class CreateBrandController extends GetxController {
             btnOkText: 'حسنا',
             onDismissCallback: (dismissType) {
               if (afterSignup) {
-                //navigate offNamed LegalDataScreen
                 Get.offNamed(AppRouteName.createLegaldata);
               } else {
-                //navigate offAllNamed mainScreen
-                //Get.offAllNamed(AppRouteName.mainScreen);
+                Get.back();
+                Get.back();
               }
             },
           ).show();
@@ -185,7 +188,7 @@ class CreateBrandController extends GetxController {
   }
 
   onTapSkip() {
-    print('shit');
+    Get.offAllNamed(AppRouteName.more);
   }
 
   @override
