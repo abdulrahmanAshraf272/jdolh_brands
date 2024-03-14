@@ -63,21 +63,9 @@ class VerifycodeController extends GetxController {
   }
 
   saveDataInSharedPrefs(BrandManager brandManager) {
-    myServices.sharedPreferences
-        .setString("id", brandManager.brandManagerId.toString());
-
+    myServices.setBrandManagerid(brandManager.brandManagerId.toString());
     myServices.setBrandstep('1');
 
-    // myServices.sharedPreferences
-    //     .setString("name", brandManager.brandManagerName!);
-    // myServices.sharedPreferences
-    //     .setString("username", brandManager.brandManagerUsername!);
-    // myServices.sharedPreferences
-    //     .setString("email", brandManager.brandManagerEmail!);
-    // myServices.sharedPreferences
-    //     .setString("phone", brandManager.brandManagerPhone!);
-    //step 0 onboarding, step 1 login, step 2 mainScreen
-    //myServices.sharedPreferences.setString("step", "2");
     print('===== Saving user data in sharedPreferences Done =====');
   }
 

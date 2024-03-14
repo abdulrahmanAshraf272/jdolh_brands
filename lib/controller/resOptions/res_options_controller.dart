@@ -12,8 +12,13 @@ class ResOptionsController extends GetxController {
   List<ResOption> resOptions = [];
   MyServices myServices = Get.find();
 
+  onTapCard(int index) {
+    Get.toNamed(AppRouteName.displayResOptions, arguments: resOptions[index])!
+        .then((value) => update());
+  }
+
   goToAddResOption() {
-    Get.toNamed(AppRouteName.createResOptions)!.then((value) => update());
+    Get.toNamed(AppRouteName.createResOptions);
   }
 
   getResOptions() async {

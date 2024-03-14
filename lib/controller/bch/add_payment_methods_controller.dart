@@ -8,11 +8,12 @@ import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/models/payment_method.dart';
 
 class AddPaymentMethodsController extends GetxController {
+  bool isEdit = false;
   StatusRequest statusRequest = StatusRequest.none;
   MyServices myServices = Get.find();
   BchData bchData = BchData(Get.find());
   List<PaymentMethod> paymentMethods = [];
-  List<String> appPercent = ['1 ريال + 2.5 %', '1 ريال+ 10%', 'لا يوجد رسوم'];
+  //List<String> appPercent = ['1 ريال + 2.5 %', '1 ريال+ 10%', 'لا يوجد رسوم'];
 
   List<int> selectedPaymentMethods = [];
 
@@ -22,6 +23,26 @@ class AddPaymentMethodsController extends GetxController {
     } else {
       selectedPaymentMethods.add(paymentMethods[index].id!);
     }
+  }
+
+  String diplayAdminPercent(int index) {
+    String adminMoney = '${paymentMethods[index].adminMoney} ريال';
+    String adminPercent = '${paymentMethods[index].adminPercent}%';
+
+    if (paymentMethods[index].adminMoney != null &&
+        paymentMethods[index].adminPercent != null) {
+      return 'رسوم التطبيق $adminMoney + $adminPercent';
+    }
+    if (paymentMethods[index].adminMoney != null &&
+        paymentMethods[index].adminPercent == null) {
+      return 'رسوم التطبيق $adminMoney';
+    }
+    if (paymentMethods[index].adminPercent != null &&
+        paymentMethods[index].adminMoney == null) {
+      return 'رسوم التطبيق $adminPercent';
+    }
+
+    return 'لا يوجد رسوم';
   }
 
   getPaymentMethods() async {
@@ -64,7 +85,10 @@ class AddPaymentMethodsController extends GetxController {
 
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          myServices.setBchstep('4');
+          if (!isEdit) {
+            myServices.setBchstep('4');
+          }
+
           displayDoneDialog(context, () {
             Get.back();
           });
@@ -88,6 +112,10 @@ class AddPaymentMethodsController extends GetxController {
   @override
   void onInit() {
     getPaymentMethods();
+    if (Get.arguments != null) {
+      isEdit = Get.arguments['isEdit'];
+      print('isEdit $isEdit');
+    }
     super.onInit();
   }
 }

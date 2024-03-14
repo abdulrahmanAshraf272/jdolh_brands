@@ -18,7 +18,8 @@ class ResOptionsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  createResOptions({
+  createEditResOptions({
+    required String elementId,
     required String bchid,
     required String title,
     required String countLimit,
@@ -33,6 +34,7 @@ class ResOptionsData {
     required String friTime,
   }) async {
     var response = await crud.postData(ApiLinks.addResOptions, {
+      "elementId": elementId,
       "bchid": bchid,
       "title": title,
       "countLimit": countLimit,

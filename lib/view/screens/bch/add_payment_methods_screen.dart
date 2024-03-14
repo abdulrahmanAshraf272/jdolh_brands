@@ -58,7 +58,7 @@ class AddPaymentMethodsScreen extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: ((context, index) => MultiSelectItem(
                             title: controller.paymentMethods[index].title!,
-                            sutitle: controller.appPercent[index],
+                            sutitle: controller.diplayAdminPercent(index),
                             fontSize: 13,
                             onTap: () {
                               controller.addRemovePaymentMethods(index);

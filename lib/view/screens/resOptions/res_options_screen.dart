@@ -38,7 +38,9 @@ class ResOptionsScreen extends StatelessWidget {
                               itemBuilder: (context, index) => CustomCardOne(
                                   text: controller
                                       .resOptions[index].resoptionsTitle!,
-                                  onTap: () {}))
+                                  onTap: () {
+                                    controller.onTapCard(index);
+                                  }))
                           : Center(
                               child: RichText(
                                   textAlign: TextAlign.center,

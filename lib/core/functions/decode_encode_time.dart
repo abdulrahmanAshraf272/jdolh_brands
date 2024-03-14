@@ -53,6 +53,8 @@ TimeOfDay parseTimeString(String timeString) {
   );
 }
 
+
+
 // Map<String, TimeOfDay?> decodeTimeCustom(String encodedString) {
 //   if (encodedString.contains('|')) {
 //     print('it is 2 period');

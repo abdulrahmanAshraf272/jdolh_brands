@@ -13,6 +13,14 @@ class MyServices extends GetxService {
     return this;
   }
 
+  setBrandManagerid(String step) {
+    sharedPreferences.setString("id", step);
+  }
+
+  String getBrandManagerId() {
+    return sharedPreferences.getString("id") ?? '0';
+  }
+
   setBrandstep(String step) {
     sharedPreferences.setString("brandstep", step);
   }
@@ -56,6 +64,13 @@ class MyServices extends GetxService {
   int getIsService() {
     int isService = sharedPreferences.getInt("isService") ?? 0;
     return isService;
+  }
+
+  clearSharedPrefsData() {
+    setBchid('0');
+    setBrandid('0');
+    setBchstep('0');
+    setBrandstep('0');
   }
 }
 

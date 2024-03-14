@@ -52,11 +52,11 @@ class CreateBrandController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await brandData.createBrand(
-        managerId: myServices.sharedPreferences.getString("id")!,
+        managerId: myServices.getBrandManagerId(),
         storeName: brandName.text,
         type: selectedType!.type!,
         isService: selectedType!.isService!.toString(),
-        subtype: selectedSubtype!.subtype!,
+        subtype: selectedSubtype == null ? '' : selectedSubtype!.subtype!,
         contactNumber: contactNumber.text,
         instagram: instagram.text,
         tiktok: tiktok.text,
@@ -85,7 +85,8 @@ class CreateBrandController extends GetxController {
             btnOkText: 'حسنا',
             onDismissCallback: (dismissType) {
               if (afterSignup) {
-                Get.offNamed(AppRouteName.createLegaldata);
+                Get.offNamed(AppRouteName.createLegaldata,
+                    arguments: {'afterSignup': true});
               } else {
                 Get.back();
                 Get.back();

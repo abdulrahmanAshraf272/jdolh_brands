@@ -105,4 +105,17 @@ class ItemsData {
 
     return response.fold((l) => l, (r) => r);
   }
+
+  getItemDetails(
+      {required String resoptionIds,
+      required String itemOptionsIds,
+      required String categoryId}) async {
+    var response = await crud.postData(ApiLinks.getItemDetails, {
+      "resoptionIds": resoptionIds,
+      "itemOptionsIds": itemOptionsIds,
+      "categoryId": categoryId
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
 }

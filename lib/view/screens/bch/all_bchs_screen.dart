@@ -24,8 +24,11 @@ class AllBchsScreen extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.bchs.length,
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemBuilder: (context, index) =>
-                          CustomCardOne(text: 'sd', onTap: () {}))
+                      itemBuilder: (context, index) => CustomCardOne(
+                          text: controller.bchs[index].bchBranchName!,
+                          onTap: () {
+                            controller.goToBchDetails(index);
+                          }))
                   : ListIsEmptyTextGeneral(
                       text: 'لا يوجد فروع',
                     ),

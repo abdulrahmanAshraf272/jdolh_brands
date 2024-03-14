@@ -26,14 +26,16 @@ class BchManagerScreen extends StatelessWidget {
 
     return GetBuilder<BchManagerController>(
         builder: (controller) => Scaffold(
-              appBar: customAppBar(title: 'مدير الفرع'),
-              // floatingActionButton: controller.bchManager == null
-              //     ? GoHomeButton(
-              //         onTap: () {}, text: 'إضافة', height: 40, width: 100)
-              //     : null,
-              // floatingActionButtonLocation:
-              //     FloatingActionButtonLocation.centerFloat,
-              body: controller.bchManager == null
+            appBar: customAppBar(title: 'مدير الفرع'),
+            // floatingActionButton: controller.bchManager == null
+            //     ? GoHomeButton(
+            //         onTap: () {}, text: 'إضافة', height: 40, width: 100)
+            //     : null,
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.centerFloat,
+            body: HandlingDataView(
+              statusRequest: controller.statusRequest,
+              widget: controller.bchManager == null
                   ? NoBchManagerFound(
                       onTapAddManager: () => controller.onTapAddBchManager(),
                     )
@@ -85,7 +87,7 @@ class BchManagerScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-            ));
+            )));
   }
 }
 

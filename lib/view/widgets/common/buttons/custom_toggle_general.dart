@@ -6,11 +6,13 @@ class CustomToggleGeneral extends StatefulWidget {
   final String title;
   final Function() onTap;
   final bool initialValue;
+  final bool isClickable;
   const CustomToggleGeneral(
       {super.key,
       required this.onTap,
       required this.title,
-      this.initialValue = true});
+      this.initialValue = true,
+      this.isClickable = true});
 
   @override
   State<CustomToggleGeneral> createState() => _CustomToggleGeneralState();
@@ -38,12 +40,14 @@ class _CustomToggleGeneralState extends State<CustomToggleGeneral> {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {
-              setState(() {
-                isDone = !isDone;
-                widget.onTap();
-              });
-            },
+            onTap: widget.isClickable
+                ? () {
+                    setState(() {
+                      isDone = !isDone;
+                      widget.onTap();
+                    });
+                  }
+                : null,
             child: Container(
               //width: 80.w,
               padding: const EdgeInsets.only(left: 10),

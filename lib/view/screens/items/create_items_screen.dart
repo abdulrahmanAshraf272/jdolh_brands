@@ -44,7 +44,9 @@ class CreateItemsScreen extends StatelessWidget {
                     CustomSmallBoldTitle(title: 'اسم ${controller.itemText}'),
                     const SizedBox(height: 10),
                     CustomTextFormGeneral(
-                      hintText: 'مثال: شاورما, عصير مانجا ..',
+                      hintText: controller.isService
+                          ? 'مثال: حلاقة شعر, حلاقة دقن'
+                          : 'مثال: شاورما, عصير مانجا ..',
                       textEditingController: controller.title,
                       valid: (val) => validInput(val!, 2, 50),
                     ),

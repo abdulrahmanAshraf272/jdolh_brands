@@ -106,7 +106,7 @@ class CreateLegaldataController extends GetxController {
   }
 
   onTapSkip() {
-    print('shit');
+    Get.offAllNamed(AppRouteName.more);
   }
 
   @override

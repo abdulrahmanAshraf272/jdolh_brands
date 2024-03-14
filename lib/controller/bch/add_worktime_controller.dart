@@ -11,6 +11,8 @@ import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_time_picker.dart';
 
 class AddWorktimeController extends GetxController with AllTimes {
+  bool isEdit = false;
+
   StatusRequest statusRequest = StatusRequest.none;
   GlobalKey<FormState> formstatepart = GlobalKey<FormState>();
   BchData bchData = BchData(Get.find());
@@ -52,7 +54,9 @@ class AddWorktimeController extends GetxController with AllTimes {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          myServices.setBchstep('2');
+          if (!isEdit) {
+            myServices.setBchstep('2');
+          }
           displayDoneDialog(context, () {
             Get.back();
           });
@@ -69,7 +73,7 @@ class AddWorktimeController extends GetxController with AllTimes {
       Get.rawSnackbar(
           message:
               'يجب تعيين اوقات عمل يوم السبت , ليتم تطبيق باقي الايام مثل يوم السبت',
-          duration: Duration(seconds: 5));
+          duration: Duration(seconds: 4));
       return;
     }
     allDaysLikeSatDay();
@@ -111,5 +115,14 @@ class AddWorktimeController extends GetxController with AllTimes {
         );
       },
     );
+  }
+
+  @override
+  void onInit() {
+    if (Get.arguments != null) {
+      isEdit = Get.arguments['isEdit'];
+      print('isEdit $isEdit');
+    }
+    super.onInit();
   }
 }

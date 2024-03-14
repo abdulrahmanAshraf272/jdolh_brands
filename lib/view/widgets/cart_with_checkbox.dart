@@ -78,3 +78,59 @@ class CardWithCheckbox extends StatelessWidget {
     );
   }
 }
+
+class CardSimple extends StatelessWidget {
+  final String title;
+  final Function() onTapCard;
+
+  const CardSimple({
+    super.key,
+    required this.title,
+    required this.onTapCard,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: AppColors.gray,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(14),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTapCard,
+            child: Container(
+              height: 60.h,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 8),
+                  Expanded(
+                      child: AutoSizeText(
+                    title,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.sp,
+                      color: Colors.grey.shade700,
+                    ),
+                  )),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.grey.shade500,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

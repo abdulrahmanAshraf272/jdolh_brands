@@ -12,7 +12,7 @@ import 'package:jdolh_brands/view/screens/auth/signup_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/success_operation_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_all_branch_content_screen.dart';
-import 'package:jdolh_brands/view/screens/bch/add_bch_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/create_bch_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_payment_methods_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_plicy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
@@ -20,6 +20,13 @@ import 'package:jdolh_brands/view/screens/bch/all_bchs_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_manager_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_details_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_branch_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/display/display_payment_methods_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/display/display_policy_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/res_details/display_res_detail_screen.dart';
+import 'package:jdolh_brands/view/screens/items/diplay_item_screen.dart';
+import 'package:jdolh_brands/view/screens/resOptions/display_res_option_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/display/display_worktime_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/res_details/add_edit_res_details_screen.dart';
 import 'package:jdolh_brands/view/screens/brand/create_brand_screen.dart';
 import 'package:jdolh_brands/view/screens/categories_screen.dart';
 
@@ -91,6 +98,35 @@ List<GetPage> routes = [
     //name: '/',
     name: AppRouteName.addWorktime,
     page: () => const AddWorktimeScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.addEditResDetails,
+    page: () => const AddEditResDetailsScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.displayWorktime,
+    page: () => const DisplayWorktimeScreen(),
+  ),
+
+  GetPage(
+    name: AppRouteName.displayPolicy,
+    page: () => const DisplayPolicyScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.displayPaymentMethods,
+    page: () => const DisplayPaymentMethodsScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.displayResOptions,
+    page: () => const DisplayResOptionScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.displayResDetails,
+    page: () => const DisplayResDetailsScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.displayItem,
+    page: () => const DisplayItemScreen(),
   ),
 
   GetPage(

@@ -8,9 +8,10 @@ class ApiLinks {
   static const String test = "$server/test.php";
 
   //=================== Images ================//
-  static const String images = '$server/upload';
-  static const String imagesCategories = '$images/categories';
-  static const String imagesItems = '$images/items';
+  static const String imagesBrands = '$server/jdolh_brands/upload';
+  static const String logoImage = '$imagesBrands/logo';
+  static const String branchImage = '$imagesBrands/branches';
+  static const String itemsImage = '$imagesBrands/items';
 
   //=============== Auth ===============//
   static const String signUp = '$server/jdolh_brands/auth/signup.php';
@@ -47,6 +48,15 @@ class ApiLinks {
   static const String createBch = '$server/jdolh_brands/bch/create_bch.php';
   static const String addWorktimeBch =
       '$server/jdolh_brands/bch/add_worktime.php';
+  static const String getAllBchs = '$server/jdolh_brands/bch/get_all_bchs.php';
+  static const String getWorktime = '$server/jdolh_brands/bch/get_worktime.php';
+
+  static const String getSelectedPolicy =
+      '$server/jdolh_brands/bch/get_policy_selected.php';
+
+  static const String getSelectedPaymentMethods =
+      '$server/jdolh_brands/bch/get_selected_payment_methods.php';
+
   //Bch Manager
   static const String addBchManager =
       '$server/jdolh_brands/bch/bchManager/add_bch_manager.php';
@@ -95,4 +105,18 @@ class ApiLinks {
   static const String getItemOptionWithElement =
       '$server/jdolh_brands/bch/items/get_itemsoption_with_elements.php';
   static const String getItems = '$server/jdolh_brands/bch/items/get_items.php';
+  static const String getItemDetails =
+      '$server/jdolh_brands/bch/items/get_item_details.php';
+
+  //ResDetails
+  static const String addEditResDetails =
+      '$server/jdolh_brands/bch/add_edit_resdetails.php';
+  static const String getResDetails =
+      '$server/jdolh_brands/bch/get_resdetails.php';
+
+  //General
+  static const String getBchDataGeneral =
+      '$server/jdolh_brands/bch/get_bch_data_general.php';
+  static const String deleteDataGenereal =
+      '$server/jdolh_brands/delete_element_general.php';
 }

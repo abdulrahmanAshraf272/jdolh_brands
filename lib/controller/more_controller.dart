@@ -9,7 +9,8 @@ class MoreController extends GetxController {
   int donePercent = 50;
 
   trySomething() {
-    myServices.setIsService(0);
+    Get.offAllNamed(AppRouteName.login);
+    myServices.clearSharedPrefsData();
   }
 
   goto(String routeName) {

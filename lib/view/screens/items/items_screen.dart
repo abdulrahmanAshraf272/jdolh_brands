@@ -36,7 +36,9 @@ class ItemsScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) => CustomCardOne(
                                   text: controller.items[index].itemsTitle!,
-                                  onTap: () {}))
+                                  onTap: () {
+                                    controller.onTapCard(index);
+                                  }))
                           : Center(
                               child: RichText(
                                   textAlign: TextAlign.center,

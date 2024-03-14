@@ -7,7 +7,7 @@ import 'package:jdolh_brands/data/data_source/remote/bch/items.dart';
 import 'package:jdolh_brands/data/models/Item.dart';
 
 class ItemsController extends GetxController {
-  StatusRequest statusRequest = StatusRequest.none;
+  StatusRequest statusRequest = StatusRequest.loading;
   ItemsData itemsData = ItemsData(Get.find());
   MyServices myServices = Get.find();
   bool isService = false;
@@ -17,13 +17,23 @@ class ItemsController extends GetxController {
 
   List<Item> items = [];
 
-  goToAddItem() {
-    Get.toNamed(AppRouteName.createItems)!.then((value) => update());
+  onTapCard(int index) {
+    Get.toNamed(AppRouteName.displayItem, arguments: items[index]);
+  }
+
+  goToAddItem() async {
+    var result = await Get.toNamed(AppRouteName.createItems);
+
+    if (result != null) {
+      Item item = result as Item;
+      items.add(item);
+      update();
+    }
+
+    print(items.length);
   }
 
   getItems() async {
-    statusRequest = StatusRequest.loading;
-    update();
     var response = await itemsData.getItems(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
     print('statusRequest ==== $statusRequest');

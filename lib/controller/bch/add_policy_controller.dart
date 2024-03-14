@@ -8,6 +8,7 @@ import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/models/policy..dart';
 
 class AddPolicyController extends GetxController {
+  bool isEdit = false;
   StatusRequest statusRequest = StatusRequest.none;
   MyServices myServices = Get.find();
   BchData bchData = BchData(Get.find());
@@ -17,8 +18,8 @@ class AddPolicyController extends GetxController {
   List<Policy> resPolicies = [];
   List<Policy> billPolicies = [];
 
-  List<String> resPoliciesString = [];
-  List<String> billPoliciesString = [];
+  // List<String> resPoliciesString = [];
+  // List<String> billPoliciesString = [];
 
   addPolicy(BuildContext context) async {
     if (allFieldSelected()) {
@@ -33,7 +34,9 @@ class AddPolicyController extends GetxController {
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          myServices.setBchstep('3');
+          if (!isEdit) {
+            myServices.setBchstep('3');
+          }
           displayDoneDialog(context, () {
             Get.back();
           });
@@ -82,8 +85,8 @@ class AddPolicyController extends GetxController {
     resPolicies = resJson.map((e) => Policy.fromJsonRes(e)).toList();
     billPolicies = billJson.map((e) => Policy.fromJsonBill(e)).toList();
 
-    resPoliciesString = resPolicies.map((policy) => policy.title!).toList();
-    billPoliciesString = billPolicies.map((policy) => policy.title!).toList();
+    // resPoliciesString = resPolicies.map((policy) => policy.title!).toList();
+    // billPoliciesString = billPolicies.map((policy) => policy.title!).toList();
     update();
   }
 
@@ -110,5 +113,9 @@ class AddPolicyController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getPolicy();
+    if (Get.arguments != null) {
+      isEdit = Get.arguments['isEdit'];
+      print('isEdit $isEdit');
+    }
   }
 }

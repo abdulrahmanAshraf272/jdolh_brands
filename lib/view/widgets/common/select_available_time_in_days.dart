@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
+import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_general.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 
 class DayWorkTimePicker extends StatelessWidget {
@@ -18,6 +19,8 @@ class DayWorkTimePicker extends StatelessWidget {
   final String timeFromP2;
   final String timeToP2;
   final Function() onTapCheckbox;
+  final bool checkboxInit;
+  final bool checkboxClickable;
   const DayWorkTimePicker(
       {super.key,
       required this.day,
@@ -29,7 +32,9 @@ class DayWorkTimePicker extends StatelessWidget {
       required this.onTapToP2,
       required this.timeFromP2,
       required this.timeToP2,
-      required this.onTapCheckbox});
+      required this.onTapCheckbox,
+      this.checkboxInit = false,
+      this.checkboxClickable = true});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,14 @@ class DayWorkTimePicker extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            CustomCheckbox(onTap: onTapCheckbox),
+            CustomToggleGeneral(
+              onTap: onTapCheckbox,
+              title: 'أجازة',
+              initialValue: checkboxInit,
+              isClickable: checkboxClickable,
+            ),
+
+            //CustomCheckbox(onTap: onTapCheckbox),
             const SizedBox(width: 20),
           ],
         ),
@@ -156,3 +168,70 @@ class SmallTimePicker extends StatelessWidget {
     );
   }
 }
+
+// class CustomCheckbox extends StatefulWidget {
+//   final Function() onTap;
+//   const CustomCheckbox({super.key, required this.onTap});
+
+//   @override
+//   State<CustomCheckbox> createState() => _CustomCheckboxState();
+// }
+
+// class _CustomCheckboxState extends State<CustomCheckbox> {
+//   bool isDone = false;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       //margin: EdgeInsets.symmetric(horizontal: 10),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(30),
+//         color: AppColors.gray,
+//       ),
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(30),
+//         child: Material(
+//           color: Colors.transparent,
+//           child: InkWell(
+//             onTap: () {
+//               setState(() {
+//                 isDone = !isDone;
+//                 widget.onTap();
+//               });
+//             },
+//             child: Container(
+//               width: 80.w,
+//               height: 35.h,
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     padding: const EdgeInsets.all(5),
+//                     margin: const EdgeInsets.all(8.5),
+//                     decoration: BoxDecoration(
+//                         shape: BoxShape.circle,
+//                         color: isDone ? Colors.green : null,
+//                         border: isDone
+//                             ? null
+//                             : Border.all(
+//                                 width: 0.7, color: Colors.grey.shade400)),
+//                     child: Icon(
+//                       Icons.done,
+//                       color: isDone ? Colors.white : Colors.transparent,
+//                       size: 12,
+//                     ),
+//                   ),
+//                   Expanded(
+//                       child: Text(
+//                     'أجازة',
+//                     maxLines: 1,
+//                     style: TextStyle(fontSize: 10.sp),
+//                   )),
+//                   SizedBox(width: 5)
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

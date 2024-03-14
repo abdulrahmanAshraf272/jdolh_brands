@@ -32,6 +32,16 @@ class AppRouteName {
   static const addWorktime = '/addWorktime';
   static const bchManager = '/bchManager';
 
+  //Edit Branch
+  static const displayWorktime = '/diplayWorktime';
+  static const displayPolicy = '/displayPolicy';
+  static const displayPaymentMethods = '/displayPaymentMethods';
+  static const displayResOptions = '/displayResOption';
+  static const displayResDetails = '/displayResDetails';
+  static const displayItem = '/displayItem';
+
+  static const addEditResDetails = '/addEditResDetails';
+
   //Categories
   static const categories = '/categories';
   //static const addCategories = '/addCategories';

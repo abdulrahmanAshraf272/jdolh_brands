@@ -88,7 +88,14 @@ class AvailableTimeInWeek extends StatefulWidget {
 }
 
 class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
+  final controller = Get.put(CreateResOptionsController());
   bool isAlwaysAvailable = true;
+  @override
+  void initState() {
+    isAlwaysAvailable = controller.isAlwaysAvailable;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CreateResOptionsController>(
@@ -103,7 +110,8 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
 
                       widget.onTapAllwaysAvailale;
                     },
-                    title: 'متاح دائما'),
+                    title: 'متاح دائما',
+                    initialValue: isAlwaysAvailable),
                 isAlwaysAvailable
                     ? SizedBox()
                     : Column(

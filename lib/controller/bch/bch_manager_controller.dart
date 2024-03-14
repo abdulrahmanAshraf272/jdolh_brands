@@ -91,7 +91,7 @@ class BchManagerController extends GetxController {
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        myServices.setBchstep('8');
+        //myServices.setBchstep('8');
         bchManager = BchManager.fromJson(response['data']);
         print(bchManager!.bchmanagerName);
       } else {

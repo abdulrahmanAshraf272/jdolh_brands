@@ -31,8 +31,6 @@ class CreateItemsController extends GetxController with AllTimes {
   StatusRequest statusRequest = StatusRequest.none;
   MyServices myServices = Get.find();
 
-  ItemsController itemsController = Get.put(ItemsController());
-
   ItemsData itemsData = ItemsData(Get.find());
   CategoriesData categoriesData = CategoriesData(Get.find());
   ResOptionsData resOptionsData = ResOptionsData(Get.find());
@@ -109,13 +107,15 @@ class CreateItemsController extends GetxController with AllTimes {
         if (response['status'] == 'success') {
           print('success');
           //add the item just created to local , to display it.
-          Item item = Item.fromJson(response['data']);
-          itemsController.items.add(item);
 
           //Change the donePercent of the bch
-          myServices.setBchstep('7');
+          if (myServices.getBchstep() < 7) {
+            myServices.setBchstep('7');
+          }
+
           displayDoneDialog(context, () {
-            Get.back();
+            Item itemAdded = Item.fromJson(response['data']);
+            Get.back(result: itemAdded);
           });
         } else {
           statusRequest = StatusRequest.failure;
@@ -129,9 +129,6 @@ class CreateItemsController extends GetxController with AllTimes {
   allFieldsAdded() {
     if (title.text == '') {
       Get.rawSnackbar(message: 'من فضلك قم باضافة اسم $itemText');
-      return false;
-    } else if (desc.text == '') {
-      Get.rawSnackbar(message: 'من فضلك قم باضافة وصف $itemText');
       return false;
     } else if (selectedResOptions.isEmpty) {
       Get.rawSnackbar(message: 'من فضلك قم باضافة التفضيلات');
@@ -176,7 +173,8 @@ class CreateItemsController extends GetxController with AllTimes {
   getCategories() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await categoriesData.getCategories(bchid: '7');
+    var response =
+        await categoriesData.getCategories(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
@@ -191,7 +189,8 @@ class CreateItemsController extends GetxController with AllTimes {
   getResOptions() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await resOptionsData.getResOptions(bchid: '7');
+    var response =
+        await resOptionsData.getResOptions(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {

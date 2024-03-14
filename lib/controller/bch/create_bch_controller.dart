@@ -127,8 +127,7 @@ class CreateBchController extends GetxController {
             latLngSelected!.latitude, latLngSelected!.longitude,
             localeIdentifier: 'ar');
 
-        location =
-            '${placemarks[0].street}, ${placemarks[0].locality}, ${placemarks[0].country}';
+        location = '${placemarks[0].locality}, ${placemarks[0].street}';
         print(location);
         update();
       }

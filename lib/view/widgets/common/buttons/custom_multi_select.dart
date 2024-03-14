@@ -59,13 +59,15 @@ class MultiSelectItem extends StatefulWidget {
   final void Function() onTap;
   final bool initActiveState;
   final double fontSize;
+  final bool isClickable;
   const MultiSelectItem(
       {super.key,
       required this.onTap,
       required this.title,
       this.initActiveState = false,
       this.sutitle,
-      this.fontSize = 12});
+      this.fontSize = 12,
+      this.isClickable = true});
 
   @override
   State<MultiSelectItem> createState() => _MultiSelectItemState();
@@ -89,12 +91,14 @@ class _MultiSelectItemState extends State<MultiSelectItem> {
           color: active ? AppColors.secondaryColor : AppColors.secondaryColor95,
           borderRadius: BorderRadius.circular(30)),
       child: InkWell(
-        onTap: () {
-          setState(() {
-            active = !active;
-          });
-          widget.onTap();
-        },
+        onTap: widget.isClickable
+            ? () {
+                setState(() {
+                  active = !active;
+                });
+                widget.onTap();
+              }
+            : null,
         child: Row(
           children: [
             active

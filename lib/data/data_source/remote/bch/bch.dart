@@ -50,6 +50,26 @@ class BchData {
     return response.fold((l) => l, (r) => r);
   }
 
+  getSelectedPolicy({
+    required String bchid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getSelectedPolicy, {
+      "bchid": bchid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getSelectedPaymentMethods({
+    required String bchid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getSelectedPaymentMethods, {
+      "bchid": bchid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
   addWorktime(
       {required String bchid,
       required String satTime,
@@ -68,6 +88,16 @@ class BchData {
       "wedTime": wedTime,
       "thursTime": thursTime,
       "friTime": friTime,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getWorktime({
+    required String bchid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getWorktime, {
+      "bchid": bchid,
     });
 
     return response.fold((l) => l, (r) => r);
@@ -115,6 +145,30 @@ class BchData {
       "resPolicyid": resPolicyid,
       "billPolicyid": billPolicyid,
     });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getAllBchs({
+    required String brandid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getAllBchs, {
+      "brandid": brandid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getBchDataGeneral({required String bchid, required String table}) async {
+    var response = await crud
+        .postData(ApiLinks.getBchDataGeneral, {"bchid": bchid, "table": table});
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  deleteDataGeneral({required String elementId, required String table}) async {
+    var response = await crud.postData(
+        ApiLinks.deleteDataGenereal, {"elementId": elementId, "table": table});
 
     return response.fold((l) => l, (r) => r);
   }

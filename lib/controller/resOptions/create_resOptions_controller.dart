@@ -11,10 +11,14 @@ import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/resOptions.dart';
+import 'package:jdolh_brands/data/models/bch_worktime.dart';
 import 'package:jdolh_brands/data/models/resOption.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_time_picker.dart';
 
 class CreateResOptionsController extends GetxController with AllTimes {
+  bool isEdit = false;
+  ResOption? resOptionSent;
+
   //TODO: Get the value from sharedprefs
   bool isService = false;
 
@@ -52,30 +56,46 @@ class CreateResOptionsController extends GetxController with AllTimes {
     if (allFieldsAdded()) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await resOptionsData.createResOptions(
+      var response = await resOptionsData.createEditResOptions(
+          elementId: resOptionSent != null
+              ? resOptionSent!.resoptionsId.toString()
+              : '',
           bchid: myServices.getBchid(),
           title: title.text,
           countLimit: countLimit.text,
           duration: isService ? '-1' : duration.text,
-          alwaysAvailable: isAlwaysAvailable.toString(),
-          satTime: satTime ?? '',
-          sunTime: sunTime ?? '',
-          monTime: monTime ?? '',
-          tuesTime: tuesTime ?? '',
-          wedTime: wedTime ?? '',
-          thursTime: thursTime ?? '',
-          friTime: friTime ?? '');
+          alwaysAvailable: isAlwaysAvailable ? '1' : '0',
+          satTime: isAlwaysAvailable ? '' : satTime ?? '',
+          sunTime: isAlwaysAvailable ? '' : sunTime ?? '',
+          monTime: isAlwaysAvailable ? '' : monTime ?? '',
+          tuesTime: isAlwaysAvailable ? '' : tuesTime ?? '',
+          wedTime: isAlwaysAvailable ? '' : wedTime ?? '',
+          thursTime: isAlwaysAvailable ? '' : thursTime ?? '',
+          friTime: isAlwaysAvailable ? '' : friTime ?? '');
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
       update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          //add the item just created to local , to display it.
-          ResOption resOption = ResOption.fromJson(response['data']);
-          resOptionsController.resOptions.add(resOption);
-
           //Change the donePercent of the bch
-          myServices.setBchstep('6');
+          if (!isEdit) {
+            //add the item just created to local , to display it.
+            ResOption resOption = ResOption.fromJson(response['data']);
+            resOptionsController.resOptions.add(resOption);
+            if (myServices.getBchstep() < 6) {
+              myServices.setBchstep('6');
+            }
+          } else {
+            // Find the index of the element to replace
+            int indexToReplace = resOptionsController.resOptions.indexWhere(
+                (element) =>
+                    element.resoptionsId == resOptionSent!.resoptionsId);
+            // If the element is found, replace it
+            if (indexToReplace != -1) {
+              resOptionsController.resOptions[indexToReplace] = resOptionSent!;
+            }
+          }
+
           displayDoneDialog(context, () {
             Get.back();
           });
@@ -188,5 +208,38 @@ class CreateResOptionsController extends GetxController with AllTimes {
         );
       },
     );
+  }
+
+  getAndDisplayResOptionDataIfEdit() {
+    if (Get.arguments != null) {
+      isEdit = true;
+      resOptionSent = Get.arguments;
+      title.text = resOptionSent!.resoptionsTitle ?? '';
+      duration.text =
+          isService ? '-1' : resOptionSent!.resoptionsDuration.toString();
+
+      countLimit.text = resOptionSent!.resoptionsCountLimit.toString();
+      isAlwaysAvailable =
+          resOptionSent!.resoptionsAlwaysAvailable == 1 ? true : false;
+      if (!isAlwaysAvailable) {
+        BchWorktime worktime = BchWorktime(
+          bchworktimeSat: resOptionSent!.resoptionsSatTime,
+          bchworktimeSun: resOptionSent!.resoptionsSunTime,
+          bchworktimeMon: resOptionSent!.resoptionsMonTime,
+          bchworktimeTues: resOptionSent!.resoptionsTuesTime,
+          bchworktimeWed: resOptionSent!.resoptionsWedTime,
+          bchworktimeThurs: resOptionSent!.resoptionsThursTime,
+          bchworktimeFri: resOptionSent!.resoptionsFriTime,
+        );
+        decodeFromStringToTimeOfDay(worktime);
+      }
+    }
+  }
+
+  @override
+  void onInit() {
+    isService = myServices.getIsService() == 1 ? true : false;
+    getAndDisplayResOptionDataIfEdit();
+    super.onInit();
   }
 }

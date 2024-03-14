@@ -14,6 +14,7 @@ class CustomDropdown extends StatefulWidget {
   final List<String> items;
   final ValueChanged<String?> onChanged;
   final double listWidth;
+  final double horizontalMargin;
 
   const CustomDropdown(
       {super.key,
@@ -23,6 +24,7 @@ class CustomDropdown extends StatefulWidget {
       this.buttonHeight = 50,
       this.displacement = -20,
       this.listWidth = 200,
+      this.horizontalMargin = 20,
       required this.items,
       required this.onChanged,
       required this.title});
@@ -37,7 +39,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
       padding: EdgeInsets.symmetric(
           horizontal: widget.horizontalPadding,
           vertical: widget.verticalPadding),

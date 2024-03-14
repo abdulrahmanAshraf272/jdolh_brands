@@ -30,7 +30,8 @@ class SuccessOperation extends StatelessWidget {
             CustomButtonOne(
                 textButton: 'ابدأ',
                 onPressed: () {
-                  Get.offAllNamed(AppRouteName.createBrand);
+                  Get.offAllNamed(AppRouteName.createBrand,
+                      arguments: {'afterSignup': true});
                 })
           ],
         ),

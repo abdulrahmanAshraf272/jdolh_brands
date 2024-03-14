@@ -16,6 +16,7 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
   final String textButtonTitle;
   final double horizontalPadding;
   final double verticalPadding;
+  final String hintText;
   const NumberTextFieldWithTitleAndText(
       {super.key,
       required this.textEditingController,
@@ -26,7 +27,8 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
       this.onTapTextButton,
       this.textButtonTitle = '',
       this.horizontalPadding = 20,
-      this.verticalPadding = 20});
+      this.verticalPadding = 20,
+      this.hintText = '0'});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class NumberTextFieldWithTitleAndText extends StatelessWidget {
                   controller: textEditingController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: '0',
+                    hintText: hintText,
                     hintStyle:
                         const TextStyle(fontSize: 14, color: Colors.grey),
                     // contentPadding: const EdgeInsets.symmetric(

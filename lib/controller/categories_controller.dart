@@ -50,7 +50,9 @@ class CategoriesController extends GetxController {
 
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        myServices.setBchstep('5');
+        if (myServices.getBchstep() < 5) {
+          myServices.setBchstep('5');
+        }
         MyCategories myCategories = MyCategories.fromJson(response['data']);
         categories.add(myCategories);
       } else {

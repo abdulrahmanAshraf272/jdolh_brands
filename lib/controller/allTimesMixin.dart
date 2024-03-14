@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/functions/decode_encode_time.dart';
+import 'package:jdolh_brands/data/models/bch_worktime.dart';
 
 mixin AllTimes {
   bool isSatOff = false;
@@ -270,5 +271,144 @@ mixin AllTimes {
         friToP2 = value;
         break;
     }
+  }
+
+  ///  ================= To Display Time stored before =================//
+
+  decodeFromStringToTimeOfDay(BchWorktime worktime) {
+    //Saturday
+    if (worktime.bchworktimeSat != '') {
+      Map<String, TimeOfDay?> sat =
+          decodeTimeCustomMoreClean(worktime.bchworktimeSat!);
+      satFromP1 = sat['startTimeP1'];
+      satToP1 = sat['endTimeP1'];
+      satFromP2 = sat['startTimeP2'];
+      satToP2 = sat['endTimeP2'];
+    } else {
+      isSatOff = true;
+    }
+
+    //Sunday
+    if (worktime.bchworktimeSun != '') {
+      Map<String, TimeOfDay?> sun =
+          decodeTimeCustomMoreClean(worktime.bchworktimeSun!);
+      sunFromP1 = sun['startTimeP1'];
+      sunToP1 = sun['endTimeP1'];
+      sunFromP2 = sun['startTimeP2'];
+      sunToP2 = sun['endTimeP2'];
+    } else {
+      isSunOff = true;
+    }
+
+    // Monday
+    if (worktime.bchworktimeMon != '') {
+      Map<String, TimeOfDay?> mon =
+          decodeTimeCustomMoreClean(worktime.bchworktimeMon!);
+      monFromP1 = mon['startTimeP1'];
+      monToP1 = mon['endTimeP1'];
+      monFromP2 = mon['startTimeP2'];
+      monToP2 = mon['endTimeP2'];
+    } else {
+      isMonOff = true;
+    }
+
+    // Tuesday
+    if (worktime.bchworktimeTues != '') {
+      Map<String, TimeOfDay?> tue =
+          decodeTimeCustomMoreClean(worktime.bchworktimeTues!);
+      tuesFromP1 = tue['startTimeP1'];
+      tuesToP1 = tue['endTimeP1'];
+      tuesFromP2 = tue['startTimeP2'];
+      tuesToP2 = tue['endTimeP2'];
+    } else {
+      isTuesOff = true;
+    }
+
+    // Wednesday
+    if (worktime.bchworktimeWed != '') {
+      Map<String, TimeOfDay?> wed =
+          decodeTimeCustomMoreClean(worktime.bchworktimeWed!);
+      wedFromP1 = wed['startTimeP1'];
+      wedToP1 = wed['endTimeP1'];
+      wedFromP2 = wed['startTimeP2'];
+      wedToP2 = wed['endTimeP2'];
+    } else {
+      isWedOff = true;
+    }
+
+    // Thursday
+    if (worktime.bchworktimeThurs != '') {
+      Map<String, TimeOfDay?> thu =
+          decodeTimeCustomMoreClean(worktime.bchworktimeThurs!);
+      thursFromP1 = thu['startTimeP1'];
+      thursToP1 = thu['endTimeP1'];
+      thursFromP2 = thu['startTimeP2'];
+      thursToP2 = thu['endTimeP2'];
+    } else {
+      isThursOff = true;
+    }
+
+    // Friday
+    if (worktime.bchworktimeFri != '') {
+      Map<String, TimeOfDay?> fri =
+          decodeTimeCustomMoreClean(worktime.bchworktimeFri!);
+      friFromP1 = fri['startTimeP1'];
+      friToP1 = fri['endTimeP1'];
+      friFromP2 = fri['startTimeP2'];
+      friToP2 = fri['endTimeP2'];
+    } else {
+      isFriOff = true;
+    }
+  }
+
+  checkIfTimingMakeSense() {
+    if (!validateShiftTimings(satFromP1, satToP1, satFromP2, satToP2)) {
+      Get.rawSnackbar(message: 'تأكد من ادخال اوقات يوم السبت بشكل صحيح');
+      return false;
+    }
+
+    return true;
+  }
+
+  bool validateShiftTimings(TimeOfDay? startTimeP1, TimeOfDay? endTimeP1,
+      TimeOfDay? startTimeP2, TimeOfDay? endTimeP2) {
+    if (startTimeP1 == null ||
+        endTimeP1 == null ||
+        startTimeP2 == null ||
+        endTimeP2 == null) {
+      // If any time is null, return false
+      return false;
+    }
+
+    if (_isAfter(endTimeP1, startTimeP1) || _isAfter(endTimeP2, startTimeP2)) {
+      // End time must be after start time for both shifts
+      return false;
+    }
+
+    if (_isBefore(startTimeP2, endTimeP1)) {
+      // Start time of the second shift must be after end time of the first shift
+      return false;
+    }
+
+    // All conditions passed, return true
+    return true;
+  }
+
+  bool _isBefore(TimeOfDay time1, TimeOfDay time2) {
+    if (time1.hour < time2.hour) {
+      return true;
+    } else if (time1.hour == time2.hour) {
+      return time1.minute < time2.minute;
+    }
+    return false;
+  }
+
+  bool _isAfter(TimeOfDay time1, TimeOfDay time2) {
+    if (time1.hour > time2.hour) {
+      return true;
+    } else if (time1.hour == time2.hour) {
+      return time1.minute > time2.minute;
+    }
+    return false;
   }
 }
