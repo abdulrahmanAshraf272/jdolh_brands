@@ -13,3 +13,14 @@ displayDoneDialog(BuildContext context, void Function() onTapDismiss) {
     },
   ).show();
 }
+
+unableToDeleteDialog(BuildContext context, String desc) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.error,
+    animType: AnimType.rightSlide,
+    title: 'غير مسموح',
+    desc: desc,
+    btnOkText: 'حسناً',
+  ).show();
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
+import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/categories.dart';
@@ -62,7 +63,11 @@ class CategoriesController extends GetxController {
     update();
   }
 
-  deleteCategory(int index) async {
+  deleteCategory(int index, BuildContext context) async {
+    String unableToDeleteMessage = myServices.getIsService() == 1
+        ? "غير مسموح بحذف الصنف لأنه مرتبط بحجوزات"
+        : "غير مسموح بحذف الصنف لأنه مرتبط بمنتجات";
+
     statusRequest = StatusRequest.loading;
     update();
     var response = await categoriesData.deleteCategories(
@@ -70,14 +75,17 @@ class CategoriesController extends GetxController {
     statusRequest = handlingData(response);
     print(' ================$statusRequest');
     if (statusRequest == StatusRequest.success) {
+      update();
       if (response['status'] == 'success') {
         categories.remove(categories[index]);
         print('delete success');
+      } else if (response['message'] == "foreign key constraint violation.") {
+        print('unable to delete');
+        //unableToDeleteDialog(context, unableToDeleteMessage);
       } else {
-        statusRequest = StatusRequest.failure;
+        print('failure ${response['message']}');
       }
     }
-    update();
   }
 
   bool checkValidInput() {

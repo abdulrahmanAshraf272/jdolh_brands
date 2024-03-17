@@ -22,7 +22,6 @@ class CreateResOptionsController extends GetxController with AllTimes {
   //TODO: Get the value from sharedprefs
   bool isService = false;
 
-  ResOptionsController resOptionsController = Get.put(ResOptionsController());
   StatusRequest statusRequest = StatusRequest.none;
   ResOptionsData resOptionsData = ResOptionsData(Get.find());
   MyServices myServices = Get.find();
@@ -32,25 +31,6 @@ class CreateResOptionsController extends GetxController with AllTimes {
   TextEditingController duration = TextEditingController();
   bool isAlwaysAvailable = true;
   TimeOfDay? timeHelper;
-
-  display(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).copyWith().size.height / 3,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.time,
-            initialDateTime: DateTime.now(),
-            minuteInterval: 30, // Set the minute interval to 30 minutes
-            onDateTimeChanged: (DateTime dateTime) {
-              // Handle the selected time
-            },
-          ),
-        );
-      },
-    );
-  }
 
   createResOption(BuildContext context) async {
     if (allFieldsAdded()) {
@@ -79,29 +59,45 @@ class CreateResOptionsController extends GetxController with AllTimes {
         if (response['status'] == 'success') {
           //Change the donePercent of the bch
           if (!isEdit) {
-            //add the item just created to local , to display it.
-            ResOption resOption = ResOption.fromJson(response['data']);
-            resOptionsController.resOptions.add(resOption);
             if (myServices.getBchstep() < 6) {
               myServices.setBchstep('6');
             }
+            //add the item just created to local , to display it.
+            ResOption resOption = ResOption.fromJson(response['data']);
+            displayDoneDialog(context, () {
+              Get.back(result: resOption);
+            });
           } else {
-            // Find the index of the element to replace
-            int indexToReplace = resOptionsController.resOptions.indexWhere(
-                (element) =>
-                    element.resoptionsId == resOptionSent!.resoptionsId);
-            // If the element is found, replace it
-            if (indexToReplace != -1) {
-              resOptionsController.resOptions[indexToReplace] = resOptionSent!;
-            }
-          }
+            //==== Edit Operation ===//
+            //Set all values to save any change happend
+            resOptionSent!.resoptionsTitle = title.text;
+            resOptionSent!.resoptionsCountLimit = int.parse(countLimit.text);
+            resOptionSent!.resoptionsAlwaysAvailable =
+                isAlwaysAvailable ? 1 : 0;
+            resOptionSent!.resoptionsSatTime =
+                isAlwaysAvailable ? '' : satTime ?? '';
+            resOptionSent!.resoptionsSunTime =
+                isAlwaysAvailable ? '' : sunTime ?? '';
+            resOptionSent!.resoptionsMonTime =
+                isAlwaysAvailable ? '' : monTime ?? '';
+            resOptionSent!.resoptionsTuesTime =
+                isAlwaysAvailable ? '' : tuesTime ?? '';
+            resOptionSent!.resoptionsWedTime =
+                isAlwaysAvailable ? '' : wedTime ?? '';
+            resOptionSent!.resoptionsThursTime =
+                isAlwaysAvailable ? '' : thursTime ?? '';
+            resOptionSent!.resoptionsFriTime =
+                isAlwaysAvailable ? '' : friTime ?? '';
 
-          displayDoneDialog(context, () {
-            Get.back();
-          });
+            displayDoneDialog(context, () {
+              Get.back(result: resOptionSent);
+            });
+          }
         } else {
-          statusRequest = StatusRequest.failure;
-          update();
+          // statusRequest = StatusRequest.failure;
+          // update();
+
+          Get.back();
         }
       }
     }

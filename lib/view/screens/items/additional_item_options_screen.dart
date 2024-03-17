@@ -28,7 +28,9 @@ class AdditionalItemOptionsScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       itemBuilder: (context, index) => CustomCardOne(
                           text: controller.itemOptions[index].title!,
-                          onTap: () {}))
+                          onTap: () {
+                            controller.onTapCard(index);
+                          }))
                   : ListIsEmptyTextGeneral(text: 'لا يوجد خيارات اضافية'),
             ),
             GoHomeButton(

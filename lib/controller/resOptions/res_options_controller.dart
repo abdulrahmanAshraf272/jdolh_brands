@@ -1,8 +1,13 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
+import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/resOptions.dart';
 import 'package:jdolh_brands/data/models/resOption.dart';
 
@@ -12,13 +17,49 @@ class ResOptionsController extends GetxController {
   List<ResOption> resOptions = [];
   MyServices myServices = Get.find();
 
-  onTapCard(int index) {
-    Get.toNamed(AppRouteName.displayResOptions, arguments: resOptions[index])!
-        .then((value) => update());
+  onTapCard(int index) async {
+    final result = await Get.toNamed(AppRouteName.createResOptions,
+        arguments: resOptions[index]);
+    if (result != null) {
+      print('update done');
+      resOptions[index] = result;
+      update();
+    }
   }
 
-  goToAddResOption() {
-    Get.toNamed(AppRouteName.createResOptions);
+  deleteResOption(int index, BuildContext context) async {
+    String message = myServices.getIsService() == 1
+        ? "غير مسموح بحذف التفضيل لأنه مرتبط بحجوزات"
+        : "غير مسموح بحذف التفضيل لأنه مرتبط بمنتجات";
+
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await resOptionsData.deleteResOptions(
+      resoptionid: resOptions[index].resoptionsId.toString(),
+    );
+    statusRequest = handlingData(response);
+    print('statusRequest ==== $statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print('delete success');
+        resOptions.remove(resOptions[index]);
+      } else if (response['message'] == "foreign key constraint violation.") {
+        //unableToDeleteDialog(context, message);
+        print('unable to delete');
+      } else {
+        print('failure ${response['message']}');
+      }
+    }
+    update();
+  }
+
+  goToAddResOption() async {
+    final result = await Get.toNamed(AppRouteName.createResOptions);
+    if (result != null) {
+      print('create done');
+      resOptions.add(result);
+      update();
+    }
   }
 
   getResOptions() async {

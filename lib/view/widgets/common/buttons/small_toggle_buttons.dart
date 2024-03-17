@@ -8,13 +8,15 @@ class SmallToggleButtons extends StatefulWidget {
   final Function() onTapOne;
   final Function() onTapTwo;
   final int initValue;
+  final bool isClickable;
   const SmallToggleButtons(
       {super.key,
       required this.optionOne,
       required this.optionTwo,
       required this.onTapOne,
       required this.onTapTwo,
-      this.initValue = 1});
+      this.initValue = 1,
+      this.isClickable = true});
 
   @override
   State<SmallToggleButtons> createState() => _SmallToggleButtonsState();
@@ -43,12 +45,14 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () {
-              widget.onTapOne();
-              setState(() {
-                selectedOption = 1;
-              });
-            },
+            onTap: widget.isClickable
+                ? () {
+                    widget.onTapOne();
+                    setState(() {
+                      selectedOption = 1;
+                    });
+                  }
+                : null,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
               decoration: BoxDecoration(
@@ -69,12 +73,14 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              widget.onTapTwo();
-              setState(() {
-                selectedOption = 2;
-              });
-            },
+            onTap: widget.isClickable
+                ? () {
+                    widget.onTapTwo();
+                    setState(() {
+                      selectedOption = 2;
+                    });
+                  }
+                : null,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
               alignment: Alignment.center,

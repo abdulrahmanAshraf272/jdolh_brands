@@ -63,22 +63,24 @@ class ItemsData {
       {required String title,
       required String priceDep,
       required String isBasic,
-      required String elementids}) async {
+      required String elementsIds}) async {
     var response = await crud.postData(ApiLinks.addItemOption, {
       "title": title,
       "priceDep": priceDep,
       "isBasic": isBasic,
-      "elementids": elementids,
+      "elementsIds": elementsIds,
     });
 
     return response.fold((l) => l, (r) => r);
   }
 
   addItemOptionElement({
+    required String itemoptionid,
     required String name,
     required String price,
   }) async {
     var response = await crud.postData(ApiLinks.addItemOptionElement, {
+      "itemoptionid": itemoptionid,
       "name": name,
       "price": price,
     });
@@ -114,6 +116,32 @@ class ItemsData {
       "resoptionIds": resoptionIds,
       "itemOptionsIds": itemOptionsIds,
       "categoryId": categoryId
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getOptionElements({
+    required String itemoptionid,
+  }) async {
+    var response = await crud.postData(ApiLinks.getOptionElements, {
+      "itemoptionid": itemoptionid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  editItemOption({
+    required String itemoptionid,
+    required String title,
+    required String priceDep,
+    required String isBasic,
+  }) async {
+    var response = await crud.postData(ApiLinks.editItemOption, {
+      "itemoptionid": itemoptionid,
+      "title": title,
+      "priceDep": priceDep,
+      "isBasic": isBasic,
     });
 
     return response.fold((l) => l, (r) => r);

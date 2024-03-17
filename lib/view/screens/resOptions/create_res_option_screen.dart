@@ -142,6 +142,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             onTapCheckbox: () {
                               controller.switchDayOff(1);
                             },
+                            checkboxInit: controller.isSatOff,
                           ),
                           CustomButton(
                               onTap: () => controller.applyToAll(),
@@ -170,6 +171,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.sunToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(2),
+                            checkboxInit: controller.isSunOff,
                           ),
                           DayWorkTimePicker(
                             day: 'الاثنين',

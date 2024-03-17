@@ -94,6 +94,8 @@ class ApiLinks {
       '$server/jdolh_brands/bch/resOptions/add_resOptions.php';
   static const String getResOptions =
       '$server/jdolh_brands/bch/resOptions/get_resOptions.php';
+  static const String deleteResOption =
+      '$server/jdolh_brands/bch/resOptions/delete_resOption.php';
   //Items
   static const String addItems = '$server/jdolh_brands/bch/items/add_items.php';
   static const String addItemOption =
@@ -107,6 +109,10 @@ class ApiLinks {
   static const String getItems = '$server/jdolh_brands/bch/items/get_items.php';
   static const String getItemDetails =
       '$server/jdolh_brands/bch/items/get_item_details.php';
+  static const String getOptionElements =
+      '$server/jdolh_brands/bch/items/get_option_elements.php';
+  static const String editItemOption =
+      '$server/jdolh_brands/bch/items/edit_itemoption.php';
 
   //ResDetails
   static const String addEditResDetails =

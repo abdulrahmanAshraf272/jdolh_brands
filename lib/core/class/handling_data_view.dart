@@ -38,9 +38,9 @@ class HandlingDataRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return statusRequest == StatusRequest.loading
-        ? const Center(child: Text('Loading'))
+        ? const Center(child: CircularProgressIndicator())
         : statusRequest == StatusRequest.offlineFailure
-            ? const Center(child: Text('offline failure'))
+            ? Center(child: Lottie.asset('assets/icons/noInternetIcon.json'))
             : statusRequest == StatusRequest.serverFailure
                 ? const Center(child: Text('server failure'))
                 : widget;

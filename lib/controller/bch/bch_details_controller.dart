@@ -12,7 +12,7 @@ class BchDetailsController extends GetxController {
   int donePercent = 0;
 
   trySomething() {
-    myServices.setBchstep('7');
+    myServices.setBchstep('8');
   }
 
   onTapCard(int step, routeNameAdd, routeNameDisplay) {

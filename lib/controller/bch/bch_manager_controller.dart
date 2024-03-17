@@ -96,7 +96,6 @@ class BchManagerController extends GetxController {
         print(bchManager!.bchmanagerName);
       } else {
         print('failure');
-        statusRequest = StatusRequest.failure;
       }
     }
     update();

@@ -22,27 +22,24 @@ class ItemsController extends GetxController {
   }
 
   goToAddItem() async {
-    var result = await Get.toNamed(AppRouteName.createItems);
-
+    final result = await Get.toNamed(AppRouteName.createItems);
+    //Check if i create item ,added to the list to display.
     if (result != null) {
+      print('========dsd');
       Item item = result as Item;
       items.add(item);
       update();
     }
-
-    print(items.length);
   }
 
   getItems() async {
     var response = await itemsData.getItems(bchid: myServices.getBchid());
     statusRequest = handlingData(response);
-    print('statusRequest ==== $statusRequest');
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        print('success');
         parseValues(response);
       } else {
-        print('failure');
+        statusRequest = StatusRequest.failure;
       }
     }
     update();

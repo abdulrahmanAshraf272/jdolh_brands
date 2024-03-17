@@ -45,8 +45,9 @@ class CategoriesScreen extends StatelessWidget {
                                   CategoriesListItem(
                                     title: controller.categories[index].title ??
                                         '',
-                                    onTapDelete: () =>
-                                        controller.deleteCategory(index),
+                                    onTapDelete: () {
+                                      controller.deleteCategory(index, context);
+                                    },
                                   ))
                           : ListIsEmptyText(),
                     ),

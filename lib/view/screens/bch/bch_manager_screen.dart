@@ -33,7 +33,7 @@ class BchManagerScreen extends StatelessWidget {
             //     : null,
             // floatingActionButtonLocation:
             //     FloatingActionButtonLocation.centerFloat,
-            body: HandlingDataView(
+            body: HandlingDataRequest(
               statusRequest: controller.statusRequest,
               widget: controller.bchManager == null
                   ? NoBchManagerFound(

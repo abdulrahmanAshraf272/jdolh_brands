@@ -42,20 +42,9 @@ class CreateItemsController extends GetxController with AllTimes {
   TextEditingController dicount = TextEditingController();
   bool discountIsPercent = false;
 
-  bool isPriceDep = false;
-
-  List<int> addedItemOptionsIds = [];
   List<ItemOption> addedItemOptions = [];
 
-  changeDiscountIsPercent(bool isPercent) {
-    if (isPercent) {
-      discountIsPercent = true;
-    } else {
-      discountIsPercent = false;
-    }
-    print('discountIsPercent: $discountIsPercent');
-    update();
-  }
+  ItemOption? priceDepOption;
 
   bool isAlwaysAvailable = true;
   TimeOfDay? timeHelper;
@@ -70,12 +59,30 @@ class CreateItemsController extends GetxController with AllTimes {
   Uint8List? selectedImage;
   List<int> selectedResOptions = [];
 
+  //================== Navigation ==================//
+  //===============================================//
+
+  goToAddOptionsPriceDep() {
+    Get.toNamed(AppRouteName.addItemOptions,
+        arguments: {'isPriceDep': true, 'value': priceDepOption});
+  }
+
+  goToAddOptions() {
+    Get.toNamed(AppRouteName.additionalItemOptions);
+  }
+
   // ============ Create item ===============//
+  //========================================//
   createItem(BuildContext context) async {
-    //var formdata = formstatepart.currentState;
+    //TODO se if priceDepOption != null, add it to 'selectedResOptions'.
     if (allFieldsAdded()) {
+      //Add priceDep option if exist
+      if (priceDepOption != null) {
+        addedItemOptions.add(priceDepOption!);
+      }
+
       String resOptionsIds =
-          resOptions.map((item) => item.resoptionsId).join(',');
+          selectedResOptions.map((element) => element).join(',');
       String optionsIds = addedItemOptions.map((item) => item.id).join(',');
       print('all fields add');
       statusRequest = StatusRequest.loading;
@@ -126,6 +133,7 @@ class CreateItemsController extends GetxController with AllTimes {
   }
 
   // ============ Check validation =============//
+  //===========================================//
   allFieldsAdded() {
     if (title.text == '') {
       Get.rawSnackbar(message: 'من فضلك قم باضافة اسم $itemText');
@@ -135,6 +143,9 @@ class CreateItemsController extends GetxController with AllTimes {
       return false;
     } else if (selectedCategory == null) {
       Get.rawSnackbar(message: 'من فضلك قم باضافة الصنف');
+      return false;
+    } else if (price.text == '' && priceDepOption == null) {
+      Get.rawSnackbar(message: 'من فضلك قم باضافة السعر');
       return false;
     } else if (image == null) {
       Get.rawSnackbar(message: 'من فضلك قم باضافة صورة $itemText');
@@ -169,7 +180,8 @@ class CreateItemsController extends GetxController with AllTimes {
     }
   }
 
-  // ============= Geting Data ===========//
+  // ================= Geting Data ===============//
+  //==============================================//
   getCategories() async {
     statusRequest = StatusRequest.loading;
     update();
@@ -203,6 +215,7 @@ class CreateItemsController extends GetxController with AllTimes {
   }
 
   // =============== Parsing Data ==============//
+  //===========================================//
   parseCategories(response) {
     categories.clear();
     List categoriesJson = response['data'];
@@ -223,6 +236,7 @@ class CreateItemsController extends GetxController with AllTimes {
   }
 
   // ================ Select Data ===============//
+  //=============================================//
   setSelectedCategory(String? value) {
     if (value != null) {
       selectedCategory =
@@ -254,8 +268,18 @@ class CreateItemsController extends GetxController with AllTimes {
     }
   }
 
-  // =================== Pick Time and Datys Functions ==============//
+  changeDiscountIsPercent(bool isPercent) {
+    if (isPercent) {
+      discountIsPercent = true;
+    } else {
+      discountIsPercent = false;
+    }
+    print('discountIsPercent: $discountIsPercent');
+    update();
+  }
 
+  // =================== Pick Time and Days Functions ==============//
+  //===============================================================//
   applyToAll() {
     if (satFromP1 == null || satToP1 == null) {
       Get.rawSnackbar(
@@ -307,23 +331,6 @@ class CreateItemsController extends GetxController with AllTimes {
         );
       },
     );
-  }
-
-  goToAddOptionsPriceDep() async {
-    final result = await Get.toNamed(AppRouteName.addItemOptions,
-        arguments: {'isPriceDep': true});
-    if (result != null) {
-      addedItemOptions.add(result);
-      isPriceDep = true;
-    }
-  }
-
-  goToAddOptions() async {
-    Get.toNamed(AppRouteName.additionalItemOptions);
-    // if (result != null) {
-    //   //Here i will recive list not one object.
-    //   addedItemOptions.addAll(result);
-    // }
   }
 
   @override

@@ -18,6 +18,16 @@ class ResOptionsData {
     return response.fold((l) => l, (r) => r);
   }
 
+  deleteResOptions({
+    required String resoptionid,
+  }) async {
+    var response = await crud.postData(ApiLinks.deleteResOption, {
+      "resoptionid": resoptionid,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
   createEditResOptions({
     required String elementId,
     required String bchid,
