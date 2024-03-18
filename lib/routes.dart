@@ -12,6 +12,7 @@ import 'package:jdolh_brands/view/screens/auth/signup_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/success_operation_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_all_branch_content_screen.dart';
+import 'package:jdolh_brands/view/screens/bch/bch_details_complete_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_bch_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_payment_methods_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_plicy_screen.dart';
@@ -24,6 +25,7 @@ import 'package:jdolh_brands/view/screens/bch/display/display_payment_methods_sc
 import 'package:jdolh_brands/view/screens/bch/display/display_policy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/res_details/display_res_detail_screen.dart';
 import 'package:jdolh_brands/view/screens/items/diplay_item_screen.dart';
+import 'package:jdolh_brands/view/screens/items/edit_items_screen.dart';
 import 'package:jdolh_brands/view/screens/resOptions/display_res_option_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/display/display_worktime_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/res_details/add_edit_res_details_screen.dart';
@@ -136,19 +138,20 @@ List<GetPage> routes = [
   ),
 
   GetPage(
-    //name: '/',
     name: AppRouteName.addAllBranchContent,
     page: () => const AddAllBranchContent(),
   ),
   GetPage(
-      //name: '/',
       name: AppRouteName.items,
       page: () => const ItemsScreen(),
       popGesture: true),
   GetPage(
-      //name: '/',
       name: AppRouteName.createItems,
       page: () => const CreateItemsScreen(),
+      popGesture: true),
+  GetPage(
+      name: AppRouteName.editItem,
+      page: () => const EditItemsScreen(),
       popGesture: true),
   GetPage(
     //name: '/',
@@ -171,6 +174,10 @@ List<GetPage> routes = [
   GetPage(
     name: AppRouteName.bchDetails,
     page: () => const BchDetailsScreen(),
+  ),
+  GetPage(
+    name: AppRouteName.bchDetailsComplete,
+    page: () => const BchDetailsCompleteScreen(),
   ),
   GetPage(
       name: AppRouteName.selectAddress,

@@ -16,18 +16,19 @@ class CustomDropdown extends StatefulWidget {
   final double listWidth;
   final double horizontalMargin;
 
-  const CustomDropdown(
-      {super.key,
-      this.width,
-      this.horizontalPadding = 0,
-      this.verticalPadding = 0,
-      this.buttonHeight = 50,
-      this.displacement = -20,
-      this.listWidth = 200,
-      this.horizontalMargin = 20,
-      required this.items,
-      required this.onChanged,
-      required this.title});
+  const CustomDropdown({
+    super.key,
+    this.width,
+    this.horizontalPadding = 0,
+    this.verticalPadding = 0,
+    this.buttonHeight = 50,
+    this.displacement = -20,
+    this.listWidth = 200,
+    this.horizontalMargin = 20,
+    required this.items,
+    required this.onChanged,
+    required this.title,
+  });
 
   @override
   State<CustomDropdown> createState() => _CustomDropdownState();

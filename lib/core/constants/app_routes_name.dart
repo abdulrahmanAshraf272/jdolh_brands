@@ -17,6 +17,7 @@ class AppRouteName {
   static const createBranch = '/createBranch';
 
   static const bchDetails = '/branchDetails';
+  static const bchDetailsComplete = '/bchDetailsComplete';
   static const selectAddress = '/selectAddress';
 
   static const addAllBranchContent = '/addAllBranchContent';
@@ -39,6 +40,7 @@ class AppRouteName {
   static const displayResOptions = '/displayResOption';
   static const displayResDetails = '/displayResDetails';
   static const displayItem = '/displayItem';
+  static const editItem = '/editItem';
 
   static const addEditResDetails = '/addEditResDetails';
 

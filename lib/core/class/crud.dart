@@ -27,6 +27,43 @@ class Crud {
     }
   }
 
+  //Here Sending file is optinal
+  Future<Either<StatusRequest, Map>> postDataWithFileOptional(
+      String linkUrl, Map data, File? file, String field) async {
+    try {
+      if (true) {
+        // You might want to replace this condition with actual internet connectivity check
+        var request = http.MultipartRequest("POST", Uri.parse(linkUrl));
+
+        if (file != null) {
+          var length = await file.length();
+          var stream = http.ByteStream(file.openRead());
+          var multipartFile = http.MultipartFile(field, stream, length,
+              filename: basename(file.path));
+          request.files.add(multipartFile);
+        }
+
+        data.forEach((key, value) {
+          request.fields[key] = value.toString();
+        });
+
+        var myrequest = await request.send();
+        var response = await http.Response.fromStream(myrequest);
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          Map responseBody = jsonDecode(response.body);
+          return Right(responseBody);
+        } else {
+          return const Left(StatusRequest.serverFailure);
+        }
+      } else {
+        return const Left(StatusRequest.offlineFailure);
+      }
+    } catch (_) {
+      return const Left(StatusRequest.serverException);
+    }
+  }
+
   Future<Either<StatusRequest, Map>> postDataWithFile(
       String linkUrl, Map data, File file, String field) async {
     try {

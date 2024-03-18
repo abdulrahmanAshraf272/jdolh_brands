@@ -18,6 +18,16 @@ class ResOptionsData {
     return response.fold((l) => l, (r) => r);
   }
 
+  getSelectedResOptionsIds({
+    required String itemId,
+  }) async {
+    var response = await crud.postData(ApiLinks.getSelectedResOptionIds, {
+      "itemId": itemId,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
   deleteResOptions({
     required String resoptionid,
   }) async {

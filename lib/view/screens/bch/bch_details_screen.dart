@@ -12,8 +12,15 @@ class BchDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(BchDetailsController());
+    final controller = Get.put(BchDetailsController());
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          controller.bch.bchBranchName ?? '',
+        ),
+        centerTitle: true,
+      ),
       body: GetBuilder<BchDetailsController>(
         builder: (controller) => SafeArea(
             child: SingleChildScrollView(

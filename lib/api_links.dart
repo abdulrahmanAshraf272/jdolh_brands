@@ -56,6 +56,7 @@ class ApiLinks {
 
   static const String getSelectedPaymentMethods =
       '$server/jdolh_brands/bch/get_selected_payment_methods.php';
+  static const String bchComplete = '$server/jdolh_brands/bch/bch_complete.php';
 
   //Bch Manager
   static const String addBchManager =
@@ -96,6 +97,8 @@ class ApiLinks {
       '$server/jdolh_brands/bch/resOptions/get_resOptions.php';
   static const String deleteResOption =
       '$server/jdolh_brands/bch/resOptions/delete_resOption.php';
+  static const String getSelectedResOptionIds =
+      '$server/jdolh_brands/bch/resOptions/get_selected_resOptionIds.php';
   //Items
   static const String addItems = '$server/jdolh_brands/bch/items/add_items.php';
   static const String addItemOption =
@@ -113,6 +116,12 @@ class ApiLinks {
       '$server/jdolh_brands/bch/items/get_option_elements.php';
   static const String editItemOption =
       '$server/jdolh_brands/bch/items/edit_itemoption.php';
+  static const String editItem =
+      '$server/jdolh_brands/bch/items/edit_items.php';
+  static const String editItemImage =
+      '$server/jdolh_brands/bch/items/edit_items_image.php';
+  static const String getSelectedItemOptions =
+      '$server/jdolh_brands/bch/items/get_selected_itemoptions.php';
 
   //ResDetails
   static const String addEditResDetails =

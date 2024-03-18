@@ -78,6 +78,7 @@ class CreateItemsScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     ListView.builder(
                         itemCount: controller.resOptions.length,
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: ((context, index) => MultiSelectItem(
                               title:

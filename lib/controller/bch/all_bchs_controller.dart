@@ -12,6 +12,15 @@ class AllBchsController extends GetxController {
   List<Bch> bchs = [];
   MyServices myServices = Get.find();
 
+  onTapCreateBch() {
+    if (myServices.getBchstep() != 0) {
+      Get.rawSnackbar(
+          message: 'لا يمكن انشاء فرع جديد حتى تكمل بيانات الفرع السابق');
+    } else {
+      //TODO go to create new bch
+    }
+  }
+
   getAllBchs() async {
     statusRequest = StatusRequest.loading;
     update();
@@ -30,10 +39,15 @@ class AllBchsController extends GetxController {
   }
 
   goToBchDetails(int index) {
-    Get.toNamed(AppRouteName.bchDetails);
-
     //Save the bch id in shared prefs
     myServices.setBchid(bchs[index].bchId.toString());
+    Get.toNamed(AppRouteName.bchDetails, arguments: bchs[index]);
+
+    // if (bchs[index].bchIsComplete == 1) {
+    //   Get.toNamed(AppRouteName.bchDetailsComplete, arguments: bchs[index]);
+    // } else {
+    //   Get.toNamed(AppRouteName.bchDetails, arguments: bchs[index]);
+    // }
   }
 
   parseValues(response) {

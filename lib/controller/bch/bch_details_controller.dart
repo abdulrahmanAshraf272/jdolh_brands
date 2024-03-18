@@ -1,9 +1,16 @@
 import 'package:get/get.dart';
+import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
+import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
+import 'package:jdolh_brands/data/models/bch.dart';
 
 class BchDetailsController extends GetxController {
   late int isService;
+  BchData bchData = BchData(Get.find());
+  StatusRequest statusRequest = StatusRequest.none;
+  late Bch bch;
   MyServices myServices = Get.find();
   int bchstep = 1;
 
@@ -47,13 +54,32 @@ class BchDetailsController extends GetxController {
       donePercent = 100;
     }
 
+    if (donePercent == 100) {
+      bchComplete();
+    }
+
     await Future.delayed(const Duration(milliseconds: 500));
     update();
     print(bchstep);
   }
 
+  bchComplete() async {
+    var response = await bchData.bchComplete(bch.bchId.toString());
+    statusRequest = handlingData(response);
+    print(' ================$statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print('set bch complete is done');
+      } else {
+        statusRequest = StatusRequest.failure;
+        print('set bch complete failed');
+      }
+    }
+  }
+
   @override
   void onInit() {
+    bch = Get.arguments;
     getBchstepAndSetDonePercent();
     isService = myServices.getIsService();
     if (isService == 1) {

@@ -17,8 +17,14 @@ class ItemsController extends GetxController {
 
   List<Item> items = [];
 
-  onTapCard(int index) {
-    Get.toNamed(AppRouteName.displayItem, arguments: items[index]);
+  onTapCard(int index) async {
+    final result =
+        await Get.toNamed(AppRouteName.editItem, arguments: items[index]);
+    if (result != null) {
+      print('result is not null');
+    } else {
+      print('result is null');
+    }
   }
 
   goToAddItem() async {

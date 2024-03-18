@@ -121,6 +121,16 @@ class ItemsData {
     return response.fold((l) => l, (r) => r);
   }
 
+  getSelectedItemOptions({
+    required String itemId,
+  }) async {
+    var response = await crud.postData(ApiLinks.getSelectedItemOptions, {
+      "itemId": itemId,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
   getOptionElements({
     required String itemoptionid,
   }) async {
@@ -143,6 +153,62 @@ class ItemsData {
       "priceDep": priceDep,
       "isBasic": isBasic,
     });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  editItem({
+    required String itemId,
+    required String resoptionsid,
+    required String categoriesid,
+    required String title,
+    required String price,
+    required String dicount,
+    required String discountPercentage,
+    required String desc,
+    required String withOptions,
+    required String duration,
+    required String alwaysAvailable,
+    required String satTime,
+    required String sunTime,
+    required String monTime,
+    required String tuesTime,
+    required String wedTime,
+    required String thursTime,
+    required String friTime,
+  }) async {
+    var response = await crud.postData(ApiLinks.editItem, {
+      "itemId": itemId,
+      "resoptionsid": resoptionsid,
+      "categoriesid": categoriesid,
+      "title": title,
+      "price": price,
+      "dicount": dicount,
+      "discountPercentage": discountPercentage,
+      "desc": desc,
+      "withOptions": withOptions,
+      "duration": duration,
+      "alwaysAvailable": alwaysAvailable,
+      "satTime": satTime,
+      "sunTime": sunTime,
+      "monTime": monTime,
+      "tuesTime": tuesTime,
+      "wedTime": wedTime,
+      "thursTime": thursTime,
+      "friTime": friTime,
+    });
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+  editItemImage({required String itemId, required File file}) async {
+    var response = await crud.postDataWithFile(
+        ApiLinks.editItemImage,
+        {
+          "itemId": itemId,
+        },
+        file,
+        'file');
 
     return response.fold((l) => l, (r) => r);
   }

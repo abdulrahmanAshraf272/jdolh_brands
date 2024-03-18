@@ -172,4 +172,10 @@ class BchData {
 
     return response.fold((l) => l, (r) => r);
   }
+
+  bchComplete(String bchid) async {
+    var response = await crud.postData(ApiLinks.bchComplete, {"bchid": bchid});
+
+    return response.fold((l) => l, (r) => r);
+  }
 }

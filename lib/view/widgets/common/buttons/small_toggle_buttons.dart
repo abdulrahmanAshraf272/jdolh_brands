@@ -29,9 +29,9 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     selectedOption = widget.initValue;
+    print(selectedOption);
+    super.initState();
   }
 
   @override

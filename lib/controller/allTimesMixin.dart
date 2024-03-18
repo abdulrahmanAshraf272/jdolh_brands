@@ -151,14 +151,17 @@ mixin AllTimes {
     thursTime = encodeTime(thursFromP1, thursToP1, thursFromP2, thursToP2);
     friTime = encodeTime(friFromP1, friToP1, friFromP2, friToP2);
 
-    if (checkAllDays() == null) {
+    if (!checkIfTimingMakeSense()) {
       return false;
-    } else {
-      return true;
     }
+
+    if (checkAllDaysSetted() == null) {
+      return false;
+    }
+    return true;
   }
 
-  checkAllDays() {
+  checkAllDaysSetted() {
     //it well be null, if the first periud is null- second periud is optinanl
     if (satTime == null && !isSatOff) {
       Get.rawSnackbar(message: 'قم بتعيين اوقات عمل يوم السبت');
@@ -177,6 +180,19 @@ mixin AllTimes {
     } else {
       return true;
     }
+  }
+
+  checkIfTimingMakeSense() {
+    if (!validateShiftTimings(satFromP1, satToP1, satFromP2, satToP2)) {
+      Get.rawSnackbar(message: 'تأكد من ادخال اوقات يوم السبت بشكل صحيح');
+      return false;
+    }
+    if (!validateShiftTimings(sunFromP1, sunToP1, sunFromP2, sunToP2)) {
+      Get.rawSnackbar(message: 'تأكد من ادخال اوقات يوم الاحد بشكل صحيح');
+      return false;
+    }
+
+    return true;
   }
 
   setTime(TimeOfDay? value, int d) {
@@ -361,26 +377,15 @@ mixin AllTimes {
     }
   }
 
-  checkIfTimingMakeSense() {
-    if (!validateShiftTimings(satFromP1, satToP1, satFromP2, satToP2)) {
-      Get.rawSnackbar(message: 'تأكد من ادخال اوقات يوم السبت بشكل صحيح');
-      return false;
-    }
-
-    return true;
-  }
-
   bool validateShiftTimings(TimeOfDay? startTimeP1, TimeOfDay? endTimeP1,
       TimeOfDay? startTimeP2, TimeOfDay? endTimeP2) {
-    if (startTimeP1 == null ||
-        endTimeP1 == null ||
-        startTimeP2 == null ||
-        endTimeP2 == null) {
+    if (startTimeP1 == null || endTimeP1 == null) {
       // If any time is null, return false
       return false;
     }
 
-    if (_isAfter(endTimeP1, startTimeP1) || _isAfter(endTimeP2, startTimeP2)) {
+    if (_isAfter(endTimeP1, startTimeP1) ||
+        _isAfter(endTimeP2!, startTimeP2!)) {
       // End time must be after start time for both shifts
       return false;
     }
