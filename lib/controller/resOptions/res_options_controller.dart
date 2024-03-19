@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/constants/strings.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
@@ -27,10 +28,10 @@ class ResOptionsController extends GetxController {
     }
   }
 
-  deleteResOption(int index, BuildContext context) async {
+  deleteResOption(int index) async {
     String message = myServices.getIsService() == 1
-        ? "غير مسموح بحذف التفضيل لأنه مرتبط بحجوزات"
-        : "غير مسموح بحذف التفضيل لأنه مرتبط بمنتجات";
+        ? "غير مسموح بحذف التفضيل لأنه مرتبط ب$servicesPloral"
+        : "غير مسموح بحذف التفضيل لأنه مرتبط ب$productsPloral";
 
     statusRequest = StatusRequest.loading;
     update();
@@ -38,14 +39,13 @@ class ResOptionsController extends GetxController {
       resoptionid: resOptions[index].resoptionsId.toString(),
     );
     statusRequest = handlingData(response);
-    print('statusRequest ==== $statusRequest');
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
         print('delete success');
         resOptions.remove(resOptions[index]);
       } else if (response['message'] == "foreign key constraint violation.") {
-        //unableToDeleteDialog(context, message);
-        print('unable to delete');
+        update();
+        return message;
       } else {
         print('failure ${response['message']}');
       }

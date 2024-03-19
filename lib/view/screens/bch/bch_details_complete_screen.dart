@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/bch/bch_details_controller.dart';
 import 'package:jdolh_brands/controller/more_controller.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+import 'package:jdolh_brands/core/constants/strings.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/view/widgets/cart_with_checkbox.dart';
 import 'package:jdolh_brands/view/widgets/container_with_circular_progress.dart';
@@ -68,7 +69,9 @@ class BchDetailsCompleteScreen extends StatelessWidget {
                 },
               ),
               CardSimple(
-                title: controller.itemText,
+                title: controller.isService == 1
+                    ? 'ال$servicesPloral'
+                    : 'ال$productsPloral',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.items);
                 },

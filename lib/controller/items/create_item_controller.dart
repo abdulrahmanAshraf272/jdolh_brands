@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/controller/allTimesMixin.dart';
 import 'package:jdolh_brands/controller/items/items_controller.dart';
+import 'package:jdolh_brands/controller/values_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
@@ -42,7 +43,7 @@ class CreateItemsController extends GetxController with AllTimes {
   TextEditingController dicount = TextEditingController();
   bool discountIsPercent = false;
 
-  List<ItemOption> addedItemOptions = [];
+  //List<ItemOption> addedItemOptions = [];
 
   ItemOption? priceDepOption;
 
@@ -62,9 +63,12 @@ class CreateItemsController extends GetxController with AllTimes {
   //================== Navigation ==================//
   //===============================================//
 
-  goToAddOptionsPriceDep() {
-    Get.toNamed(AppRouteName.addItemOptions,
+  goToAddOptionsPriceDep() async {
+    final result = await Get.toNamed(AppRouteName.addItemOptions,
         arguments: {'isPriceDep': true, 'value': priceDepOption});
+    if (result != null) {
+      priceDepOption = result;
+    }
   }
 
   goToAddOptions() {
@@ -77,12 +81,13 @@ class CreateItemsController extends GetxController with AllTimes {
     if (allFieldsAdded()) {
       //Add priceDep option if exist
       if (priceDepOption != null) {
-        addedItemOptions.add(priceDepOption!);
+        ValuesController.addedItemOptions.add(priceDepOption!);
       }
 
       String resOptionsIds =
           selectedResOptions.map((element) => element).join(',');
-      String optionsIds = addedItemOptions.map((item) => item.id).join(',');
+      String optionsIds =
+          ValuesController.addedItemOptions.map((item) => item.id).join(',');
       statusRequest = StatusRequest.loading;
       update();
       var response = await itemsData.addItems(
@@ -94,7 +99,7 @@ class CreateItemsController extends GetxController with AllTimes {
           dicount: discountIsPercent ? '' : dicount.text,
           discountPercentage: discountIsPercent ? dicount.text : '',
           desc: desc.text,
-          withOptions: addedItemOptions.isEmpty ? '0' : '1',
+          withOptions: ValuesController.addedItemOptions.isEmpty ? '0' : '1',
           duration: duration.text,
           alwaysAvailable: isAlwaysAvailable ? '1' : '0',
           satTime: satTime ?? '',

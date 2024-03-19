@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/items/create_item_controller.dart';
+import 'package:jdolh_brands/controller/values_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
@@ -19,7 +20,8 @@ import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 
 class AddItemOptionsController extends GetxController {
-  CreateItemsController createItemsController = Get.find();
+  //CreateItemsController createItemsController = Get.find();
+  int? itemId;
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
   ItemOption? itemOption;
@@ -91,6 +93,7 @@ class AddItemOptionsController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await itemsData.addItemOption(
+          itemId: itemId == null ? '' : itemId.toString(),
           title: title.text,
           priceDep: isPriceDep ? '1' : '0',
           isBasic: isBasic.toString(),
@@ -101,9 +104,9 @@ class AddItemOptionsController extends GetxController {
         if (response['status'] == 'success') {
           ItemOption itemOptionCreated = ItemOption.fromJson(response['data']);
           if (isPriceDep) {
-            createItemsController.priceDepOption = itemOptionCreated;
+            //ValuesController.priceDepOption = itemOptionCreated;
             displayDoneDialog(context, () {
-              Get.back();
+              Get.back(result: itemOptionCreated);
             });
           } else {
             displayDoneDialog(context, () {
@@ -200,6 +203,11 @@ class AddItemOptionsController extends GetxController {
   void onInit() {
     super.onInit();
     if (Get.arguments != null) {
+      //In EditItem , when add item , i have the id of the id, in CreateItem, i don't have the id of the item, it will store null, until i create the item
+      if (Get.arguments['itemId'] != null) {
+        itemId = Get.arguments['itemId'];
+        print('itemId: $itemId');
+      }
       if (Get.arguments['isPriceDep'] != null) {
         isPriceDep = Get.arguments['isPriceDep'];
         setValueIsPriceDep(isPriceDep);

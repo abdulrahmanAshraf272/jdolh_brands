@@ -135,7 +135,6 @@ class BchManagerController extends GetxController {
           Get.back();
           deleteBchManager();
         },
-        backgroundColor: Color(0xffffcccc),
         buttonColor: Color(0xffff6666),
         textConfirm: 'نعم',
         confirmTextColor: Colors.white);

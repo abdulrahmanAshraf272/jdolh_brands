@@ -1,5 +1,10 @@
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAGgfliZLRN6OE4sP5EGuwQv3ZWQPzaEGo';
 
+const services = 'خدمة';
+const servicesPloral = 'خدمات';
+const products = 'منتج';
+const productsPloral = 'منتجات';
+
 const textConfirmReservation = 'تأكيد الحجز';
 const textSendInvication = 'ارسال دعوة';
 const textFollow = 'متابعة';

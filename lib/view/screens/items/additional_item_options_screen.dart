@@ -7,6 +7,7 @@ import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/list_empty_text.dart';
+import 'package:jdolh_brands/view/widgets/custom_card_with_delete.dart';
 
 class AdditionalItemOptionsScreen extends StatelessWidget {
   const AdditionalItemOptionsScreen({super.key});
@@ -23,14 +24,18 @@ class AdditionalItemOptionsScreen extends StatelessWidget {
             Expanded(
               child: controller.itemOptions.isNotEmpty
                   ? ListView.builder(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemCount: controller.itemOptions.length,
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemBuilder: (context, index) => CustomCardOne(
-                          text: controller.itemOptions[index].title!,
-                          onTap: () {
-                            controller.onTapCard(index);
-                          }))
+                      itemBuilder: (context, index) => CustomCardWithDelete(
+                            text: controller.itemOptions[index].title!,
+                            onTap: () {
+                              controller.onTapCard(index);
+                            },
+                            onDelete: () {
+                              controller.onTapDelete(index);
+                            },
+                          ))
                   : ListIsEmptyTextGeneral(text: 'لا يوجد خيارات اضافية'),
             ),
             GoHomeButton(

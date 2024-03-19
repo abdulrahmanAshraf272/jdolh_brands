@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/controller/allTimesMixin.dart';
 import 'package:jdolh_brands/controller/items/items_controller.dart';
+import 'package:jdolh_brands/controller/values_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
@@ -52,7 +53,7 @@ class EditItemsController extends GetxController with AllTimes {
   //Section 4
   bool isAlwaysAvailable = true;
   //Section 5
-  List<ItemOption> addedItemOptions = [];
+  //List<ItemOption> addedItemOptions = [];
   //Section 6
   ItemOption? priceDepOption;
   //Section 7
@@ -76,24 +77,26 @@ class EditItemsController extends GetxController with AllTimes {
   //================== Navigation ==================//
   //===============================================//
 
-  goToAddOptionsPriceDep() {
-    Get.toNamed(AppRouteName.addItemOptions,
-        arguments: {'isPriceDep': true, 'value': priceDepOption});
+  goToAddOptionsPriceDep() async {
+    final result = await Get.toNamed(AppRouteName.addItemOptions, arguments: {
+      'isPriceDep': true,
+      'value': priceDepOption,
+      "itemId": item.itemsId
+    });
+    if (result != null) {
+      priceDepOption = result;
+    }
   }
 
   goToAddOptions() {
-    Get.toNamed(AppRouteName.additionalItemOptions);
+    Get.toNamed(AppRouteName.additionalItemOptions,
+        arguments: {"itemId": item.itemsId});
   }
 
   // ============ Edit item ===============//
   //========================================//
   editItem(BuildContext context) async {
     if (allFieldsAdded()) {
-      //Add priceDep option if exist
-      // if (priceDepOption != null) {
-      //   addedItemOptions.add(priceDepOption!);
-      // }
-      //String optionsIds = addedItemOptions.map((item) => item.id).join(',');
       String resOptionsIds =
           selectedResOptions.map((element) => element).join(',');
 
@@ -119,7 +122,7 @@ class EditItemsController extends GetxController with AllTimes {
         dicount: discountIsPercent ? '' : dicount.text,
         discountPercentage: discountIsPercent ? dicount.text : '',
         desc: desc.text,
-        withOptions: addedItemOptions.isEmpty ? '0' : '1',
+        withOptions: ValuesController.addedItemOptions.isEmpty ? '0' : '1',
         duration: duration.text,
         alwaysAvailable: isAlwaysAvailable ? '1' : '0',
         satTime: satTime ?? '',
@@ -340,15 +343,19 @@ class EditItemsController extends GetxController with AllTimes {
   }
 
   parseSelectedItemOption(response) {
-    addedItemOptions.clear();
+    ValuesController.addedItemOptions.clear();
     List data = response['data'];
-    addedItemOptions = data.map((e) => ItemOption.fromJson(e)).toList();
+    List<ItemOption> itemOptions = [];
 
-    for (int i = 0; i < addedItemOptions.length; i++) {
-      if (addedItemOptions[i].priceDep == 1) {
-        priceDepOption = addedItemOptions[i];
+    itemOptions = data.map((e) => ItemOption.fromJson(e)).toList();
+
+    for (int i = 0; i < itemOptions.length; i++) {
+      if (itemOptions[i].priceDep == 1) {
+        priceDepOption = itemOptions[i];
+        itemOptions.remove(itemOptions[i]);
       }
     }
+    ValuesController.addedItemOptions = List.from(itemOptions);
   }
 
   // ================ Select Data ===============//

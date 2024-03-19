@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/categories_controller.dart';
@@ -17,6 +18,17 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(CategoriesController());
+
+    unableToDeleteDialog(String desc) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'غير مسموح',
+        desc: desc,
+        btnOkText: 'حسناً',
+      ).show();
+    }
 
     return GetBuilder<CategoriesController>(
         builder: (controller) => Scaffold(
@@ -38,15 +50,20 @@ class CategoriesScreen extends StatelessWidget {
                     widget: Expanded(
                       child: controller.categories.isNotEmpty
                           ? ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: controller.categories.length,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) =>
                                   CategoriesListItem(
                                     title: controller.categories[index].title ??
                                         '',
-                                    onTapDelete: () {
-                                      controller.deleteCategory(index, context);
+                                    onTapDelete: () async {
+                                      final result = await controller
+                                          .deleteCategory(index);
+
+                                      if (result != null) {
+                                        unableToDeleteDialog(result);
+                                      }
                                     },
                                   ))
                           : ListIsEmptyText(),

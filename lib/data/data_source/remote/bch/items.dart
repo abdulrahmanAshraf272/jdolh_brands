@@ -60,11 +60,13 @@ class ItemsData {
   }
 
   addItemOption(
-      {required String title,
+      {required String itemId,
+      required String title,
       required String priceDep,
       required String isBasic,
       required String elementsIds}) async {
     var response = await crud.postData(ApiLinks.addItemOption, {
+      "itemId": itemId,
       "title": title,
       "priceDep": priceDep,
       "isBasic": isBasic,

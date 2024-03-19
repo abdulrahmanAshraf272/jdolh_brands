@@ -14,8 +14,6 @@ class BchDetailsController extends GetxController {
   MyServices myServices = Get.find();
   int bchstep = 1;
 
-  String itemText = 'المنتجات';
-
   int donePercent = 0;
 
   trySomething() {
@@ -55,7 +53,7 @@ class BchDetailsController extends GetxController {
     }
 
     if (donePercent == 100) {
-      bchComplete();
+      //bchComplete();
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
@@ -63,30 +61,26 @@ class BchDetailsController extends GetxController {
     print(bchstep);
   }
 
-  bchComplete() async {
-    var response = await bchData.bchComplete(bch.bchId.toString());
-    statusRequest = handlingData(response);
-    print(' ================$statusRequest');
-    if (statusRequest == StatusRequest.success) {
-      if (response['status'] == 'success') {
-        print('set bch complete is done');
-      } else {
-        statusRequest = StatusRequest.failure;
-        print('set bch complete failed');
-      }
-    }
-  }
+  // bchComplete() async {
+  //   var response = await bchData.bchComplete(bch.bchId.toString());
+  //   statusRequest = handlingData(response);
+  //   print(' ================$statusRequest');
+  //   if (statusRequest == StatusRequest.success) {
+  //     if (response['status'] == 'success') {
+  //       print('set bch complete is done');
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //       print('set bch complete failed');
+  //     }
+  //   }
+  // }
 
   @override
   void onInit() {
     bch = Get.arguments;
     getBchstepAndSetDonePercent();
     isService = myServices.getIsService();
-    if (isService == 1) {
-      itemText = 'الحجوزات';
-    } else {
-      itemText = 'المنتجات';
-    }
+
     super.onInit();
   }
 }
