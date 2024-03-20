@@ -6,8 +6,6 @@ import 'package:jdolh_brands/controller/categories_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
-import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 
@@ -17,7 +15,7 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CategoriesController());
+    Get.put(CategoriesController());
 
     unableToDeleteDialog(String desc) {
       AwesomeDialog(

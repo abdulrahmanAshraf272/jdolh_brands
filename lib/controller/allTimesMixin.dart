@@ -151,9 +151,9 @@ mixin AllTimes {
     thursTime = encodeTime(thursFromP1, thursToP1, thursFromP2, thursToP2);
     friTime = encodeTime(friFromP1, friToP1, friFromP2, friToP2);
 
-    if (!checkIfTimingMakeSense()) {
-      return false;
-    }
+    // if (!checkIfTimingMakeSense()) {
+    //   return false;
+    // }
 
     if (checkAllDaysSetted() == null) {
       return false;

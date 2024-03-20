@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jdolh_brands/controller/bch/bch_details_complete_controller.dart';
 import 'package:jdolh_brands/controller/bch/bch_details_controller.dart';
 import 'package:jdolh_brands/controller/more_controller.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
@@ -13,7 +14,7 @@ class BchDetailsCompleteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(BchDetailsController());
+    final controller = Get.put(BchDetailsCompleteController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -22,53 +23,65 @@ class BchDetailsCompleteScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: GetBuilder<BchDetailsController>(
+      body: GetBuilder<BchDetailsCompleteController>(
         builder: (controller) => SafeArea(
             child: SingleChildScrollView(
           child: Column(
             children: [
               TopContainer(
-                donePercent: controller.donePercent,
-                title: 'تهانيا لقد اكملت بياناتك بنجاح, بانتظار موافقة الادارة',
+                donePercent: 100,
+                title: controller.headerMessage,
               ),
               const SizedBox(height: 20),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'البيانات الاساسية',
-                onTapCard: () {
-                  controller.trySomething();
-                },
+                onTapCard: () {},
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'أوقات العمل',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.displayWorktime);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'سياسة الحجز والفاتورة',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.displayPolicy);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'طرق الدفع',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.displayPaymentMethods);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'الأصناف',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.categories);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'التفضيلات',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.resOptions);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: controller.isService == 1
                     ? 'ال$servicesPloral'
                     : 'ال$productsPloral',
@@ -76,7 +89,9 @@ class BchDetailsCompleteScreen extends StatelessWidget {
                   Get.toNamed(AppRouteName.items);
                 },
               ),
-              CardSimple(
+              CardWithCheckbox(
+                isDone: true,
+                isActive: true,
                 title: 'تفاصيل الحجز',
                 onTapCard: () {
                   Get.toNamed(AppRouteName.displayResDetails);

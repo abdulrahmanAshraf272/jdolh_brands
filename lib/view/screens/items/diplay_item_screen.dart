@@ -11,7 +11,6 @@ import 'package:jdolh_brands/view/widgets/common/custom_text_display_general.dar
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/common/display_available_time_in_days.dart';
 import 'package:jdolh_brands/view/widgets/common/rect_image_display.dart';
-import 'package:jdolh_brands/view/widgets/items/available_item_time.dart';
 
 class DisplayItemScreen extends StatelessWidget {
   const DisplayItemScreen({super.key});

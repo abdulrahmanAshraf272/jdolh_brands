@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/items/items_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
-import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/constants/strings.dart';
-import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
 import 'package:jdolh_brands/view/widgets/custom_card_with_delete.dart';
 
@@ -15,7 +13,7 @@ class ItemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ItemsController());
+    Get.put(ItemsController());
 
     return GetBuilder<ItemsController>(
         builder: (controller) => Scaffold(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/main_controller.dart';
-import 'package:jdolh_brands/core/constants/app_colors.dart';
-import 'package:jdolh_brands/core/constants/app_routes_name.dart';
+
+import 'package:jdolh_brands/core/functions/alert_exit_app.dart';
 import 'package:jdolh_brands/view/widgets/custom_bottom_appbar.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,23 +27,26 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     Get.put(MainController());
-    return GetBuilder<MainController>(
-        builder: (controller) => Scaffold(
-              // floatingActionButton: FloatingActionButton(
-              //   onPressed: () {
-              //     //Get.toNamed(AppRouteName.checkin);
-              //   },
-              //   backgroundColor: AppColors.secondaryColor,
-              //   shape: const CircleBorder(),
-              //   child: const Icon(
-              //     Icons.place,
-              //     color: Colors.white,
-              //   ),
-              // ),
-              // floatingActionButtonLocation:
-              //     FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: const CustomBottomAppBar(),
-              body: controller.listPage.elementAt(controller.currentPage),
-            ));
+    return WillPopScope(
+      onWillPop: alertExitApp,
+      child: GetBuilder<MainController>(
+          builder: (controller) => Scaffold(
+                // floatingActionButton: FloatingActionButton(
+                //   onPressed: () {
+                //     //Get.toNamed(AppRouteName.checkin);
+                //   },
+                //   backgroundColor: AppColors.secondaryColor,
+                //   shape: const CircleBorder(),
+                //   child: const Icon(
+                //     Icons.place,
+                //     color: Colors.white,
+                //   ),
+                // ),
+                // floatingActionButtonLocation:
+                //     FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: const CustomBottomAppBar(),
+                body: controller.listPage.elementAt(controller.currentPage),
+              )),
+    );
   }
 }

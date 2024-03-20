@@ -1,16 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:jdolh_brands/controller/items/items_controller.dart';
 import 'package:jdolh_brands/controller/resOptions/res_options_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
-import 'package:jdolh_brands/core/constants/app_routes_name.dart';
-import 'package:jdolh_brands/core/constants/text_syles.dart';
-import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
-import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
 import 'package:jdolh_brands/view/widgets/custom_card_with_delete.dart';
 

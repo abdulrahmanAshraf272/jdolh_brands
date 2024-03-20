@@ -17,7 +17,7 @@ class AllBchsController extends GetxController {
       Get.rawSnackbar(
           message: 'لا يمكن انشاء فرع جديد حتى تكمل بيانات الفرع السابق');
     } else {
-      //TODO go to create new bch
+      Get.toNamed(AppRouteName.createBch);
     }
   }
 
@@ -38,16 +38,67 @@ class AllBchsController extends GetxController {
     update();
   }
 
-  goToBchDetails(int index) {
+  goToBchDetails(int index) async {
     //Save the bch id in shared prefs
     myServices.setBchid(bchs[index].bchId.toString());
-    Get.toNamed(AppRouteName.bchDetails, arguments: bchs[index]);
 
-    // if (bchs[index].bchIsComplete == 1) {
-    //   Get.toNamed(AppRouteName.bchDetailsComplete, arguments: bchs[index]);
-    // } else {
-    //   Get.toNamed(AppRouteName.bchDetails, arguments: bchs[index]);
-    // }
+    if (bchs[index].bchIsComplete == 1) {
+      myServices.setBchid(bchs[index].bchId.toString());
+      Get.toNamed(AppRouteName.bchDetailsComplete, arguments: bchs[index]);
+    } else {
+      await checkBchstep(bchs[index]);
+      myServices.setBchid(bchs[index].bchId.toString());
+      Get.toNamed(AppRouteName.bchDetails, arguments: bchs[index]);
+    }
+  }
+
+  Future checkBchstep(Bch bch) async {
+    var response = await getBchstepFromDb(bch);
+
+    int step = 1;
+    if (response['worktime']) {
+      step = 2;
+    }
+    if (bch.bchBillPolicyid != null) {
+      step = 3;
+    }
+    if (response['payment']) {
+      step = 4;
+    }
+    if (response['categories']) {
+      step = 5;
+    }
+    if (response['resoption']) {
+      step = 6;
+    }
+    if (response['items']) {
+      step = 7;
+    }
+    if (response['resdetails']) {
+      step = 8;
+    }
+
+    myServices.setBchstep(step.toString());
+    print(myServices.getBchstep());
+  }
+
+  Future getBchstepFromDb(Bch bch) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await bchData.getBchstep(bch.bchId.toString());
+    statusRequest = handlingData(response);
+    print('statusRequest ==== $statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print(response);
+        return response;
+      } else {
+        print('failure');
+      }
+    } else {
+      print('failure');
+    }
+    update();
   }
 
   parseValues(response) {

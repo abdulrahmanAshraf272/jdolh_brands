@@ -1,12 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/bch/add_worktime_controller.dart';
-import 'package:jdolh_brands/core/constants/app_colors.dart';
-import 'package:jdolh_brands/core/constants/text_syles.dart';
+
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/select_available_time_in_days.dart';

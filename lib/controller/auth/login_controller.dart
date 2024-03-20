@@ -5,6 +5,7 @@ import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/auth/login.dart';
+import 'package:jdolh_brands/data/models/brand.dart';
 import 'package:jdolh_brands/data/models/brandManager.dart';
 
 class LoginController extends GetxController {
@@ -27,17 +28,10 @@ class LoginController extends GetxController {
       var response =
           await loginData.postData(usernameOrEmail.text, password.text);
       statusRequest = handlingData(response);
-      update(); //after status change to display change on the screen.
+      update();
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          print(' ======== ${response['data']} ======');
-          brandManager = BrandManager.fromJson(response['data']);
-          if (brandManager.brandManagerApprove == 1) {
-            saveUserDataInSharedPreferences(brandManager);
-            goToMainScreen();
-          } else {
-            goToVerifycode();
-          }
+          parseData(response);
         } else {
           Get.rawSnackbar(message: 'اسم المستخدم او كلمة المرور غير صحيحة');
         }
@@ -45,46 +39,79 @@ class LoginController extends GetxController {
     }
   }
 
-  saveUserDataInSharedPreferences(BrandManager brandManager) {
-    myServices.sharedPreferences
-        .setString("id", brandManager.brandManagerId.toString());
-    // myServices.sharedPreferences
-    //     .setString("name", brandManager.brandManagerName!);
-    // myServices.sharedPreferences
-    //     .setString("username", brandManager.brandManagerUsername!);
-    // myServices.sharedPreferences
-    //     .setString("email", brandManager.brandManagerEmail!);
-    // myServices.sharedPreferences
-    //     .setString("phone", brandManager.brandManagerPhone!);
-    //step 0 onboarding, step 1 login, step 2 mainScreen
-    //myServices.sharedPreferences.setString("step", "2");
-    print('===== Saving user data in sharedPreferences Done =====');
-  }
+  parseData(response) {
+    bool isBrandManager = response['isBrandManager'];
+    if (isBrandManager) {
+      final brandManager = BrandManager.fromJson(response['brandManager']);
+      myServices.setBrandManagerid(brandManager.brandManagerId.toString());
+      if (brandManager.brandManagerApprove == 0) {
+        goToVerifycode();
+        return;
+      }
 
-  goToMainScreen() {
-    myServices.sharedPreferences.setString("brandstep", "1");
+      //Brand == false? the manager doesn't create brand.
+      var brandJson = response['brand'];
+      if (brandJson == false) {
+        print('brand not created = false');
+        myServices.setBrandstep('1');
+        Get.offAllNamed(AppRouteName.more);
+        return;
+      }
 
-    String brandstep = '4';
-    if (brandstep == '4') {
-      Get.offAllNamed(AppRouteName.mainScreen);
-    } else {
-      Get.offAllNamed(AppRouteName.more);
+      //manager create brand, save brand id and change step to 2.
+      Brand brand = Brand.fromJson(brandJson);
+      myServices.setBrandid(brand.brandId.toString());
+      myServices.setIsService(brand.brandIsService!);
+      myServices.setBrandstep('2');
+      print('brandTitle: ${brand.brandStoreName}');
+
+      bool isLegalDataDone = response['isLegalDataDone'];
+      if (isLegalDataDone) {
+        myServices.setBrandstep('3');
+        print('isLegalData = true');
+      }
+
+      bool isCreateBch = response['bchs'];
+      if (isCreateBch) {
+        myServices.setBrandstep('4');
+        print('bchs = true');
+      }
+
+      print('brandstep = ${myServices.getBrandstep()}');
+      if (myServices.getBrandstep() == 4) {
+        Get.offAllNamed(AppRouteName.mainScreen);
+      } else {
+        Get.offAllNamed(AppRouteName.more);
+      }
     }
   }
 
-  createBrandIsDone() {
-    //TODO: check if i create brand,
-    //TODO: if yes, 1- save brandid, 2- brandstep = 2
-  }
+  // saveUserDataInSharedPreferences(BrandManager brandManager) {
+  //   myServices.sharedPreferences
+  //       .setString("id", brandManager.brandManagerId.toString());
+  //   // myServices.sharedPreferences
+  //   //     .setString("name", brandManager.brandManagerName!);
+  //   // myServices.sharedPreferences
+  //   //     .setString("username", brandManager.brandManagerUsername!);
+  //   // myServices.sharedPreferences
+  //   //     .setString("email", brandManager.brandManagerEmail!);
+  //   // myServices.sharedPreferences
+  //   //     .setString("phone", brandManager.brandManagerPhone!);
+  //   //step 0 onboarding, step 1 login, step 2 mainScreen
+  //   //myServices.sharedPreferences.setString("step", "2");
+  //   print('===== Saving user data in sharedPreferences Done =====');
+  // }
 
-  createLegaldataIsDone() {
-    //TODO: check if i create legaldata
-    //TODO: if yes, brandstep = 3
-  }
-  createBchIsDone() {
-    //TODO: check if i create bch
-    //TODO: if yes, brandstep = 4
-  }
+  // goToMainScreen() {
+  //   myServices.sharedPreferences.setString("brandstep", "1");
+
+  //   String brandstep = '4';
+  //   if (brandstep == '4') {
+  //     Get.offAllNamed(AppRouteName.mainScreen);
+  //   } else {
+  //     Get.offAllNamed(AppRouteName.more);
+  //   }
+  // }
 
   goToVerifycode() {
     Get.toNamed(AppRouteName.verifyCode,
@@ -111,8 +138,8 @@ class LoginController extends GetxController {
 
   @override
   void dispose() {
+    super.dispose();
     usernameOrEmail.dispose();
     password.dispose();
-    // super.dispose();
   }
 }

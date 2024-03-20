@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/bch/all_bchs_controller.dart';
 import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/list_empty_text.dart';
 
 class AllBchsScreen extends StatelessWidget {
@@ -16,6 +13,7 @@ class AllBchsScreen extends StatelessWidget {
     final controller = Get.put(AllBchsController());
     return Scaffold(
       appBar: appBarWithButtonCreate(
+          withArrowBack: false,
           onTapCreate: () {
             controller.onTapCreateBch();
           },

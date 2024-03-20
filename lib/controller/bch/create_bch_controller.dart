@@ -1,31 +1,19 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
-import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
-import 'package:jdolh_brands/core/constants/text_syles.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
 import 'package:jdolh_brands/core/functions/pick_image.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/bch.dart';
-import 'package:jdolh_brands/data/data_source/remote/brand.dart';
-import 'package:jdolh_brands/data/data_source/remote/legaldata.dart';
-import 'package:jdolh_brands/data/data_source/remote/view_types_and_subtypes.dart';
 import 'package:jdolh_brands/data/models/bch.dart';
-import 'package:jdolh_brands/data/models/brand.dart';
-import 'package:jdolh_brands/data/models/brand_subtype.dart';
-import 'package:jdolh_brands/data/models/brand_type.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 
 class CreateBchController extends GetxController {
   bool afterSignup = true;
@@ -75,7 +63,8 @@ class CreateBchController extends GetxController {
 
           displayDoneDialog(context, () {
             Get.offAllNamed(AppRouteName.mainScreen);
-            Get.toNamed(AppRouteName.bchDetails);
+            myServices.setBchid(bch.bchId.toString());
+            Get.toNamed(AppRouteName.bchDetails, arguments: bch);
           });
         } else {
           statusRequest = StatusRequest.failure;
@@ -140,5 +129,14 @@ class CreateBchController extends GetxController {
     } else {
       return location!;
     }
+  }
+
+  @override
+  void dispose() {
+    bchName.dispose();
+    bchDesc.dispose();
+    bchPhone.dispose();
+    bchLocationLink.dispose();
+    super.dispose();
   }
 }

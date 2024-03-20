@@ -58,6 +58,8 @@ class ApiLinks {
       '$server/jdolh_brands/bch/get_selected_payment_methods.php';
   static const String bchComplete = '$server/jdolh_brands/bch/bch_complete.php';
 
+  static const String getBchstep = '$server/jdolh_brands/bch/get_bchstep.php';
+
   //Bch Manager
   static const String addBchManager =
       '$server/jdolh_brands/bch/bchManager/add_bch_manager.php';

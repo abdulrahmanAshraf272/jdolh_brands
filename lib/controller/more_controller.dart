@@ -17,6 +17,11 @@ class MoreController extends GetxController {
     Get.toNamed(routeName)!.then((value) => getBrandstepAndSetDonePercent());
   }
 
+  logout() {
+    myServices.clearSharedPrefsData();
+    Get.offAllNamed(AppRouteName.login);
+  }
+
   getBrandstepAndSetDonePercent() async {
     brandstep = myServices.getBrandstep();
     if (brandstep == 1) {

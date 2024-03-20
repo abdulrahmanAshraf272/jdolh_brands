@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:jdolh_brands/controller/items/create_item_controller.dart';
 import 'package:jdolh_brands/controller/items/edit_item_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
@@ -19,7 +18,6 @@ import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/common/rect_image_holder.dart';
 import 'package:jdolh_brands/view/widgets/common/select_available_time_in_days.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
-import 'package:jdolh_brands/view/widgets/items/available_item_time.dart';
 
 class EditItemsScreen extends StatelessWidget {
   const EditItemsScreen({super.key});

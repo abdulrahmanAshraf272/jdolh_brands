@@ -178,4 +178,10 @@ class BchData {
 
     return response.fold((l) => l, (r) => r);
   }
+
+  getBchstep(String bchid) async {
+    var response = await crud.postData(ApiLinks.getBchstep, {"bchid": bchid});
+
+    return response.fold((l) => l, (r) => r);
+  }
 }

@@ -52,8 +52,12 @@ class BchDetailsController extends GetxController {
       donePercent = 100;
     }
 
+    //==== If data is complete, set data is complete and go to bchDetailComplete screen.
     if (donePercent == 100) {
-      //bchComplete();
+      setBchComplete();
+      myServices.setBchstep('0');
+      Get.offNamed(AppRouteName.bchDetailsComplete, arguments: bch);
+      return;
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
@@ -61,19 +65,19 @@ class BchDetailsController extends GetxController {
     print(bchstep);
   }
 
-  // bchComplete() async {
-  //   var response = await bchData.bchComplete(bch.bchId.toString());
-  //   statusRequest = handlingData(response);
-  //   print(' ================$statusRequest');
-  //   if (statusRequest == StatusRequest.success) {
-  //     if (response['status'] == 'success') {
-  //       print('set bch complete is done');
-  //     } else {
-  //       statusRequest = StatusRequest.failure;
-  //       print('set bch complete failed');
-  //     }
-  //   }
-  // }
+  setBchComplete() async {
+    var response = await bchData.bchComplete(bch.bchId.toString());
+    statusRequest = handlingData(response);
+    print(' ================$statusRequest');
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        print('set bch complete is done');
+      } else {
+        statusRequest = StatusRequest.failure;
+        print('set bch complete failed');
+      }
+    }
+  }
 
   @override
   void onInit() {

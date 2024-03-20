@@ -47,7 +47,6 @@ class BchDetailsScreen extends StatelessWidget {
                 onTapCard: () {
                   controller.onTapCard(2, AppRouteName.addWorktime,
                       AppRouteName.displayWorktime);
-                  //controller.goto(AppRouteName.addWorktime);
                 },
                 isDone: controller.bchstep > 1,
                 isActive: controller.bchstep > 0,
