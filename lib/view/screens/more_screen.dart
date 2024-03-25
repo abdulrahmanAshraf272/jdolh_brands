@@ -36,29 +36,35 @@ class MoreScreen extends StatelessWidget {
                   isDone: controller.brandstep > 0,
                   isActive: controller.brandstep > 0,
                 ),
-                CardWithCheckbox(
-                  title: 'البيانات التجارية',
-                  onTapCard: () => controller.goto(AppRouteName.createBrand),
-                  isDone: controller.brandstep > 1,
-                  isActive: controller.brandstep > 0,
-                ),
-                CardWithCheckbox(
-                  title: 'البيانات القانونية',
-                  onTapCard: () =>
-                      controller.goto(AppRouteName.createLegaldata),
-                  isDone: controller.brandstep > 2,
-                  isActive: controller.brandstep > 1,
-                ),
-                controller.donePercent == 100
-                    ? const SizedBox()
-                    : CardWithCheckbox(
-                        title: 'انشاء فرع',
-                        onTapCard: () {
-                          controller.goto(AppRouteName.createBch);
-                        },
-                        isDone: controller.brandstep > 3,
-                        isActive: controller.brandstep > 2,
+                if (controller.isBrandManager)
+                  Column(
+                    children: [
+                      CardWithCheckbox(
+                        title: 'البيانات التجارية',
+                        onTapCard: () =>
+                            controller.goto(AppRouteName.createBrand),
+                        isDone: controller.brandstep > 1,
+                        isActive: controller.brandstep > 0,
                       ),
+                      CardWithCheckbox(
+                        title: 'البيانات القانونية',
+                        onTapCard: () =>
+                            controller.goto(AppRouteName.createLegaldata),
+                        isDone: controller.brandstep > 2,
+                        isActive: controller.brandstep > 1,
+                      ),
+                      controller.donePercent == 100
+                          ? const SizedBox()
+                          : CardWithCheckbox(
+                              title: 'انشاء فرع',
+                              onTapCard: () {
+                                controller.goto(AppRouteName.createBch);
+                              },
+                              isDone: controller.brandstep > 3,
+                              isActive: controller.brandstep > 2,
+                            ),
+                    ],
+                  ),
                 const SizedBox(height: 30),
                 TextButton(
                     onPressed: () => controller.logout(),

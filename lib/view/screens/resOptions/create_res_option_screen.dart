@@ -55,6 +55,8 @@ class CreateResOptionsScreen extends StatelessWidget {
                             textEditingController: controller.duration,
                             title: "مدة الحجز",
                             endText: 'دقيقة',
+                            comment:
+                                'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة',
                             example:
                                 'مثال:اذا حجز احمد يمكنه البقاء حتى 120 دقيقة ثم عليه المغادرة للشخص الذي حجز بعده',
                           ),

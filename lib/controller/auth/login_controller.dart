@@ -33,7 +33,12 @@ class LoginController extends GetxController {
         if (response['status'] == 'success') {
           parseData(response);
         } else {
-          Get.rawSnackbar(message: 'اسم المستخدم او كلمة المرور غير صحيحة');
+          if (response['message'] == "The password is not correct") {
+            Get.rawSnackbar(message: 'كلمة السر غير صحيحة');
+          } else {
+            Get.rawSnackbar(
+                message: 'اسم المستخدم او البريد الالكتروني غير صحيح');
+          }
         }
       }
     }
@@ -42,6 +47,8 @@ class LoginController extends GetxController {
   parseData(response) {
     bool isBrandManager = response['isBrandManager'];
     if (isBrandManager) {
+      myServices.setIsBrandManager(true);
+
       final brandManager = BrandManager.fromJson(response['brandManager']);
       myServices.setBrandManagerid(brandManager.brandManagerId.toString());
       if (brandManager.brandManagerApprove == 0) {
@@ -83,6 +90,21 @@ class LoginController extends GetxController {
       } else {
         Get.offAllNamed(AppRouteName.more);
       }
+    } else if (isBrandManager == false) {
+      //// ============ USER IS BCH MANAGER =============//
+      myServices.setIsBrandManager(false);
+
+      var bchManager = response['bchManager'];
+      myServices.setBchManagerid(bchManager['bchmanager_id'].toString());
+      print('bch manager id: ${myServices.getBchManagerId()}');
+
+      var brandJson = response['brand'];
+      Brand brand = Brand.fromJson(brandJson);
+      myServices.setBrandid(brand.brandId.toString());
+      myServices.setIsService(brand.brandIsService!);
+      myServices.setBrandstep('4');
+
+      Get.offAllNamed(AppRouteName.mainScreen);
     }
   }
 

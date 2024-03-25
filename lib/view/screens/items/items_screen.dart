@@ -30,53 +30,67 @@ class ItemsScreen extends StatelessWidget {
                       : 'انشاء $products'),
               body: Column(
                 children: [
-                  HandlingDataView(
+                  HandlingDataRequest(
                     statusRequest: controller.statusRequest,
-                    widget: Expanded(
-                      child: controller.items.isNotEmpty
-                          ? ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: controller.items.length,
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              itemBuilder: (context, index) =>
-                                  CustomCardWithDelete(
-                                    text: controller.items[index].itemsTitle!,
-                                    onTap: () {
-                                      controller.onTapCard(index);
-                                    },
-                                    onDelete: () =>
-                                        controller.onTapDelete(index),
-                                  ))
-                          : Center(
-                              child: RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: controller.isService
-                                          ? 'لا يوجد لديك $servicesPloral'
-                                          : 'لا يوجد لديك $productsPloral',
-                                      style: TextStyle(
-                                          color:
-                                              AppColors.black.withOpacity(0.7),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Cairo'),
-                                    ),
-                                    TextSpan(
-                                        text: controller.isService
-                                            ? 'اضف اول $services في القائمة'
-                                            : 'اضف اول $products في القائمة',
-                                        style: TextStyle(
-                                            color: AppColors.black
-                                                .withOpacity(0.4),
-                                            fontSize: 14,
-                                            fontFamily: 'Cairo'))
-                                  ])),
-                            ),
-                    ),
+                    widget: controller.items.isNotEmpty
+                        ? Expanded(
+                            child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: controller.items.length,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                itemBuilder: (context, index) =>
+                                    CustomCardWithDelete(
+                                      text: controller.items[index].itemsTitle!,
+                                      onTap: () {
+                                        controller.onTapCard(index);
+                                      },
+                                      onDelete: () =>
+                                          controller.onTapDelete(index),
+                                    )))
+                        : Expanded(
+                            child: ListItemIsEmptyText(
+                                isService: controller.isService),
+                          ),
                   )
                 ],
               ),
             ));
+  }
+}
+
+class ListItemIsEmptyText extends StatelessWidget {
+  final bool isService;
+  const ListItemIsEmptyText({
+    super.key,
+    required this.isService,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(children: [
+            TextSpan(
+              text: isService
+                  ? 'لا يوجد لديك $servicesPloral\n'
+                  : 'لا يوجد لديك $productsPloral\n',
+              style: TextStyle(
+                  color: AppColors.black.withOpacity(0.7),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Cairo'),
+            ),
+            TextSpan(
+                text: isService
+                    ? 'اضف اول $services في القائمة'
+                    : 'اضف اول $products في القائمة',
+                style: TextStyle(
+                    color: AppColors.black.withOpacity(0.4),
+                    fontSize: 14,
+                    fontFamily: 'Cairo'))
+          ])),
+    );
   }
 }

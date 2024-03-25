@@ -64,12 +64,14 @@ class ItemsData {
       required String title,
       required String priceDep,
       required String isBasic,
+      required String isMultiselect,
       required String elementsIds}) async {
     var response = await crud.postData(ApiLinks.addItemOption, {
       "itemId": itemId,
       "title": title,
       "priceDep": priceDep,
       "isBasic": isBasic,
+      "isMultiselect": isMultiselect,
       "elementsIds": elementsIds,
     });
 
@@ -143,17 +145,18 @@ class ItemsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  editItemOption({
-    required String itemoptionid,
-    required String title,
-    required String priceDep,
-    required String isBasic,
-  }) async {
+  editItemOption(
+      {required String itemoptionid,
+      required String title,
+      required String priceDep,
+      required String isBasic,
+      required String isMultiselect}) async {
     var response = await crud.postData(ApiLinks.editItemOption, {
       "itemoptionid": itemoptionid,
       "title": title,
       "priceDep": priceDep,
       "isBasic": isBasic,
+      "isMultiselect": isMultiselect
     });
 
     return response.fold((l) => l, (r) => r);

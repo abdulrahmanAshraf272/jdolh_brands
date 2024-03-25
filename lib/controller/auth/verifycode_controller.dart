@@ -10,8 +10,9 @@ import 'package:jdolh_brands/data/data_source/remote/auth/verifycode.dart';
 import 'package:jdolh_brands/data/models/brandManager.dart';
 
 class VerifycodeController extends GetxController {
+  int resetPasswordOperation = 0;
+
   late String email;
-  late int resetPasswordOperation;
   StatusRequest statusRequest = StatusRequest.none;
   late String verifycode;
   late Timer timer;
@@ -73,7 +74,8 @@ class VerifycodeController extends GetxController {
     if (resetPasswordOperation == 1) {
       Get.offAllNamed(AppRouteName.resetPassword, arguments: {"email": email});
     } else {
-      Get.offAllNamed(AppRouteName.successOperation);
+      Get.offAllNamed(AppRouteName.successOperation,
+          arguments: {'resetPassword': 0});
     }
   }
 

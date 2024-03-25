@@ -77,7 +77,7 @@ class CreateItemsController extends GetxController with AllTimes {
 
   // ============ Create item ===============//
   //========================================//
-  createItem(BuildContext context) async {
+  Future createItem(BuildContext context) async {
     if (allFieldsAdded()) {
       //Add priceDep option if exist
       if (priceDepOption != null) {
@@ -121,15 +121,14 @@ class CreateItemsController extends GetxController with AllTimes {
           }
 
           Item itemAdded = Item.fromJson(response['data']);
-          displayDoneDialog(context, () {
-            Get.back(result: itemAdded);
-          });
+          return itemAdded;
         } else {
           statusRequest = StatusRequest.failure;
           print('failute');
         }
       }
     }
+    return null;
   }
 
   // ============ Check validation =============//
@@ -171,6 +170,9 @@ class CreateItemsController extends GetxController with AllTimes {
       } else if (int.parse(duration.text) < 30 ||
           int.parse(duration.text) > 360) {
         Get.rawSnackbar(message: 'مدة الحجز يجب ان تكون اكبر من 30 دقيقة');
+        return false;
+      } else if (int.parse(duration.text) % 30 != 0) {
+        Get.rawSnackbar(message: 'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة');
         return false;
       } else {
         return true;
@@ -269,11 +271,8 @@ class CreateItemsController extends GetxController with AllTimes {
   }
 
   changeDiscountIsPercent(bool isPercent) {
-    if (isPercent) {
-      discountIsPercent = true;
-    } else {
-      discountIsPercent = false;
-    }
+    discountIsPercent = isPercent;
+
     print('discountIsPercent: $discountIsPercent');
     update();
   }

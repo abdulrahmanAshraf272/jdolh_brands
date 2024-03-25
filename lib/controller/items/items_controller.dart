@@ -27,7 +27,8 @@ class ItemsController extends GetxController {
     final result =
         await Get.toNamed(AppRouteName.editItem, arguments: items[index]);
     if (result != null) {
-      print('result is not null');
+      items[index] = result;
+      update();
     } else {
       print('result is null');
     }

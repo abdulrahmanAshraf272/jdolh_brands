@@ -3,6 +3,7 @@ import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/services/services.dart';
 
 class MoreController extends GetxController {
+  bool isBrandManager = true;
   MyServices myServices = Get.find();
   int brandstep = 1;
 
@@ -41,6 +42,7 @@ class MoreController extends GetxController {
   @override
   void onInit() {
     getBrandstepAndSetDonePercent();
+    isBrandManager = myServices.getIsBrandManager();
     super.onInit();
   }
 }

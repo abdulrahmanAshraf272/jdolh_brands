@@ -149,12 +149,9 @@ class BchData {
     return response.fold((l) => l, (r) => r);
   }
 
-  getAllBchs({
-    required String brandid,
-  }) async {
-    var response = await crud.postData(ApiLinks.getAllBchs, {
-      "brandid": brandid,
-    });
+  getAllBchs({required String brandid, required String bchManagerid}) async {
+    var response = await crud.postData(ApiLinks.getAllBchs,
+        {"brandid": brandid, "bchManagerid": bchManagerid});
 
     return response.fold((l) => l, (r) => r);
   }

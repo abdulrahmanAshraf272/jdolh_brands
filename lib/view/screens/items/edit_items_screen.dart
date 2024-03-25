@@ -117,13 +117,15 @@ class EditItemsScreen extends StatelessWidget {
                             onTapTwo: () {
                               controller.changeDiscountIsPercent(true);
                             },
-                            initValue: controller.discountIsPercent ? 2 : 1),
+                            initValue: controller.discountIsPercent ? 1 : 0),
                       ),
                     ),
                     controller.isService
                         ? NumberTextFieldWithTitleAndText(
                             textEditingController: controller.duration,
                             title: "مدة الحجز",
+                            comment:
+                                'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة',
                             endText: 'دقيقة',
                             example: '',
                           )
@@ -331,6 +333,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.monToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(3),
+                            checkboxInit: controller.isMonOff,
                           ),
                           DayWorkTimePicker(
                             day: 'الثلثاء',
@@ -355,6 +358,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.tuesToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(4),
+                            checkboxInit: controller.isTuesOff,
                           ),
                           DayWorkTimePicker(
                             day: 'الاربعاء',
@@ -379,6 +383,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.wedToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(5),
+                            checkboxInit: controller.isWedOff,
                           ),
                           DayWorkTimePicker(
                             day: 'الخميس',
@@ -403,6 +408,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.thursToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(6),
+                            checkboxInit: controller.isThursOff,
                           ),
                           DayWorkTimePicker(
                             day: 'الجمعة',
@@ -427,6 +433,7 @@ class _AvailableTimeInWeekState extends State<AvailableTimeInWeek> {
                             timeToP2: controller.displayTime(
                                 controller.friToP2, context),
                             onTapCheckbox: () => controller.switchDayOff(7),
+                            checkboxInit: controller.isFriOff,
                           ),
                         ],
                       ),

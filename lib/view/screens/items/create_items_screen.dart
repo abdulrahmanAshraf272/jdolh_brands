@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +23,18 @@ class CreateItemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    successDialog(void Function() onTap) {
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'تمت الاضافة',
+          desc: '',
+          onDismissCallback: (type) {
+            onTap();
+          }).show();
+    }
+
     Get.put(CreateItemsController());
     return GetBuilder<CreateItemsController>(
         builder: (controller) => Scaffold(
@@ -89,6 +102,7 @@ class CreateItemsScreen extends StatelessWidget {
                         textEditingController: controller.price,
                         title: 'السعر',
                         endText: 'ريال',
+                        comment: 'تم اضافة الاسعار  ✅',
                         textButtonTitle: 'السعر حسب الإختيار؟',
                         onTapTextButton: () =>
                             controller.goToAddOptionsPriceDep()),
@@ -117,6 +131,8 @@ class CreateItemsScreen extends StatelessWidget {
                         ? NumberTextFieldWithTitleAndText(
                             textEditingController: controller.duration,
                             title: "مدة الحجز",
+                            comment:
+                                'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة',
                             endText: 'دقيقة',
                             example: '',
                           )
@@ -136,7 +152,14 @@ class CreateItemsScreen extends StatelessWidget {
                       },
                     ),
                     GoHomeButton(
-                      onTap: () => controller.createItem(context),
+                      onTap: () async {
+                        final result = await controller.createItem(context);
+                        if (result != null) {
+                          successDialog(() {
+                            Get.back(result: result);
+                          });
+                        }
+                      },
                       text: 'حفظ',
                     ),
                     const SizedBox(height: 20),

@@ -144,6 +144,9 @@ class CreateResOptionsController extends GetxController with AllTimes {
           int.parse(duration.text) > 360) {
         Get.rawSnackbar(message: 'مدة الحجز يجب ان تكون اكبر من 30 دقيقة');
         return false;
+      } else if (int.parse(duration.text) % 30 != 0) {
+        Get.rawSnackbar(message: 'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة');
+        return false;
       } else {
         return true;
       }

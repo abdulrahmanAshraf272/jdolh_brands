@@ -2,7 +2,6 @@ class Item {
   int? itemsId;
   int? itemsCategoriesid;
   int? itemsBchid;
-  String? itemsResoptionsids;
   String? itemsTitle;
   int? itemsPrice;
   int? itemsDiscount;
@@ -20,37 +19,34 @@ class Item {
   String? itemsWedTime;
   String? itemsThursTime;
   String? itemsFriTime;
-  String? itemsAddedOptions;
 
-  Item(
-      {this.itemsId,
-      this.itemsCategoriesid,
-      this.itemsBchid,
-      this.itemsResoptionsids,
-      this.itemsTitle,
-      this.itemsPrice,
-      this.itemsDiscount,
-      this.itemsDiscountPercentage,
-      this.itemsImage,
-      this.itemsDesc,
-      this.itemsWithOptions,
-      this.itemsDuration,
-      this.itemsAlwaysAvailable,
-      this.itemsActive,
-      this.itemsSatTime,
-      this.itemsSunTime,
-      this.itemsMonTime,
-      this.itemsTuesTime,
-      this.itemsWedTime,
-      this.itemsThursTime,
-      this.itemsFriTime,
-      this.itemsAddedOptions});
+  Item({
+    this.itemsId,
+    this.itemsCategoriesid,
+    this.itemsBchid,
+    this.itemsTitle,
+    this.itemsPrice,
+    this.itemsDiscount,
+    this.itemsDiscountPercentage,
+    this.itemsImage,
+    this.itemsDesc,
+    this.itemsWithOptions,
+    this.itemsDuration,
+    this.itemsAlwaysAvailable,
+    this.itemsActive,
+    this.itemsSatTime,
+    this.itemsSunTime,
+    this.itemsMonTime,
+    this.itemsTuesTime,
+    this.itemsWedTime,
+    this.itemsThursTime,
+    this.itemsFriTime,
+  });
 
   Item.fromJson(Map<String, dynamic> json) {
     itemsId = json['items_id'];
     itemsCategoriesid = json['items_categoriesid'];
     itemsBchid = json['items_bchid'];
-    itemsResoptionsids = json['items_resoptionsids'];
     itemsTitle = json['items_title'];
     itemsPrice = json['items_price'];
     itemsDiscount = json['items_discount'];
@@ -68,6 +64,5 @@ class Item {
     itemsWedTime = json['items_wedTime'];
     itemsThursTime = json['items_thursTime'];
     itemsFriTime = json['items_friTime'];
-    itemsAddedOptions = json['items_addedOptions'];
   }
 }

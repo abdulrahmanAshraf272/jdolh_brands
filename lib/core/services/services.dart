@@ -13,6 +13,16 @@ class MyServices extends GetxService {
     return this;
   }
 
+  //====== is user is BrandManager ====//
+  setIsBrandManager(bool isBrandManager) {
+    sharedPreferences.setBool("isBrandManager", isBrandManager);
+  }
+
+  bool getIsBrandManager() {
+    return sharedPreferences.getBool("isBrandManager") ?? true;
+  }
+
+  //  ====== Brand Manager id  if ,if exist ======//
   setBrandManagerid(String step) {
     sharedPreferences.setString("id", step);
   }
@@ -21,6 +31,16 @@ class MyServices extends GetxService {
     return sharedPreferences.getString("id") ?? '0';
   }
 
+  //  ====== BchManager id  if ,if exist ======//
+  setBchManagerid(String step) {
+    sharedPreferences.setString("bchManagerid", step);
+  }
+
+  String getBchManagerId() {
+    return sharedPreferences.getString("bchManagerid") ?? '0';
+  }
+
+  //===== Brand step ====//
   setBrandstep(String step) {
     sharedPreferences.setString("brandstep", step);
   }
@@ -30,6 +50,7 @@ class MyServices extends GetxService {
     return brandstep;
   }
 
+  //===== Bch step ====//
   setBchstep(String step) {
     sharedPreferences.setString("bchstep", step);
   }
@@ -39,6 +60,7 @@ class MyServices extends GetxService {
     return brandstep;
   }
 
+//===== Brand id ====//
   setBrandid(String id) {
     sharedPreferences.setString("brandid", id);
   }
@@ -48,6 +70,7 @@ class MyServices extends GetxService {
     return brandid;
   }
 
+  //===== Bch id ====//
   setBchid(String id) {
     sharedPreferences.setString("bchid", id);
   }
@@ -57,6 +80,7 @@ class MyServices extends GetxService {
     return bchid;
   }
 
+// ========== isService =======//
   setIsService(int isService) {
     sharedPreferences.setInt("isService", isService);
   }

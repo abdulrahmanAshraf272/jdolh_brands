@@ -22,9 +22,15 @@ class AllBchsController extends GetxController {
   }
 
   getAllBchs() async {
+    //Check if the user is Bch manager, if(true) send his id,
+    String bchManagerid = '';
+    if (!myServices.getIsBrandManager()) {
+      bchManagerid = myServices.getBchManagerId();
+    }
     statusRequest = StatusRequest.loading;
     update();
-    var response = await bchData.getAllBchs(brandid: myServices.getBrandid());
+    var response = await bchData.getAllBchs(
+        brandid: myServices.getBrandid(), bchManagerid: bchManagerid);
     statusRequest = handlingData(response);
     print('statusRequest ==== $statusRequest');
     if (statusRequest == StatusRequest.success) {
@@ -110,6 +116,7 @@ class AllBchsController extends GetxController {
   @override
   void onInit() {
     getAllBchs();
+    print(myServices.getIsBrandManager());
     super.onInit();
   }
 }

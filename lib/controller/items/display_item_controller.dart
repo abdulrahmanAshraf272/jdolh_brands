@@ -27,8 +27,8 @@ class DisplayItemController extends GetxController with AllTimes {
 
   getItemDetails() async {
     var response = await itemsData.getItemDetails(
-        resoptionIds: item.itemsResoptionsids ?? '',
-        itemOptionsIds: item.itemsAddedOptions ?? '',
+        resoptionIds: '',
+        itemOptionsIds: '',
         categoryId: item.itemsCategoriesid.toString());
     statusRequest = handlingData(response);
     print('===== $statusRequest');

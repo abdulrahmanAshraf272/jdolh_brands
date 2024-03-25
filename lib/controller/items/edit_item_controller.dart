@@ -138,8 +138,9 @@ class EditItemsController extends GetxController with AllTimes {
       print(' ================$statusRequest');
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          Item itemAdded = Item.fromJson(response['data']);
           displayDoneDialog(context, () {
-            Get.back();
+            Get.back(result: itemAdded);
           });
         } else {
           statusRequest = StatusRequest.failure;
@@ -200,6 +201,9 @@ class EditItemsController extends GetxController with AllTimes {
       } else if (int.parse(duration.text) < 30 ||
           int.parse(duration.text) > 360) {
         Get.rawSnackbar(message: 'مدة الحجز يجب ان تكون اكبر من 30 دقيقة');
+        return false;
+      } else if (int.parse(duration.text) % 30 != 0) {
+        Get.rawSnackbar(message: 'يجب ان تكون مدة الحجز من مضاعفات ال30 دقيقة');
         return false;
       } else {
         return true;

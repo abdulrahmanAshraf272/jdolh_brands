@@ -15,7 +15,7 @@ class SmallToggleButtons extends StatefulWidget {
       required this.optionTwo,
       required this.onTapOne,
       required this.onTapTwo,
-      this.initValue = 1,
+      this.initValue = 0,
       this.isClickable = true});
 
   @override
@@ -23,7 +23,7 @@ class SmallToggleButtons extends StatefulWidget {
 }
 
 class _SmallToggleButtonsState extends State<SmallToggleButtons> {
-  int selectedOption = 1;
+  int selectedOption = 0;
   Color firstColor = AppColors.secondaryColor;
   Color secondColor = AppColors.gray400;
 
@@ -49,7 +49,7 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
                 ? () {
                     widget.onTapOne();
                     setState(() {
-                      selectedOption = 1;
+                      selectedOption = 0;
                     });
                   }
                 : null,
@@ -57,7 +57,7 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: selectedOption == 1 ? firstColor : null,
+                color: selectedOption == 0 ? firstColor : null,
               ),
               alignment: Alignment.center,
               child: Text(
@@ -65,7 +65,7 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 10.sp,
-                  color: selectedOption == 1
+                  color: selectedOption == 0
                       ? AppColors.white
                       : AppColors.grayText,
                 ),
@@ -77,7 +77,7 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
                 ? () {
                     widget.onTapTwo();
                     setState(() {
-                      selectedOption = 2;
+                      selectedOption = 1;
                     });
                   }
                 : null,
@@ -86,14 +86,14 @@ class _SmallToggleButtonsState extends State<SmallToggleButtons> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: selectedOption == 2 ? firstColor : null,
+                color: selectedOption == 1 ? firstColor : null,
               ),
               child: Text(
                 widget.optionTwo,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 10.sp,
-                  color: selectedOption == 2
+                  color: selectedOption == 1
                       ? AppColors.white
                       : AppColors.grayText,
                 ),

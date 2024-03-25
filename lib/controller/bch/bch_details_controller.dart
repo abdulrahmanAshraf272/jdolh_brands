@@ -56,7 +56,7 @@ class BchDetailsController extends GetxController {
     if (donePercent == 100) {
       setBchComplete();
       myServices.setBchstep('0');
-      Get.offNamed(AppRouteName.bchDetailsComplete, arguments: bch);
+      Get.offAllNamed(AppRouteName.mainScreen);
       return;
     }
 

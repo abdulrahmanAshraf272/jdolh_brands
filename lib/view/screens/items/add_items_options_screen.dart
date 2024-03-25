@@ -99,19 +99,39 @@ class TitleAndIsBasicToggle extends StatelessWidget {
                   valid: (val) => validInput(val!, 2, 50),
                 ),
                 const SizedBox(height: 10),
-                SmallToggleButtons(
-                  optionOne: 'مطلوب',
-                  optionTwo: 'اختياري',
-                  initValue: controller.isEditAdditionalOptions
-                      ? controller.isBasic
-                      : 2,
-                  onTapOne: () {
-                    controller.isBasic = 1;
-                  },
-                  onTapTwo: () {
-                    controller.isBasic = 0;
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SmallToggleButtons(
+                      optionOne: 'اختياري',
+                      optionTwo: 'مطلوب',
+                      initValue: controller.isEditAdditionalOptions
+                          ? controller.isBasic
+                          : 0,
+                      onTapOne: () {
+                        controller.isBasic = 0;
+                      },
+                      onTapTwo: () {
+                        controller.isBasic = 1;
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    SmallToggleButtons(
+                      optionOne: 'اختر 1',
+                      optionTwo: 'متعدد',
+                      initValue: controller.isEditAdditionalOptions
+                          ? controller.isMultiselect
+                          : 0,
+                      onTapOne: () {
+                        controller.isMultiselect = 0;
+                      },
+                      onTapTwo: () {
+                        controller.isMultiselect = 1;
+                      },
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 20)
               ],
             ));
   }

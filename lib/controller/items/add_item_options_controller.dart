@@ -2,22 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:jdolh_brands/controller/items/create_item_controller.dart';
-import 'package:jdolh_brands/controller/values_controller.dart';
 import 'package:jdolh_brands/core/class/status_request.dart';
-import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/app_routes_name.dart';
 import 'package:jdolh_brands/core/functions/awsome_dialog_custom.dart';
 import 'package:jdolh_brands/core/functions/handling_data_controller.dart';
-import 'package:jdolh_brands/core/functions/valid_input.dart';
 import 'package:jdolh_brands/data/data_source/remote/bch/items.dart';
 import 'package:jdolh_brands/data/models/ioption_element.dart';
 import 'package:jdolh_brands/data/models/item_option.dart';
-import 'package:jdolh_brands/data/models/resOption.dart';
-import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
-import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 
 class AddItemOptionsController extends GetxController {
   //CreateItemsController createItemsController = Get.find();
@@ -29,6 +20,7 @@ class AddItemOptionsController extends GetxController {
   bool isPriceDep = false;
 
   int isBasic = 0;
+  int isMultiselect = 0;
 
   GlobalKey<FormState> formstateOptionName = GlobalKey<FormState>();
   TextEditingController title = TextEditingController();
@@ -59,11 +51,11 @@ class AddItemOptionsController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await itemsData.editItemOption(
-        itemoptionid: itemOption!.id.toString(),
-        title: title.text,
-        priceDep: isPriceDep ? '1' : '0',
-        isBasic: isBasic.toString(),
-      );
+          itemoptionid: itemOption!.id.toString(),
+          title: title.text,
+          priceDep: isPriceDep ? '1' : '0',
+          isBasic: isBasic.toString(),
+          isMultiselect: isMultiselect.toString());
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
       if (statusRequest == StatusRequest.success) {
@@ -73,6 +65,7 @@ class AddItemOptionsController extends GetxController {
             itemOption!.title = title.text;
             itemOption!.priceDep = isPriceDep ? 1 : 0;
             itemOption!.isBasic = isBasic;
+            itemOption!.isMultiselect = isMultiselect;
 
             Get.back(result: itemOption);
           });
@@ -97,6 +90,7 @@ class AddItemOptionsController extends GetxController {
           title: title.text,
           priceDep: isPriceDep ? '1' : '0',
           isBasic: isBasic.toString(),
+          isMultiselect: isMultiselect.toString(),
           elementsIds: elementsIds);
       statusRequest = handlingData(response);
       print(' ================$statusRequest');
@@ -194,7 +188,11 @@ class AddItemOptionsController extends GetxController {
   diplayTitleAndIsBasicIfEdit() {
     if (!isPriceDep && itemOption != null) {
       isEditAdditionalOptions = true;
-      isBasic = itemOption!.isBasic == 1 ? 1 : 2;
+
+      isBasic = itemOption!.isBasic!;
+      isMultiselect = itemOption!.isMultiselect!;
+      print('multiselect: $isMultiselect');
+
       title.text = itemOption!.title!;
     }
   }

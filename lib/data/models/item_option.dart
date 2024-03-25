@@ -6,14 +6,15 @@ class ItemOption {
   String? title;
   int? priceDep;
   int? isBasic;
+  int? isMultiselect;
 
-  ItemOption({
-    this.id,
-    this.itemsid,
-    this.title,
-    this.priceDep,
-    this.isBasic,
-  });
+  ItemOption(
+      {this.id,
+      this.itemsid,
+      this.title,
+      this.priceDep,
+      this.isBasic,
+      this.isMultiselect});
 
   ItemOption.fromJson(Map<String, dynamic> json) {
     // List<IOptionElement> parsedElements = (json['elements'] as List)
@@ -25,6 +26,7 @@ class ItemOption {
     title = json['itemsoption_title'];
     priceDep = json['itemsoption_priceDep'];
     isBasic = json['itemsoption_isBasic'];
+    isMultiselect = json['itemsoption_isMultiselect'];
     //elements = parsedElements;
   }
 }
