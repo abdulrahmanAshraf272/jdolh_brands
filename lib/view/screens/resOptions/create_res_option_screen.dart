@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/resOptions/create_resOptions_controller.dart';
 import 'package:jdolh_brands/core/constants/strings.dart';
-import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_general.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
@@ -10,6 +9,7 @@ import 'package:jdolh_brands/view/widgets/common/custom_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/common/select_available_time_in_days.dart';
 import 'package:jdolh_brands/view/widgets/custom_button_one.dart';
+import 'package:jdolh_brands/view/widgets/number_textfield.dart';
 
 class CreateResOptionsScreen extends StatelessWidget {
   const CreateResOptionsScreen({super.key});

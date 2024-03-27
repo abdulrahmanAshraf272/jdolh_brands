@@ -48,8 +48,11 @@ class MoreScreen extends StatelessWidget {
                       ),
                       CardWithCheckbox(
                         title: 'البيانات القانونية',
-                        onTapCard: () =>
-                            controller.goto(AppRouteName.createLegaldata),
+                        onTapCard: () => controller.onTapCard(
+                          3,
+                          AppRouteName.createLegaldata,
+                          AppRouteName.displayLegaldata,
+                        ),
                         isDone: controller.brandstep > 2,
                         isActive: controller.brandstep > 1,
                       ),

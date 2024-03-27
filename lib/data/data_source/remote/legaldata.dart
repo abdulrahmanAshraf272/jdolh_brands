@@ -25,4 +25,11 @@ class LegaldataData {
 
     return response.fold((l) => l, (r) => r);
   }
+
+  getLegaldata({required String brandid}) async {
+    var response =
+        await crud.postData(ApiLinks.createLegaldata, {"brandid": brandid});
+
+    return response.fold((l) => l, (r) => r);
+  }
 }

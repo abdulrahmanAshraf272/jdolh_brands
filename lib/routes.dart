@@ -11,7 +11,6 @@ import 'package:jdolh_brands/view/screens/auth/forget_password_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/signup_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/success_operation_screen.dart';
 import 'package:jdolh_brands/view/screens/auth/verifycode_screen.dart';
-import 'package:jdolh_brands/view/screens/bch/add_all_branch_content_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_details_complete_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/create_bch_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/add_payment_methods_screen.dart';
@@ -20,12 +19,12 @@ import 'package:jdolh_brands/view/screens/bch/add_worktime_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/all_bchs_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_manager_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/bch_details_screen.dart';
-import 'package:jdolh_brands/view/screens/bch/create_branch_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/display/display_payment_methods_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/display/display_policy_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/res_details/display_res_detail_screen.dart';
 import 'package:jdolh_brands/view/screens/items/diplay_item_screen.dart';
 import 'package:jdolh_brands/view/screens/items/edit_items_screen.dart';
+import 'package:jdolh_brands/view/screens/legaldata/display_legaldata_screen.dart';
 import 'package:jdolh_brands/view/screens/resOptions/display_res_option_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/display/display_worktime_screen.dart';
 import 'package:jdolh_brands/view/screens/bch/res_details/add_edit_res_details_screen.dart';
@@ -130,6 +129,10 @@ List<GetPage> routes = [
     name: AppRouteName.displayItem,
     page: () => const DisplayItemScreen(),
   ),
+  GetPage(
+    name: AppRouteName.displayLegaldata,
+    page: () => const DisplayLegaldataScreen(),
+  ),
 
   GetPage(
     //name: '/',
@@ -137,10 +140,6 @@ List<GetPage> routes = [
     page: () => const CreateLegaldataScreen(),
   ),
 
-  GetPage(
-    name: AppRouteName.addAllBranchContent,
-    page: () => const AddAllBranchContent(),
-  ),
   GetPage(
       name: AppRouteName.items,
       page: () => const ItemsScreen(),
@@ -211,10 +210,5 @@ List<GetPage> routes = [
   GetPage(
     name: AppRouteName.mainScreen,
     page: () => const MainScreen(),
-  ),
-
-  GetPage(
-    name: AppRouteName.createBranch,
-    page: () => CreateBranchScreen(),
   ),
 ];

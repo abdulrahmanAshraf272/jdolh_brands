@@ -159,7 +159,7 @@ class LoginController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
     super.dispose();
     usernameOrEmail.dispose();
     password.dispose();

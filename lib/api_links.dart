@@ -12,7 +12,7 @@ class ApiLinks {
   static const String logoImage = '$imagesBrands/logo';
   static const String branchImage = '$imagesBrands/branches';
   static const String itemsImage = '$imagesBrands/items';
-
+  static const String legaldata = '$imagesBrands/legaldocs';
   //=============== Auth ===============//
   static const String signUp = '$server/jdolh_brands/auth/signup.php';
   static const String login = '$server/jdolh_brands/auth/login.php';
@@ -43,6 +43,8 @@ class ApiLinks {
 
   static const String createLegaldata =
       '$server/jdolh_brands/legaldata/create_legaldata.php';
+  static const String getLegaldata =
+      '$server/jdolh_brands/legaldata/get_legaldata.php';
 
   //Bch
   static const String createBch = '$server/jdolh_brands/bch/create_bch.php';

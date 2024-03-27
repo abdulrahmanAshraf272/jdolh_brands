@@ -41,6 +41,7 @@ class AppRouteName {
   static const displayResDetails = '/displayResDetails';
   static const displayItem = '/displayItem';
   static const editItem = '/editItem';
+  static const displayLegaldata = '/displayLegaldata';
 
   static const addEditResDetails = '/addEditResDetails';
 

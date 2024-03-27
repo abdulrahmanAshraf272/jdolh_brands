@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/resOptions/diplay_res_option_controller.dart';
 import 'package:jdolh_brands/core/constants/strings.dart';
-import 'package:jdolh_brands/view/widgets/branch/number_display.dart';
+import 'package:jdolh_brands/view/widgets/common/number_display.dart';
 import 'package:jdolh_brands/view/widgets/common/appBarWithButtonCreate.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_general.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_text_display_general.dart';

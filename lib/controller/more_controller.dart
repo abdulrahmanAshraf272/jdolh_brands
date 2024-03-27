@@ -9,6 +9,15 @@ class MoreController extends GetxController {
 
   int donePercent = 50;
 
+  onTapCard(int step, routeNameAdd, routeNameDisplay) {
+    if (brandstep >= step) {
+      Get.toNamed(routeNameDisplay);
+    } else {
+      Get.toNamed(routeNameAdd)!
+          .then((value) => getBrandstepAndSetDonePercent());
+    }
+  }
+
   trySomething() {
     Get.offAllNamed(AppRouteName.login);
     myServices.clearSharedPrefsData();

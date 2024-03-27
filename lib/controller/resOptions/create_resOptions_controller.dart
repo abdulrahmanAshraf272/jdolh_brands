@@ -241,4 +241,12 @@ class CreateResOptionsController extends GetxController with AllTimes {
     getAndDisplayResOptionDataIfEdit();
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    title.dispose();
+    countLimit.dispose();
+    duration.dispose();
+    super.onClose();
+  }
 }

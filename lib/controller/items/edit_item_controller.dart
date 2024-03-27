@@ -510,4 +510,14 @@ class EditItemsController extends GetxController with AllTimes {
 
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    title.dispose();
+    price.dispose();
+    desc.dispose();
+    duration.dispose();
+    dicount.dispose();
+    super.onClose();
+  }
 }

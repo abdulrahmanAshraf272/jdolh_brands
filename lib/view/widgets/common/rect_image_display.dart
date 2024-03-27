@@ -8,7 +8,8 @@ import 'package:jdolh_brands/core/constants/text_syles.dart';
 
 class RectImageDisplay extends StatelessWidget {
   final String? image;
-  const RectImageDisplay({super.key, required this.image});
+  final BoxFit? boxFit;
+  const RectImageDisplay({super.key, required this.image, this.boxFit});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class RectImageDisplay extends StatelessWidget {
                   image: '${ApiLinks.itemsImage}/$image',
                   width: 100.w,
                   height: 75,
-                  fit: BoxFit.cover,
+                  fit: boxFit,
                 )
               : Image.asset(
                   'assets/images/noImageAvailable.jpg',

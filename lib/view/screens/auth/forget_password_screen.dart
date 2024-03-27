@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/auth/forget_password_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
-import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/auth/custom_textform_auth.dart';
 import 'package:jdolh_brands/view/widgets/custom_button_one.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {

@@ -253,4 +253,10 @@ class BchManagerController extends GetxController {
     getBchManager();
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    textEC.dispose();
+    super.onClose();
+  }
 }

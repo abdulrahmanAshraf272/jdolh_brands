@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/res_details/add_edit_res_details_controller.dart';
-import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
+import 'package:jdolh_brands/view/widgets/number_textfield.dart';
 
 class AddEditResDetailsScreen extends StatelessWidget {
   const AddEditResDetailsScreen({super.key});

@@ -136,4 +136,10 @@ class CategoriesController extends GetxController {
     getCategories();
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    textEC.dispose();
+    super.onClose();
+  }
 }

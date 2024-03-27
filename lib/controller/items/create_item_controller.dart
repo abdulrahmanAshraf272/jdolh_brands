@@ -341,4 +341,14 @@ class CreateItemsController extends GetxController with AllTimes {
     getResOptions();
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    title.dispose();
+    price.dispose();
+    desc.dispose();
+    duration.dispose();
+    dicount.dispose();
+    super.onClose();
+  }
 }

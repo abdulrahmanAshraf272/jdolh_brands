@@ -1,13 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/items/create_item_controller.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/Small_toggle_buttons.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_multi_select.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
@@ -17,6 +15,7 @@ import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/common/rect_image_holder.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
 import 'package:jdolh_brands/view/widgets/items/available_item_time.dart';
+import 'package:jdolh_brands/view/widgets/number_textfield.dart';
 
 class CreateItemsScreen extends StatelessWidget {
   const CreateItemsScreen({super.key});

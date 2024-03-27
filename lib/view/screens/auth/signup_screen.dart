@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/auth/signup_controller.dart';
-import 'package:jdolh_brands/controller/branch/create_branch_controller.dart';
-import 'package:jdolh_brands/controller/brand/create_brand_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/constants/text_syles.dart';
@@ -12,8 +9,6 @@ import 'package:jdolh_brands/core/functions/alert_exit_app.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
 import 'package:jdolh_brands/view/widgets/auth/custom_textform_auth.dart';
 import 'package:jdolh_brands/view/widgets/auth/have_account_question.dart';
-import 'package:jdolh_brands/view/widgets/common/buttons/gohome_button.dart';
-import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';
 import 'package:jdolh_brands/view/widgets/custom_button_one.dart';
 
 class SignupScreen extends StatelessWidget {

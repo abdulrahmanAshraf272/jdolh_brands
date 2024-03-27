@@ -85,7 +85,7 @@ class SignupController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
     //if he wants to come back to edit name or somthing to find what he wrote and edit it .
     name.dispose();
     username.dispose();

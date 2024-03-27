@@ -214,4 +214,11 @@ class AddItemOptionsController extends GetxController {
       diplayTitleAndIsBasicIfEdit();
     }
   }
+
+  @override
+  void onClose() {
+    title.dispose();
+    price.dispose();
+    super.onClose();
+  }
 }

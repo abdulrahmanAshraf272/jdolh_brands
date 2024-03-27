@@ -203,4 +203,16 @@ class CreateBrandController extends GetxController {
       print(afterSignup);
     }
   }
+
+  @override
+  void onClose() {
+    brandName.dispose();
+    contactNumber.dispose();
+    instagram.dispose();
+    snapchat.dispose();
+    tiktok.dispose();
+    twitter.dispose();
+    facebook.dispose();
+    super.onClose();
+  }
 }

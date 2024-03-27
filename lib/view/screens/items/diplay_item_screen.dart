@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:jdolh_brands/controller/items/display_item_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/view/screens/items/create_items_screen.dart';
-import 'package:jdolh_brands/view/widgets/branch/number_display.dart';
+import 'package:jdolh_brands/view/widgets/common/number_display.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_multi_select.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_toggle_general.dart';
 import 'package:jdolh_brands/view/widgets/common/custom_appbar.dart';

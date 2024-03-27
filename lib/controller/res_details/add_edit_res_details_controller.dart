@@ -93,4 +93,14 @@ class AddEditResDetailsController extends GetxController {
 
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    cost.dispose();
+    invitorMin.dispose();
+    invitorMax.dispose();
+    suspensionTime.dispose();
+    info.dispose();
+    super.onClose();
+  }
 }

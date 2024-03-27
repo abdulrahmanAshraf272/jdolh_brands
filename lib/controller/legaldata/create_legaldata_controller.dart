@@ -119,4 +119,11 @@ class CreateLegaldataController extends GetxController {
       print(afterSignup);
     }
   }
+
+  @override
+  void onClose() {
+    crNumber.dispose();
+    taxNumber.dispose();
+    super.onClose();
+  }
 }

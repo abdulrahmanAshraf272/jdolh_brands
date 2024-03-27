@@ -6,7 +6,6 @@ import 'package:jdolh_brands/controller/items/edit_item_controller.dart';
 import 'package:jdolh_brands/core/class/handling_data_view.dart';
 import 'package:jdolh_brands/core/constants/app_colors.dart';
 import 'package:jdolh_brands/core/functions/valid_input.dart';
-import 'package:jdolh_brands/view/widgets/branch/create_branch/widgets/number_textfield.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/Small_toggle_buttons.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_button.dart';
 import 'package:jdolh_brands/view/widgets/common/buttons/custom_multi_select.dart';
@@ -18,6 +17,7 @@ import 'package:jdolh_brands/view/widgets/common/custom_title.dart';
 import 'package:jdolh_brands/view/widgets/common/rect_image_holder.dart';
 import 'package:jdolh_brands/view/widgets/common/select_available_time_in_days.dart';
 import 'package:jdolh_brands/view/widgets/custom_textform_general.dart';
+import 'package:jdolh_brands/view/widgets/number_textfield.dart';
 
 class EditItemsScreen extends StatelessWidget {
   const EditItemsScreen({super.key});

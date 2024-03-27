@@ -132,11 +132,11 @@ class CreateBchController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
     bchName.dispose();
     bchDesc.dispose();
     bchPhone.dispose();
     bchLocationLink.dispose();
-    super.dispose();
+    super.onClose();
   }
 }

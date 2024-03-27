@@ -62,4 +62,11 @@ class AddIoptionElementController extends GetxController {
       itemOption = Get.arguments['itemOption'];
     }
   }
+
+  @override
+  void onClose() {
+    name.dispose();
+    price.dispose();
+    super.onClose();
+  }
 }
